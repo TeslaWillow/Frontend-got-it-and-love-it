@@ -1,0 +1,25 @@
+.jumbotron {
+    bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+section.bienvenida {
+    background: #F8F8F8;
+}
+
+section.bienvenida img.celular {
+    position: relative;
+    bottom: -50%;
+    z-index: 0;
+}
+
+section.otras-tiendas {
+    background: url('../../../assets/img/otras-triendas-blur.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #FFF;
+    z-index: 10;
+}
