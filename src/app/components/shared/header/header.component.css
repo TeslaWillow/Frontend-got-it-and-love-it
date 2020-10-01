@@ -1,0 +1,40 @@
+.navbar {
+    background: #F8F8F8;
+}
+
+header {
+    font-family: SourceSansPro_Regular;
+    font-size: 1.2rem;
+}
+
+header .logo {
+    max-width: 2rem;
+}
+
+header .nav-item .nav-link {
+    border: 1px solid rgba(0, 0, 0, 0);
+    color: #D62828;
+    margin-left: 17px;
+    margin-top: 5px;
+    text-align: center;
+    transition: all ease .3s;
+}
+
+header .nav-item .nav-link:hover {
+    border: 1px solid #D62828;
+    border-radius: 5px;
+}
+
+#navbarSupportedContent>ul>li>a {
+    padding: 5px 10px 5px 10px;
+}
+
+header .nav-item .link-tipo-btn {
+    border: 1px solid #D62828;
+    border-radius: 5px;
+}
+
+header .nav-item .link-tipo-btn:hover {
+    background: #D62828;
+    color: #F8F8F8;
+}

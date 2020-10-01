@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: CrimsonText_Regular;
+    src: url("./assets/webfonts/Crimson_Text/CrimsonText-Regular.ttf");
+}
+
+@font-face {
+    font-family: CrimsonText_SemiBold;
+    src: url("./assets/webfonts/Crimson_Text/CrimsonText-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: SourceSansPro_SemiBold;
+    src: url("./assets/webfonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: SourceSansPro_Regular;
+    src: url("./assets/webfonts/Source_Sans_Pro/SourceSansPro-Regular.ttf");
+}

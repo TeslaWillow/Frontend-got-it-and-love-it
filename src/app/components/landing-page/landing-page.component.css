@@ -1,3 +1,16 @@
+h1,
+h2 {
+    font-family: CrimsonText_Regular;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
 .jumbotron {
     bottom: 0px;
     margin-bottom: 0px;
@@ -8,9 +21,22 @@ section.bienvenida {
     background: #F8F8F8;
 }
 
+section.bienvenida .btn_comenzar {
+    border: 1px solid #F77F00;
+    padding: 0.5rem 5rem;
+    color: #F77F00;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+section.bienvenida .btn_comenzar:hover {
+    background: #F77F00;
+    color: #FFF;
+}
+
 section.bienvenida img.celular {
-    position: relative;
-    bottom: -50%;
+    position: absolute;
+    bottom: -70%;
     z-index: 0;
 }
 
@@ -20,6 +46,15 @@ section.otras-tiendas {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
     color: #FFF;
     z-index: 10;
+}
+
+section.otras-tiendas p {
+    font-family: SourceSansPro_SemiBold;
+}
+
+section.beneficios {
+    background-color: #FFF;
 }

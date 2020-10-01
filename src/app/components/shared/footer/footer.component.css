@@ -1,0 +1,46 @@
+footer h3 {
+    font-family: CrimsonText_Regular;
+    font-size: 1.8rem;
+}
+
+footer .jumbotron {
+    bottom: 0px;
+    margin-bottom: 0px;
+    background-color: #003049;
+    color: #FFF;
+}
+
+footer .btn_suscribirme {
+    border: 1px solid #FFF;
+    color: #FFF;
+    border-radius: 5px;
+    outline: none;
+    font-weight: bold;
+}
+
+footer .btn_suscribirme:hover {
+    background: #FFF;
+    color: #003049;
+}
+
+footer .jumbotron ul li {
+    background-color: #003049;
+    border: none;
+    margin-bottom: 1px;
+    padding: 0;
+    padding: 5px 0;
+}
+
+footer .jumbotron ul li a {
+    text-decoration: none;
+    color: #FFF;
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
+    transition: all ease .3s;
+    padding: 5px 5px 5px 0;
+}
+
+footer .jumbotron ul li a:hover {
+    text-decoration: none;
+    color: #FFF;
+    border-bottom: 2px solid #FFF;
+}
