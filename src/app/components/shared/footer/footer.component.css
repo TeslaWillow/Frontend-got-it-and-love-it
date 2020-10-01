@@ -44,3 +44,12 @@ footer .jumbotron ul li a:hover {
     color: #FFF;
     border-bottom: 2px solid #FFF;
 }
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, .2);
+    margin: 1em 0;
+    padding: 0;
+}
