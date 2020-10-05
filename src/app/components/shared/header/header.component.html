@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" [routerLink]="['landing-page']">
                 <img class="logo" src="../../../../assets/img/logo_web.png" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +17,7 @@
                         <a class="nav-link" href="#">Planes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-tipo-btn" href="#">Iniciar Sesión</a>
+                        <a class="nav-link link-tipo-btn" [routerLink]="['inicio-sesion-usuario']">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link link-tipo-btn" href="#">Registrarme</a>
