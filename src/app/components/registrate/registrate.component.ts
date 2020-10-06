@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrateComponent implements OnInit {
 
+  isEmpresa:Boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

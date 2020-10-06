@@ -1,0 +1,52 @@
+.jumbotron h1 {
+    text-align: center;
+}
+
+.tipo-usuario {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tipo-usuario li {
+    float: left;
+    margin: 0 10px 0 0;
+    width: 100px;
+    height: 40px;
+    position: relative;
+    text-align: center;
+}
+
+.tipo-usuario li label,
+.tipo-usuario li input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.tipo-usuario li input[type="radio"] {
+    opacity: 0.011;
+    z-index: 100;
+}
+
+.tipo-usuario li input[type="radio"]:checked+label {
+    background: yellow;
+}
+
+.tipo-usuario li label {
+    padding: 5px;
+    border: 1px solid #CCC;
+    cursor: pointer;
+    z-index: 90;
+}
+
+.tipo-usuario li label:hover {
+    background: #DDD;
+}
+
+.jumbotron #direccionEmpresa {
+    min-height: 50px;
+    max-height: 100px;
+}

@@ -1,1 +1,68 @@
-<p>registrate works!</p>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="my-5">Registrate</h1>
+        <div class="card px-5 py-4 m-auto" style="max-width: 950px;">
+            <form>
+                <div class="form-row mb-3">
+                    <div class="col-sm-12 col-md-6">
+                        <label for="nombreUsuario">Nombre</label>
+                        <input type="text" class="form-control" id="nombreUsuario">
+                    </div>
+                    <div class="col-sm-12 col-md-6 mt-sm-3 mt-md-0">
+                        <label for="nombreApellido">Apellido</label>
+                        <input type="text" class="form-control" id="nombreApellido">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="correoElectronico">Correo Electronico</label>
+                    <input type="email" class="form-control" id="correoElectronico" aria-describedby="correoElectronico">
+                </div>
+                <div class="form-group">
+                    <label for="passwordUsuario">Contraseña</label>
+                    <input type="password" class="form-control" id="passwordUsuario">
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        La contraseña debe tener minimo 8 caracteres.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="RepetirpasswordUsuario">Repetir Contraseña</label>
+                    <input type="password" class="form-control" id="RepetirpasswordUsuario">
+                </div>
+                <div class="form-group">
+                    <ul class="tipo-usuario d-flex justify-content-center">
+                        <li (click)="isEmpresa = false">
+                            <input type="radio" id="usuarioTipoCliente" name="tipoUsuario" value="cliente" />
+                            <label for="usuarioTipoCliente"><i class="fas fa-shopping-bag"></i> Cliente</label>
+                        </li>
+                        <li (click)="isEmpresa = true">
+                            <input type="radio" id="usuarioTipoEmpresa" name="tipoUsuario" value="empresa" />
+                            <label for="usuarioTipoEmpresa"><i class="fas fa-user-tie"></i> Empresa</label>
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="isEmpresa" class="formularioEmpresa">
+                    <div class="form-group">
+                        <label for="nombreEmpresa">Nombre de la empresa</label>
+                        <input type="email" class="form-control" id="nombreEmpresa" aria-describedby="correoElectronico">
+                    </div>
+                    <div class="form-group">
+                        <label for="direccionEmpresa">Dirección de la empresa</label>
+                        <textarea class="form-control" name="direccionEmpresa" id="direccionEmpresa"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rubroEmpresa">Rubro de su empresa</label>
+                        <select id="rubroEmpresa" class="form-control">
+                          <option selected disabled value="-1">-- Escoga un rubro --</option>
+                          <option>Tecnologia</option>
+                          <option>Hogar</option>
+                          <option>Salud</option>
+                          <option>Arte</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <button type="submit" class="btn btn-confirmar btn-block mb-3">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
