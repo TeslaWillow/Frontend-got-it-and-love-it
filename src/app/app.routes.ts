@@ -4,6 +4,7 @@ import { InicioSesionUsuarioComponent } from './components/inicio-sesion-usuario
 import { RegistrateComponent } from './components/registrate/registrate.component';
 import { PlanesComponent } from './components/planes/planes.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
+import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 
 const APP_ROUTES: Routes = [
     {path: 'landing-page', component : LandingPageComponent},
@@ -11,7 +12,8 @@ const APP_ROUTES: Routes = [
     {path: 'registrate', component : RegistrateComponent},
     {path: 'planes', component : PlanesComponent},
     {path: 'empresas', component : EmpresasComponent},
-    {path: '**', pathMatch: 'full', redirectTo: 'landing-page'}
+    {path: '404', component : NotFoundComponent},
+    {path: '**', pathMatch: 'full', redirectTo: '404'}
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, {useHash: true});

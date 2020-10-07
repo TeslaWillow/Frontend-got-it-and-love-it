@@ -15,6 +15,7 @@ import { InicioSesionUsuarioComponent } from './components/inicio-sesion-usuario
 import { RegistrateComponent } from './components/registrate/registrate.component';
 import { PlanesComponent } from './components/planes/planes.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
+import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EmpresasComponent } from './components/empresas/empresas.component';
     InicioSesionUsuarioComponent,
     RegistrateComponent,
     PlanesComponent,
-    EmpresasComponent
+    EmpresasComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
