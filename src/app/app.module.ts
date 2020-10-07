@@ -13,6 +13,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { InicioSesionUsuarioComponent } from './components/inicio-sesion-usuario/inicio-sesion-usuario.component';
 import { RegistrateComponent } from './components/registrate/registrate.component';
+import { PlanesComponent } from './components/planes/planes.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { RegistrateComponent } from './components/registrate/registrate.componen
     FooterComponent,
     LandingPageComponent,
     InicioSesionUsuarioComponent,
-    RegistrateComponent
+    RegistrateComponent,
+    PlanesComponent
   ],
   imports: [
     BrowserModule,
