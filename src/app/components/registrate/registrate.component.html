@@ -1,5 +1,5 @@
-<div class="jumbotron">
-    <div class="container">
+<div class="container-full-bg">
+    <div class="jumbotron">
         <h1 class="my-5">Registrate</h1>
         <div class="card px-5 py-4 m-auto" style="max-width: 950px;">
             <form>
@@ -21,27 +21,25 @@
                     <label for="passwordUsuario">Contraseña</label>
                     <input type="password" class="form-control" id="passwordUsuario">
                     <small id="passwordHelpBlock" class="form-text text-muted">
-                        La contraseña debe tener minimo 8 caracteres.
-                    </small>
+                            La contraseña debe tener minimo 8 caracteres.
+                        </small>
                 </div>
                 <div class="form-group">
                     <label for="RepetirpasswordUsuario">Repetir Contraseña</label>
                     <input type="password" class="form-control" id="RepetirpasswordUsuario">
                 </div>
-                <div class="form-group">
-                    <ul class="tipo-usuario d-flex justify-content-center">
-                        <li (click)="isEmpresa = false">
-                            <input type="radio" id="usuarioTipoCliente" name="tipoUsuario" value="cliente" />
-                            <label for="usuarioTipoCliente"><i class="fas fa-shopping-bag"></i> Cliente</label>
-                        </li>
-                        <li (click)="isEmpresa = true">
-                            <input type="radio" id="usuarioTipoEmpresa" name="tipoUsuario" value="empresa" />
-                            <label for="usuarioTipoEmpresa"><i class="fas fa-user-tie"></i> Empresa</label>
-                        </li>
-                    </ul>
+                <label>¿Cómo desea utilizar la plataforma?</label>
+                <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
+                    <label class="btn btn-radio mr-sm-0 mr-md-2 active">
+                      <input type="radio" name="options" id="option1" autocomplete="off" checked (click)="isEmpresa = false"><i class="fas fa-shopping-bag"></i> Cliente
+                    </label>
+                    <label class="btn btn-radio">
+                      <input type="radio" name="options" id="option2" autocomplete="off" (click)="isEmpresa = true"><i class="fas fa-user-tie"></i> Empresa
+                    </label>
                 </div>
-                <div *ngIf="isEmpresa" class="formularioEmpresa">
-                    <div class="form-group">
+                <!-- Datos de empresa -->
+                <div *ngIf="isEmpresa" class="formularioEmpresa animate__animated animate__fadeIn">
+                    <div class="form-group mt-3">
                         <label for="nombreEmpresa">Nombre de la empresa</label>
                         <input type="email" class="form-control" id="nombreEmpresa" aria-describedby="correoElectronico">
                     </div>
@@ -52,12 +50,12 @@
                     <div class="form-group">
                         <label for="rubroEmpresa">Rubro de su empresa</label>
                         <select id="rubroEmpresa" class="form-control">
-                          <option selected disabled value="-1">-- Escoga un rubro --</option>
-                          <option>Tecnologia</option>
-                          <option>Hogar</option>
-                          <option>Salud</option>
-                          <option>Arte</option>
-                        </select>
+                              <option selected disabled value="-1">-- Escoga un rubro --</option>
+                              <option>Tecnologia</option>
+                              <option>Hogar</option>
+                              <option>Salud</option>
+                              <option>Arte</option>
+                            </select>
                     </div>
                 </div>
                 <hr>

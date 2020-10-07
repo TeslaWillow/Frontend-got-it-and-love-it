@@ -1,52 +1,55 @@
-.jumbotron h1 {
+.container-full-bg {
+    background-image: url("../../../assets/img/christiann-koepke-dQyS2pMYtok-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: rgba(0, 48, 73, .3);
+    background-blend-mode: color;
+    min-height: 100%;
+    max-height: 100%;
+    height: 100vh;
+}
+
+.jumbotron {
+    background: none;
+}
+
+.jumbotron .card {
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.container-full-bg h1 {
     text-align: center;
+    color: #FFF;
+    font-family: SourceSansPro_Regular;
+    font-size: 3rem;
 }
 
-.tipo-usuario {
-    list-style-type: none;
-    padding: 0;
+.container-full-bg .btn-radio {
+    background-color: rgba(0, 0, 0, .3);
 }
 
-.tipo-usuario li {
-    float: left;
-    margin: 0 10px 0 0;
-    width: 100px;
-    height: 40px;
-    position: relative;
-    text-align: center;
+.container-full-bg .btn-radio:hover {
+    background-color: rgba(247, 140, 0, .7);
 }
 
-.tipo-usuario li label,
-.tipo-usuario li input {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.container-full-bg .active {
+    background-color: rgba(247, 140, 0, 1);
 }
 
-.tipo-usuario li input[type="radio"] {
-    opacity: 0.011;
-    z-index: 100;
-}
-
-.tipo-usuario li input[type="radio"]:checked+label {
-    background: yellow;
-}
-
-.tipo-usuario li label {
-    padding: 5px;
-    border: 1px solid #CCC;
-    cursor: pointer;
-    z-index: 90;
-}
-
-.tipo-usuario li label:hover {
-    background: #DDD;
-}
-
-.jumbotron #direccionEmpresa {
+.container-full-bg #direccionEmpresa {
     min-height: 50px;
     max-height: 100px;
+}
+
+.container-full-bg .btn-confirmar {
+    background-color: #003049;
+    color: #FFF;
+    font-size: 1.3rem;
+}
+
+.container-full-bg .btn-confirmar:hover {
+    background: rgba(0, 48, 73, .9);
 }
