@@ -3,12 +3,14 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { InicioSesionUsuarioComponent } from './components/inicio-sesion-usuario/inicio-sesion-usuario.component';
 import { RegistrateComponent } from './components/registrate/registrate.component';
 import { PlanesComponent } from './components/planes/planes.component';
+import { EmpresasComponent } from './components/empresas/empresas.component';
 
 const APP_ROUTES: Routes = [
     {path: 'landing-page', component : LandingPageComponent},
     {path: 'inicio-sesion-usuario', component : InicioSesionUsuarioComponent},
     {path: 'registrate', component : RegistrateComponent},
     {path: 'planes', component : PlanesComponent},
+    {path: 'empresas', component : EmpresasComponent},
     {path: '**', pathMatch: 'full', redirectTo: 'landing-page'}
 ];
 

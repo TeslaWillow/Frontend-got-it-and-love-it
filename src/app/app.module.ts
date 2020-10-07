@@ -14,6 +14,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { InicioSesionUsuarioComponent } from './components/inicio-sesion-usuario/inicio-sesion-usuario.component';
 import { RegistrateComponent } from './components/registrate/registrate.component';
 import { PlanesComponent } from './components/planes/planes.component';
+import { EmpresasComponent } from './components/empresas/empresas.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PlanesComponent } from './components/planes/planes.component';
     LandingPageComponent,
     InicioSesionUsuarioComponent,
     RegistrateComponent,
-    PlanesComponent
+    PlanesComponent,
+    EmpresasComponent
   ],
   imports: [
     BrowserModule,
