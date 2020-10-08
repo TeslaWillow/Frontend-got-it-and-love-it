@@ -16,6 +16,7 @@ import { RegistrateComponent } from './components/registrate/registrate.componen
 import { PlanesComponent } from './components/planes/planes.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NotFoundComponent } from './components/shared/not-found/not-found.compo
     RegistrateComponent,
     PlanesComponent,
     EmpresasComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
