@@ -1,0 +1,32 @@
+.jumbotron {
+    background: none;
+}
+
+.jumbotron h1 {
+    font-family: CrimsonText_Regular;
+}
+
+.jumbotron .preview {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+    background: none;
+    border-radius: 5px;
+}
+
+.jumbotron .preview .img-cuadrada {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.jumbotron .descripcion-producto {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 200px;
+    max-width: 550px;
+}

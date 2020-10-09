@@ -20,6 +20,12 @@ import { AdminComponent } from './components/admin/admin.component';
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 import { CarritoComprasComponent } from './components/carrito-compras/carrito-compras.component';
 import { HistorialComprasComponent } from './components/historial-compras/historial-compras.component';
+import { BancoArchivosComponent } from './components/banco-archivos/banco-archivos.component';
+import { PlanActualComponent } from './components/plan-actual/plan-actual.component';
+import { GestionEmpresasComponent } from './components/gestion-empresas/gestion-empresas.component';
+import { GestionPlanesComponent } from './components/gestion-planes/gestion-planes.component';
+import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
+import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empresa.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,13 @@ import { HistorialComprasComponent } from './components/historial-compras/histor
     AdminComponent,
     DashboardComponent,
     CarritoComprasComponent,
-    HistorialComprasComponent
+    HistorialComprasComponent,
+    BancoArchivosComponent,
+    PlanActualComponent,
+    GestionEmpresasComponent,
+    GestionPlanesComponent,
+    GestionUsuariosComponent,
+    PaginaEmpresaComponent
   ],
   imports: [
     BrowserModule,

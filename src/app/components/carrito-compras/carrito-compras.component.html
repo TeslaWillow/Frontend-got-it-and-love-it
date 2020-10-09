@@ -2,10 +2,46 @@
     <div class="row">
         <app-dashboard></app-dashboard>
 
-        <main role="main" class="jumbotron col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <main role="main" class="jumbotron col-md-9 ml-sm-auto col-lg-10 px-md-4 animate__animated animate__fadeIn animate__faster">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Carrito de compras</h1>
             </div>
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Detalles</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td class="d-flex">
+                            <div class="preview d-xs-none d-md-none d-lg-block">
+                                <img src="../../../assets/img/logan-weaver-On4VVUCw4jM-unsplash.jpg" class="img-cuadrada" alt="">
+                            </div>
+                            <div class="datos-producto ml-3 w-75">
+                                <span class="font-weight-bold">Producto 1</span>
+                                <p class="descripcion-producto d-xs-none d-md-none d-lg-block">
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa veniam dolore qui suscipit illum eligendi consequuntur, ipsam sunt, ut officia rem sit? Repellendus voluptatum repellat, corporis nostrum quis sunt unde!
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-group" name="" id="">
+                        </td>
+                        <td>
+                            <span>9.99 $</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger"><i class="fas fa-times"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </main>
     </div>
 </div>

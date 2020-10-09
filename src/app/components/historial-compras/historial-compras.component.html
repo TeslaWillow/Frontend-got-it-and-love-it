@@ -2,10 +2,44 @@
     <div class="row">
         <app-dashboard></app-dashboard>
 
-        <main role="main" class="jumbotron col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <main role="main" class="jumbotron col-md-9 ml-sm-auto col-lg-10 px-md-4 animate__animated animate__fadeIn animate__faster">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Historial de compras</h1>
             </div>
+            <table class="table table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Fecha de compra</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio Unitario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Producto 1</td>
+                        <td>11/10/2020</td>
+                        <td>2</td>
+                        <td>9.99 $</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Producto 2</td>
+                        <td>12/10/2020</td>
+                        <td>2</td>
+                        <td>29.99 $</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Producto 3</td>
+                        <td>13/10/2020</td>
+                        <td>1</td>
+                        <td>39.99 $</td>
+                    </tr>
+                </tbody>
+            </table>
         </main>
     </div>
 </div>
