@@ -17,6 +17,7 @@ import { PlanesComponent } from './components/planes/planes.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdminComponent } from './components/admin/admin.component';
     PlanesComponent,
     EmpresasComponent,
     NotFoundComponent,
-    AdminComponent
+    AdminComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

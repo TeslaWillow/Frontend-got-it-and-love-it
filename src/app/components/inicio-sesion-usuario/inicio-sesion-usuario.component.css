@@ -45,3 +45,7 @@ h1 {
     color: #FFF;
     font-size: 1.3rem;
 }
+
+.card .btn-confirmar:hover {
+    background: rgba(0, 48, 73, .9);
+}

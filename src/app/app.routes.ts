@@ -5,6 +5,7 @@ import { RegistrateComponent } from './components/registrate/registrate.componen
 import { PlanesComponent } from './components/planes/planes.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
+import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 import { AdminComponent } from './components/admin/admin.component';
 
 const APP_ROUTES: Routes = [
@@ -15,6 +16,7 @@ const APP_ROUTES: Routes = [
     {path: 'empresas', component : EmpresasComponent},
     {path: 'admin', component : AdminComponent},
     {path: '404', component : NotFoundComponent},
+    {path: 'dashboard', component : DashboardComponent},
     {path: '**', pathMatch: 'full', redirectTo: '404'}
 ];
 
