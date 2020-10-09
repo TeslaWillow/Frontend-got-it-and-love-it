@@ -18,6 +18,8 @@ import { EmpresasComponent } from './components/empresas/empresas.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
+import { CarritoComprasComponent } from './components/carrito-compras/carrito-compras.component';
+import { HistorialComprasComponent } from './components/historial-compras/historial-compras.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { DashboardComponent } from './components/shared/dashboard/dashboard.comp
     EmpresasComponent,
     NotFoundComponent,
     AdminComponent,
-    DashboardComponent
+    DashboardComponent,
+    CarritoComprasComponent,
+    HistorialComprasComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,8 @@ import { EmpresasComponent } from './components/empresas/empresas.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { CarritoComprasComponent } from './components/carrito-compras/carrito-compras.component';
+import { HistorialComprasComponent } from './components/historial-compras/historial-compras.component';
 
 const APP_ROUTES: Routes = [
     {path: 'landing-page', component : LandingPageComponent},
@@ -17,6 +19,8 @@ const APP_ROUTES: Routes = [
     {path: 'admin', component : AdminComponent},
     {path: '404', component : NotFoundComponent},
     {path: 'dashboard', component : DashboardComponent},
+    {path: 'carrito', component : CarritoComprasComponent},
+    {path: 'historial-compras', component : HistorialComprasComponent},
     {path: '**', pathMatch: 'full', redirectTo: '404'}
 ];
 
