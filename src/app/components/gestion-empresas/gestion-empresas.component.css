@@ -2,6 +2,68 @@
     background: none;
 }
 
-.jumbotron h1 {
+.jumbotron .row .page-link {
+    border-radius: 8px;
+    color: #FFF;
+    background: #808080;
+}
+
+.jumbotron .row .card {
+    cursor: pointer;
+}
+
+.jumbotron .row button.btn-buscar {
+    border: none;
+    padding: 5px;
+    color: rgba(0, 0, 0, .5);
+    outline: none;
+    background: none;
+}
+
+.jumbotron .row h1 {
     font-family: CrimsonText_Regular;
+}
+
+.jumbotron .row input[type="search"] {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    border-bottom: 2px solid rgba(0, 0, 0, .5);
+}
+
+.jumbotron .row input[type="search"]:focus {
+    border-bottom: 2px solid #F77F00;
+}
+
+.jumbotron .row .card {
+    max-height: 235px;
+    min-height: 235px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, .5);
+}
+
+.jumbotron .row .card-img {
+    background-color: #808080;
+    filter: blur(1px);
+}
+
+.jumbotron .row .page-link:hover {
+    opacity: .9;
+}
+
+.jumbotron .row .page-link-active {
+    background: #F77F00;
+}
+
+.jumbotron .row .page-link-arrow-enabled {
+    background: #D62828;
+}
+
+.jumbotron .row .grupo-botones {
+    z-index: 5;
+}
+
+.jumbotron .row .grupo-botones button {
+    color: #FFF;
+    background-color: rgba(0, 0, 0, .5);
 }

@@ -6,6 +6,108 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Gestion de usuarios</h1>
             </div>
+            <table class="table table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Tipo Usuario</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Inhabilitar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Usuario 1</td>
+                        <td>user1@gmail.com</td>
+                        <td>True</td>
+                        <td>Cliente</td>
+                        <td>
+                            <button class="btn naranja-outline" data-toggle="modal" data-target="#actualizarUsuario"><i class="far fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Usuario 2</td>
+                        <td>user2@gmail.com</td>
+                        <td>false</td>
+                        <td>Empresa</td>
+                        <td>
+                            <button class="btn naranja-outline" data-toggle="modal" data-target="#actualizarUsuario"><i class="far fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Usuario 3</td>
+                        <td>user3@gmail.com</td>
+                        <td>True</td>
+                        <td>Admin</td>
+                        <td>
+                            <button class="btn naranja-outline" data-toggle="modal" data-target="#actualizarUsuario"><i class="far fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <button type="button" class="btn btn-lg bg-naranja text-white" data-toggle="modal" data-target="#crearNuevoUsuario">Crear Nuevo Usuario</button>
+                </div>
+            </div>
         </main>
+    </div>
+</div>
+
+<!-- Modal crear usuario-->
+<div class="modal fade" id="crearNuevoUsuario" tabindex="-1" aria-labelledby="crearNuevoUsuario" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearNuevoUsuarioLabel">Creacion de nuevo usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal actualizar usuario-->
+<div class="modal fade" id="actualizarUsuario" tabindex="-1" aria-labelledby="actualizarUsuario" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="actualizarUsuarioLabel">Editar usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -6,6 +6,113 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Gestion de planes</h1>
             </div>
+            <!--  -->
+            <div class="row d-flex justify-content-between">
+                <div class="col-sm-12 col-md-4">
+                    <div class="card card-red mb-3 w-100">
+                        <div class="card-header card-red bg-rojo text-center">Plan Basico</div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
+                                <button type="button" class="btn border" data-toggle="modal" data-target="#actualizarPlan"><i class="far fa-edit"></i></button>
+                                <button type="button" class="btn border"><i class="fas fa-times"></i></button>
+                            </div>
+                            <h5 class="card-title text-center">9.99 $/ Mes</h5>
+                            <ul class="list-group text-sm-center text-md-left">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="card card-naranja mb-3 w-100">
+                        <div class="card-header card-naranja bg-naranja text-center">Plan Pro</div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
+                                <button type="button" class="btn border" data-toggle="modal" data-target="#actualizarPlan"><i class="far fa-edit"></i></button>
+                                <button type="button" class="btn border"><i class="fas fa-times"></i></button>
+                            </div>
+                            <h5 class="card-title text-center">19.99 $/ Mes</h5>
+                            <ul class="list-group text-sm-center text-md-left">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="card card-amarilla mb-3 w-100">
+                        <div class="card-header card-amarilla bg-amarillo text-center">Plan Ultimate</div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
+                                <button type="button" class="btn border" data-toggle="modal" data-target="#actualizarPlan"><i class="far fa-edit"></i></button>
+                                <button type="button" class="btn border"><i class="fas fa-times"></i></button>
+                            </div>
+                            <h5 class="card-title text-center">21.99 $/ Mes</h5>
+                            <ul class="list-group text-sm-center text-md-left">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Morbi leo risus</li>
+                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <button type="button" class="btn bg-naranja btn-lg text-white" data-toggle="modal" data-target="#modalCrearPlan">Crear Nuevo Plan</button>
+                </div>
+            </div>
         </main>
+    </div>
+</div>
+
+<!-- Modal crear plan-->
+<div class="modal fade" id="modalCrearPlan" tabindex="-1" aria-labelledby="modalCrearPlan" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCrearPlanLabel">Creacion de nuevo plan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal actualizar plan -->
+<div class="modal fade" id="actualizarPlan" tabindex="-1" aria-labelledby="actualizarPlan" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="actualizarPlanLabel">Creacion de nuevo plan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>
