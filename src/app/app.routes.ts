@@ -36,7 +36,7 @@ const APP_ROUTES: Routes = [
     {path: 'gestion-planes', component : GestionPlanesComponent},
     {path: 'gestion-empresas', component : GestionEmpresasComponent},
     {path: 'gestion-usuarios', component : GestionUsuariosComponent},
-    {path: '**', pathMatch: 'full', redirectTo: '404'}
+    {path: '**', pathMatch: 'full', redirectTo: 'landing-page'}
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, {useHash: true});
