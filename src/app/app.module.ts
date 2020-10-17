@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { APP_ROUTING } from './app.routes';
 
 //Services
+import { ArchivosService } from './services/archivos.service';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -53,7 +54,9 @@ import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empre
     BrowserModule,
     APP_ROUTING
   ],
-  providers: [],
+  providers: [
+    ArchivosService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

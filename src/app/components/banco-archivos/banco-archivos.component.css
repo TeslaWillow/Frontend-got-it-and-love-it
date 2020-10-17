@@ -6,7 +6,28 @@
     font-family: CrimsonText_Regular;
 }
 
-main .icono {
+main .card .icono {
     width: 58%;
     padding: 36px;
+}
+
+main .card {
+    cursor: pointer;
+    transition: all ease .3s;
+}
+
+main .card:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
+}
+
+main .naranja-outline {
+    color: #F77F00;
+    border-color: #F77F00;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+main .naranja-outline:hover {
+    color: #FFF;
+    background-color: #F77F00;
 }

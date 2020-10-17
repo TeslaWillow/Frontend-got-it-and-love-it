@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArchivosService, Archivo } from '../../services/archivos.service';
 
 @Component({
   selector: 'app-banco-archivos',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BancoArchivosComponent implements OnInit {
 
-  constructor() { }
+  archivos:Archivo[];
+  archivoModal:Archivo = {
+    nombre: "",
+    descripcion: "",
+    extencion: "",
+    imgUrl: "",
+    fechaDeSubida: "",
+    peso: ""
+  };
+
+  constructor(private _archivosService:ArchivosService) { }
 
   ngOnInit(): void {
+    this.archivos = this._archivosService.getArchivos();
   }
 
+  verDetalles(archivo:Archivo){
+    this.archivoModal = archivo;
+  }
 }

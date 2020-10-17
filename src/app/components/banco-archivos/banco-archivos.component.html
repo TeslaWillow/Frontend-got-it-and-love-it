@@ -6,85 +6,55 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Banco de archivos</h1>
             </div>
-            <button class="btn btn-outline-warning"><i class="fas fa-upload"></i> Subir archivo</button>
-            <div class="row mt-3">
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+            <button class="btn btn-lg naranja-outline"><i class="fas fa-upload"></i> Subir archivo</button>
+            <div class="row mt-5">
+                <!-- Archivo -->
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3" *ngFor="let archivo of archivos" data-toggle="modal" data-target="#exampleModal" (click)="verDetalles(archivo);">
                     <div class="card">
                         <div class="text-center">
-                            <img class="card-img-top img-fluid" src="./../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="Card image cap">
+                            <img class="card-img-top img-fluid icono" [src]="archivo.imgUrl" [alt]="archivo.nombre">
                         </div>
-                        <div class="card-body">
-                            <p class="card-text text-center font-weight-bold text-truncate">Imagen 1.jpg</p>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                    <div class="card w-100">
-                        <div class="text-center">
-                            <img class="card-img-top img-fluid icono" src="./../../../assets/svg/file-pdf-solid.svg" alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text text-center font-weight-bold text-truncate">Documento.pdf</p>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                    <div class="card w-100">
-                        <div class="text-center">
-                            <img class="card-img-top img-fluid icono" src="./../../../assets/svg/file-word-solid.svg" alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text text-center font-weight-bold text-truncate">Documento.docx</p>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                    <div class="card w-100">
-                        <div class="text-center">
-                            <img class="card-img-top img-fluid icono" src="./../../../assets/svg/file-archive-solid.svg" alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text text-center font-weight-bold text-truncate">Archivo.zip</p>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                    <div class="card w-100">
-                        <div class="text-center">
-                            <img class="card-img-top img-fluid icono" src="./../../../assets/svg/file-video-solid.svg" alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text text-center font-weight-bold text-truncate">video.mp4</p>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                    <div class="card w-100">
-                        <div class="text-center">
-                            <img class="card-img-top img-fluid icono" src="./../../../assets/svg/file-archive-solid.svg" alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text text-center font-weight-bold text-truncate">Archivo.zip</p>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                    <div class="card w-100">
-                        <div class="text-center">
-                            <img class="card-img-top img-fluid icono" src="./../../../assets/svg/file-video-solid.svg" alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text text-center font-weight-bold text-truncate">video.mp4</p>
+                        <div class="card-body ">
+                            <p class="card-text text-center font-weight-bold text-truncate ">{{archivo.nombre}}.{{archivo.extencion}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{archivoModal.nombre}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <img class="img-fluid" [src]="archivoModal.imgUrl" alt="">
+                            </div>
+                            <div class="col-4">
+                                <p class="font-weight-bold">Nombre:</p>
+                                <p>{{archivoModal.nombre}}</p>
+                                <p class="font-weight-bold">Tipo:</p>
+                                <p>{{archivoModal.extencion}}</p>
+                                <p class="font-weight-bold">Subido en:</p>
+                                <p>{{archivoModal.fechaDeSubida}}</p>
+                                <p class="font-weight-bold">Peso:</p>
+                                <p>{{archivoModal.peso}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
