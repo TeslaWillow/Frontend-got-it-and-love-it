@@ -11,6 +11,10 @@
     border-radius: 6px
 }
 
+.close {
+    outline: none;
+}
+
 .card-red {
     border-color: #D62828;
 }

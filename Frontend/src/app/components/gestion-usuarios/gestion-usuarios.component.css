@@ -47,3 +47,7 @@
 .bg-amarillo {
     background-color: #FCBF49;
 }
+
+.close {
+    outline: none;
+}

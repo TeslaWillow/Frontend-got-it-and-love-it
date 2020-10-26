@@ -26,7 +26,7 @@
                         <td>True</td>
                         <td>Cliente</td>
                         <td>
-                            <button class="btn naranja-outline" data-toggle="modal" data-target="#actualizarUsuario"><i class="far fa-edit"></i></button>
+                            <button class="btn naranja-outline" (click)="actualizarUsuario();"><i class="far fa-edit"></i></button>
                         </td>
                         <td>
                             <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
@@ -39,7 +39,7 @@
                         <td>false</td>
                         <td>Empresa</td>
                         <td>
-                            <button class="btn naranja-outline" data-toggle="modal" data-target="#actualizarUsuario"><i class="far fa-edit"></i></button>
+                            <button class="btn naranja-outline" (click)="actualizarUsuario();"><i class="far fa-edit"></i></button>
                         </td>
                         <td>
                             <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
@@ -52,7 +52,7 @@
                         <td>True</td>
                         <td>Admin</td>
                         <td>
-                            <button class="btn naranja-outline" data-toggle="modal" data-target="#actualizarUsuario"><i class="far fa-edit"></i></button>
+                            <button class="btn naranja-outline" (click)="actualizarUsuario();"><i class="far fa-edit"></i></button>
                         </td>
                         <td>
                             <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
@@ -63,7 +63,7 @@
             </table>
             <div class="row">
                 <div class="col-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-lg bg-naranja text-white" data-toggle="modal" data-target="#crearNuevoUsuario">Crear Nuevo Usuario</button>
+                    <button type="button" class="btn btn-lg bg-naranja text-white" (click)="crearNuevoUsuario();">Crear Nuevo Usuario</button>
                 </div>
             </div>
         </main>
@@ -71,43 +71,35 @@
 </div>
 
 <!-- Modal crear usuario-->
-<div class="modal fade" id="crearNuevoUsuario" tabindex="-1" aria-labelledby="crearNuevoUsuario" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="crearNuevoUsuarioLabel">Creacion de nuevo usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<ng-template #modalCrearNuevoUsuario let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="crearNuevoUsuarioLabel">Creacion de nuevo usuario</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+        </button>
     </div>
-</div>
+    <div class="modal-body">
+        ...
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</ng-template>
 
 <!-- Modal actualizar usuario-->
-<div class="modal fade" id="actualizarUsuario" tabindex="-1" aria-labelledby="actualizarUsuario" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="actualizarUsuarioLabel">Editar usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<ng-template #modalActualizarUsuario let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Editar usuario</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+        </button>
     </div>
-</div>
+    <div class="modal-body">
+        ...
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</ng-template>

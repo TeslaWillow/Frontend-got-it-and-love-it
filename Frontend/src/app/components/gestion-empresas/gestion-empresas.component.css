@@ -2,6 +2,10 @@
     background: none;
 }
 
+h2 {
+    font-family: CrimsonText_Regular;
+}
+
 .jumbotron .row .page-link {
     border-radius: 8px;
     color: #FFF;
@@ -18,10 +22,6 @@
     color: rgba(0, 0, 0, .5);
     outline: none;
     background: none;
-}
-
-.jumbotron .row h1 {
-    font-family: CrimsonText_Regular;
 }
 
 .jumbotron .row input[type="search"] {

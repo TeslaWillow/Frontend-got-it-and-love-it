@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ArchivosService, Archivo } from '../../services/archivos.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-banco-archivos',
@@ -18,7 +19,10 @@ export class BancoArchivosComponent implements OnInit {
     peso: ""
   };
 
-  constructor(private _archivosService:ArchivosService) { }
+  @ViewChild ('modalDetallesArchivo') modalDetallesArchivo;
+  @ViewChild ('modalSubirArchivo') modalSubirArchivo;
+
+  constructor(private _archivosService:ArchivosService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.archivos = this._archivosService.getArchivos();
@@ -26,5 +30,10 @@ export class BancoArchivosComponent implements OnInit {
 
   verDetalles(archivo:Archivo){
     this.archivoModal = archivo;
+    this.modalService.open(this.modalDetallesArchivo, {size: 'lg'});
+  }
+
+  subirArchivo(){
+    this.modalService.open(this.modalSubirArchivo, {size: 'lg'});
   }
 }

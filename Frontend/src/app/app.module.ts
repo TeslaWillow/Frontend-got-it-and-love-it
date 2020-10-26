@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Routes
 import { APP_ROUTING } from './app.routes';
@@ -52,6 +53,7 @@ import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empre
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     APP_ROUTING
   ],
   providers: [

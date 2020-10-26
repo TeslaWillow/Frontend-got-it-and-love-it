@@ -20,14 +20,14 @@ main .card:hover {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
 }
 
-main .naranja-outline {
+.naranja-outline {
     color: #F77F00;
     border-color: #F77F00;
     padding-left: 50px;
     padding-right: 50px;
 }
 
-main .naranja-outline:hover {
+.naranja-outline:hover {
     color: #FFF;
     background-color: #F77F00;
 }
