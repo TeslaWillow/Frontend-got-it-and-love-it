@@ -79,11 +79,37 @@
         </button>
     </div>
     <div class="modal-body">
-        ...
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <form>
+            <div class="form-group">
+                <label for="inp_new_NombreUsuario">Nombre de usuario: </label>
+                <input type="text" class="form-control" id="inp_new_NombreUsuario">
+            </div>
+            <div class="form-group">
+                <label for="inp_new_pass">Contraseña del usuario: </label>
+                <input type="password" class="form-control" id="inp_new_pass">
+            </div>
+            <div class="form-group">
+                <label for="inp_new_passRepeat">Repetir contraseña del usuario: </label>
+                <input type="password" class="form-control" id="inp_new_passRepeat">
+            </div>
+            <div class="form-group">
+                <label for="inp_edit_tipoUsuario">Tipo de usuario: </label>
+                <select class="form-control" id="inp_edit_tipoUsuario">
+                  <option>Cliente</option>
+                  <option>Empresa</option>
+                  <option>Administrador</option>
+                </select>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="inp_edit_estadoUsuario" checked>
+                <label class="form-check-label" for="inp_edit_estadoUsuario">Estado activo</label>
+                <small id="emailHelp" class="form-text text-muted">Marcar si el usuario esta activo, de lo contrario estara bloqueado del sistema</small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+                <button type="submit" class="btn btn-primary">Crear Usuario</button>
+            </div>
+        </form>
     </div>
 </ng-template>
 
@@ -96,10 +122,28 @@
         </button>
     </div>
     <div class="modal-body">
-        ...
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <form>
+            <div class="form-group">
+                <label for="inp_edit_NombreUsuario">Nombre de usuario: </label>
+                <input type="text" class="form-control" id="inp_edit_NombreUsuario">
+            </div>
+            <div class="form-group">
+                <label for="inp_edit_tipoUsuario">Tipo de usuario: </label>
+                <select class="form-control" id="inp_edit_tipoUsuario">
+                  <option>Cliente</option>
+                  <option>Empresa</option>
+                  <option>Administrador</option>
+                </select>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="inp_edit_estadoUsuario" checked>
+                <label class="form-check-label" for="inp_edit_estadoUsuario">Estado activo</label>
+                <small id="emailHelp" class="form-text text-muted">Marcar si el usuario esta activo, de lo contrario estara bloqueado del sistema</small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+        </form>
     </div>
 </ng-template>

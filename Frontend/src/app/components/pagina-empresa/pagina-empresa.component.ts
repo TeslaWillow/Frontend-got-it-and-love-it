@@ -78,6 +78,6 @@ export class PaginaEmpresaComponent implements OnInit {
 
   contenidoBloque(fila:number, columna:number){
     this.bloque = this.rows[fila].columns[columna];
-    this.modalService.open(this.modalContenidoBloque, {size: 'lg'});
+    this.modalService.open(this.modalContenidoBloque, {size: 'xl'});
   }
 }

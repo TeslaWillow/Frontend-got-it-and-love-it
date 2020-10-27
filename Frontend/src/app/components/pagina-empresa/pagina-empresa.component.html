@@ -89,11 +89,52 @@
         </button>
     </div>
     <div class="modal-body">
-        ...
+        <form>
+            <div class="form-group">
+                <label for="inp_tituloPagina">Titulo de tu pagina:</label>
+                <input type="text" class="form-control" id="inp_tituloPagina" placeholder="lamejorpagina">
+            </div>
+            <div class="form-group">
+                <label for="inp_tituloPagina">URL de tu pagina:</label>
+                <input type="text" class="form-control" id="inp_tituloPagina" placeholder="lamejorpagina">
+                <small id="help_tituloPagina" class="form-text text-muted">
+                    Como quieres ser encontrado por los navegadores. Ejem: tupagina/productos
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="inp_descripcionPagina">Descripción de tu pagina</label>
+                <textarea class="form-control" id="inp_descripcionPagina" rows="3" placeholder="Somos la mejor empresa del mundo, hacemos productos de calidad"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="inp_palabrasClave">Palabras clave de tu pagina:</label>
+                <input type="text" class="form-control" id="inp_palabrasClave" placeholder="excelente, calidad, precio">
+                <small id="help_palabrasClave" class="form-text text-muted">
+                    Recomendamos máximo 3 palabras clave. Separadas por coma (,).
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="inp_seleccionFondos">Seleccion de fondos predeterminados</label>
+                <select class="form-control" id="inp_seleccionFondos">
+                <option>1.jpg</option>
+                <option>2.jpg</option>
+                <option>3.jpg</option>
+                <option>4.jpg</option>
+                <option>5.jpg</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="inp_hacerPaginaPrincipal" required>
+                    <label class="form-check-label" for="inp_hacerPaginaPrincipal">
+                        Hacer de esta pagina el "Home".
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Confirmar</button>
+        </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
-        <button type="button" class="btn btn-primary">Guardar detalles</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
     </div>
 </ng-template>
 
@@ -106,7 +147,16 @@
         </button>
     </div>
     <div class="modal-body">
-        ...
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-around">
+                    <button class="btn btn-primary" style="width: 35%;">WYSIWYG</button>
+                    <button class="btn btn-primary" style="width: 35%;">HTML puro</button>
+                </div>
+            </div>
+        </div>
+        <!-- WYSIWYG -->
+        <!-- HTML puro -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
