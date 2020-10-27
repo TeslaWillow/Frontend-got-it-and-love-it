@@ -5,3 +5,56 @@
 .jumbotron h1 {
     font-family: CrimsonText_Regular;
 }
+
+.jumbotron .opciones .card {
+    transition: all ease .3s;
+}
+
+.jumbotron .opciones .card:hover {
+    box-shadow: 0px 0px 5px #000;
+}
+
+.box {
+    font-weight: bold;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, .5);
+    padding: 50px;
+    position: relative;
+}
+
+.btn-group {
+    position: absolute;
+    margin: 5px 5px 0 0;
+    top: 0;
+    right: 0;
+}
+
+.rojo-outline {
+    color: #D62828;
+    border-color: #D62828;
+}
+
+.naranja-outline {
+    color: #F77F00;
+    border-color: #F77F00;
+}
+
+.amarillo-outline {
+    color: #FCBF49;
+    border-color: #FCBF49;
+}
+
+.rojo-outline:hover {
+    color: #FFF;
+    background-color: #D62828;
+}
+
+.naranja-outline:hover {
+    color: #FFF;
+    background-color: #F77F00;
+}
+
+.amarillo-outline:hover {
+    color: #FFF;
+    background-color: #FCBF49;
+}

@@ -4,8 +4,112 @@
 
         <main role="main" class="jumbotron col-md-9 ml-sm-auto col-lg-10 px-md-4 animate__animated animate__fadeIn animate__faster">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                <h1 class="h2">Pagina de tu empresa</h1>
+                <h1 class="h2">Crea tu propia Pagina</h1>
+            </div>
+            <!-- Esta seccion se renderiza si el usuario no ha creado ninguna pagina aun -->
+            <div class="opciones" *ngIf="false">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-6">
+                        <!-- Usar Plantilla -->
+                        <div class="card w-75 ml-md-0 ml-lg-auto">
+                            <img src="./../../../assets/img/plantillas.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">A partir de plantillas</h5>
+                                <p class="card-text">Crea tu pagina con plantillas predefinidas para empezar a agregar contenido a tu sitio lo más rápido posible.</p>
+                                <a href="#" class="btn btn-block naranja-outline">Usar Plantillas</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-6">
+                        <!-- Desde 0 -->
+                        <div class="card w-75 mt-3 mt-sm-3 mt-md-3 mt-lg-0">
+                            <img src="./../../../assets/img/crearDesde0.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">De forma manual</h5>
+                                <p class="card-text">Crea tu pagina con la ayuda de un sistema de grillas y luego pon el contenido a tu gusto.</p>
+                                <a href="#" class="btn btn-block naranja-outline">Comenzar desde 0</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Esta seccion se renderiza si el usuario quiere usar plantillas -->
+            <div class="plantillas" *ngIf="false">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Usar Plantilla -->
+                        <div class="card w-50 m-auto">
+                            <img src="./../../../assets/img/plantillas.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Plantilla 1</h5>
+                                <p class="card-text">Descripcion de la plantilla actual</p>
+                                <a href="#" class="btn btn-block naranja-outline">Usar Plantillas</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Esta seccion se rendereiza si el usuario quiere hacerlo todo desde 0 -->
+            <div class="grilla">
+                <!-- Fila -->
+                <div class="row mb-3" *ngFor="let row of rows; let i = index;">
+                    <div class="col-1 d-flex justify-content-end" (click)="agregarColumna(i);">
+                        <button class="btn naranja-outline"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="col-10 d-flex justify-content-between">
+                        <div class="box text-center" *ngFor="let column of row.columns;let j = index;" [style.background]="column.color" [style.width]="anchoColumna(row.columns.length) + '%'">
+                            <div class="btn-group">
+                                <button class="btn" (click)="contenidoBloque(i, j);"><i class="fas fa-pen"></i></button>
+                                <button class="btn" (click)="eliminarColumna(i, j);"><i class="fas fa-times"></i></button>
+                            </div>
+                            <p>{{column.descripcion}}</p>
+                        </div>
+                    </div>
+                    <div class="col-1 d-flex justify-content-start">
+                        <button class="btn rojo-outline" (click)="eliminarFila(i);"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                </div>
+                <!-- Botones -->
+                <div class="row d-flex justify-content-around mt-5">
+                    <button class="btn btn-outline-primary btn-lg" (click)="agregarFila();">Agregar fila</button>
+                    <button class="btn btn-outline-primary btn-lg" (click)="detallesPagina();">Detalles de pagina</button>
+                    <button class="btn btn-outline-primary btn-lg">Crear Pagina</button>
+                </div>
             </div>
         </main>
     </div>
 </div>
+
+<!-- Modal detalles de la pagina-->
+<ng-template #modalDetallesPagina let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Detalles de tu pagina</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ...
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+        <button type="button" class="btn btn-primary">Guardar detalles</button>
+    </div>
+</ng-template>
+
+<!-- Modal detalles de la pagina-->
+<ng-template #modalContenidoBloque let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Contenido del bloque: {{bloque.descripcion}}</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ...
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+        <button type="button" class="btn btn-primary">Guardar detalles</button>
+    </div>
+</ng-template>
