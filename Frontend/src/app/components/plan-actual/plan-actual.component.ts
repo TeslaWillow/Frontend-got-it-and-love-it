@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-plan-actual',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlanActualComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild("modalActualizarPlan") modalActualizarPlan;
+  constructor(private modalService:NgbModal) { }
 
   ngOnInit(): void {
   }
 
+  actualizarPlan(){
+    this.modalService.open(this.modalActualizarPlan, {size: 'lg'});
+  }
 }

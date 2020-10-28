@@ -95,16 +95,43 @@
 <!-- Modal actualizar plan -->
 <ng-template #modalActualizarPlan let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="actualizarPlanLabel">Creacion de nuevo plan</h5>
+        <h5 class="modal-title" id="actualizarPlanLabel">Actualizar el plan</h5>
         <button type="button" class="close" (click)="modal.close()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        ...
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
-        <button type="button" class="btn btn-primary">Actualizar</button>
+        <form action="">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inp_new_nombrePlan">Nombre del plan: </label>
+                    <input type="text" class="form-control" id="inp_new_nombrePlan" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inp_new_precioPlan">Precio del plan: </label>
+                    <input type="number" class="form-control" id="inp_new_precioPlan" min="1" max="1000" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group is-invalid">
+                    <div class="custom-file">
+                        <select class="custom-select" id="validatedInputGroupSelect" required>
+                                <option value="" disabled selected>Choose...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button">Button</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Botones Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+        </form>
     </div>
 </ng-template>
