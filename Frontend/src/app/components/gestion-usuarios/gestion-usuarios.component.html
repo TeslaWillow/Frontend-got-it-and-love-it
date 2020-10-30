@@ -19,46 +19,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Usuario 1</td>
-                        <td>user1@gmail.com</td>
-                        <td>True</td>
-                        <td>Cliente</td>
+                    <tr *ngFor="let usuario of usuarios; let i = index">
+                        <th scope="row">{{i}}</th>
+                        <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                        <td>{{usuario.correo}}</td>
+                        <td>{{usuario.activo}}</td>
+                        <td>{{getTipoUsuario(usuario.tipoUsuario)}}</td>
                         <td>
-                            <button class="btn naranja-outline" (click)="actualizarUsuario();"><i class="far fa-edit"></i></button>
+                            <button class="btn naranja-outline" (click)="actualizarUsuario(usuario._id);"><i class="far fa-edit"></i></button>
                         </td>
                         <td>
                             <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Usuario 2</td>
-                        <td>user2@gmail.com</td>
-                        <td>false</td>
-                        <td>Empresa</td>
-                        <td>
-                            <button class="btn naranja-outline" (click)="actualizarUsuario();"><i class="far fa-edit"></i></button>
-                        </td>
-                        <td>
-                            <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Usuario 3</td>
-                        <td>user3@gmail.com</td>
-                        <td>True</td>
-                        <td>Admin</td>
-                        <td>
-                            <button class="btn naranja-outline" (click)="actualizarUsuario();"><i class="far fa-edit"></i></button>
-                        </td>
-                        <td>
-                            <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
             <div class="row">
@@ -85,6 +58,14 @@
                 <input type="text" class="form-control" id="inp_new_NombreUsuario">
             </div>
             <div class="form-group">
+                <label for="inp_new_ApellidoUsuario">Apellido de usuario: </label>
+                <input type="text" class="form-control" id="inp_new_ApellidoUsuario">
+            </div>
+            <div class="form-group">
+                <label for="inp_new_CorreoUsuario">Correo de usuario: </label>
+                <input type="email" class="form-control" id="inp_new_CorreoUsuario">
+            </div>
+            <div class="form-group">
                 <label for="inp_new_pass">Contraseña del usuario: </label>
                 <input type="password" class="form-control" id="inp_new_pass">
             </div>
@@ -93,16 +74,14 @@
                 <input type="password" class="form-control" id="inp_new_passRepeat">
             </div>
             <div class="form-group">
-                <label for="inp_edit_tipoUsuario">Tipo de usuario: </label>
-                <select class="form-control" id="inp_edit_tipoUsuario">
-                  <option>Cliente</option>
-                  <option>Empresa</option>
-                  <option>Administrador</option>
+                <label for="inp_new_tipoUsuario">Tipo de usuario: </label>
+                <select class="form-control" id="inp_new_tipoUsuario">
+                    <option *ngFor="let tipo of tiposUsuario" [ngValue]="tipo._id">{{tipo.tipo}}</option>
                 </select>
             </div>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="inp_edit_estadoUsuario" checked>
-                <label class="form-check-label" for="inp_edit_estadoUsuario">Estado activo</label>
+                <input type="checkbox" class="form-check-input" id="inp_new_estadoUsuario" checked>
+                <label class="form-check-label" for="inp_new_estadoUsuario">Estado activo</label>
                 <small id="emailHelp" class="form-text text-muted">Marcar si el usuario esta activo, de lo contrario estara bloqueado del sistema</small>
             </div>
             <div class="modal-footer">
@@ -125,18 +104,20 @@
         <form>
             <div class="form-group">
                 <label for="inp_edit_NombreUsuario">Nombre de usuario: </label>
-                <input type="text" class="form-control" id="inp_edit_NombreUsuario">
+                <input [formControl]="form_nombre" type="text" class="form-control" id="inp_edit_NombreUsuario">
+            </div>
+            <div class="form-group">
+                <label for="inp_edit_ApellidoUsuario">Apellido de usuario: </label>
+                <input [formControl]="form_apellido" type="text" class="form-control" id="inp_edit_ApellidoUsuario">
             </div>
             <div class="form-group">
                 <label for="inp_edit_tipoUsuario">Tipo de usuario: </label>
-                <select class="form-control" id="inp_edit_tipoUsuario">
-                  <option>Cliente</option>
-                  <option>Empresa</option>
-                  <option>Administrador</option>
+                <select [formControl]="form_tipoUsuario" class="form-control" id="inp_edit_tipoUsuario">
+                  <option *ngFor="let tipo of tiposUsuario" [ngValue]="tipo._id">{{tipo.tipo}}</option>
                 </select>
             </div>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="inp_edit_estadoUsuario" checked>
+                <input [formControl]="form_activo" type="checkbox" class="form-check-input" id="inp_edit_estadoUsuario" checked>
                 <label class="form-check-label" for="inp_edit_estadoUsuario">Estado activo</label>
                 <small id="emailHelp" class="form-text text-muted">Marcar si el usuario esta activo, de lo contrario estara bloqueado del sistema</small>
             </div>

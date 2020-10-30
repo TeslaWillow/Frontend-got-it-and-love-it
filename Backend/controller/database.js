@@ -9,7 +9,8 @@ class Database {
         //Promesas
         mongoose.connect(`mongodb://${servidor}/${db}`, {
                 useNewUrlParser: true,
-                useUnifiedTopology: true
+                useUnifiedTopology: true,
+                useCreateIndex: true
             })
             .then(() => {
                 console.log('Se conecto a mongo');

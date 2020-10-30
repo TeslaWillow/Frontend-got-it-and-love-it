@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //Routes
 import { APP_ROUTING } from './app.routes';
 
 //Services
 import { ArchivosService } from './services/archivos.service';
+import { UsuariosService } from './services/usuarios.service';
+import { TipoUsuarioService } from './services/tipo-usuario.service';
+import { PlanesService } from './services/planes.service';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -54,10 +57,15 @@ import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empre
   imports: [
     BrowserModule,
     NgbModule,
-    APP_ROUTING
+    APP_ROUTING, 
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [
-    ArchivosService
+    ArchivosService,
+    UsuariosService,
+    TipoUsuarioService,
+    PlanesService
   ],
   bootstrap: [AppComponent]
 })
