@@ -6,6 +6,7 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Gestion de usuarios</h1>
             </div>
+            <button class="btn btn-outline-danger" (click)="verEliminados = !verEliminados">Ver usuarios Inhabilitados</button>
             <table class="table table-borderless table-striped">
                 <thead>
                     <tr>
@@ -19,19 +20,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let usuario of usuarios; let i = index">
-                        <th scope="row">{{i}}</th>
-                        <td>{{usuario.nombre}} {{usuario.apellido}}</td>
-                        <td>{{usuario.correo}}</td>
-                        <td>{{usuario.activo}}</td>
-                        <td>{{getTipoUsuario(usuario.tipoUsuario)}}</td>
-                        <td>
-                            <button class="btn naranja-outline" (click)="actualizarUsuario(usuario._id);"><i class="far fa-edit"></i></button>
-                        </td>
-                        <td>
-                            <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
-                        </td>
-                    </tr>
+                    <ng-container *ngFor="let usuario of usuarios; let i = index">
+                        <tr *ngIf="usuario.activo || !verEliminados">
+                            <th scope="row">{{i}}</th>
+                            <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                            <td>{{usuario.correo}}</td>
+                            <td>{{usuario.activo}}</td>
+                            <td>{{getTipoUsuario(usuario.tipoUsuario)}}</td>
+                            <td>
+                                <button class="btn naranja-outline" (click)="actualizarUsuario(usuario._id);"><i class="far fa-edit"></i></button>
+                            </td>
+                            <td>
+                                <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </tbody>
             </table>
             <div class="row">
@@ -78,11 +81,6 @@
                 <select class="form-control" id="inp_new_tipoUsuario">
                     <option *ngFor="let tipo of tiposUsuario" [ngValue]="tipo._id">{{tipo.tipo}}</option>
                 </select>
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="inp_new_estadoUsuario" checked>
-                <label class="form-check-label" for="inp_new_estadoUsuario">Estado activo</label>
-                <small id="emailHelp" class="form-text text-muted">Marcar si el usuario esta activo, de lo contrario estara bloqueado del sistema</small>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>

@@ -8,7 +8,8 @@ export class PlanesService {
   private Planes:Plan[] = [{
     _id: 0,
     nombrePlan: "Gratis",
-    descripción: "Plan gratis para usuarios particulares, sin beneficios de empresa",
+    color: "#F77F00",
+    descripcion: "Plan gratis para usuarios particulares, sin beneficios de empresa",
     precio: 0,
     fechaCreación: new Date(20/10/2020),
     restricciones: {
@@ -21,7 +22,8 @@ export class PlanesService {
 {
     _id: 1,
     nombrePlan: "Básico",
-    descripción: "Plan basico para empresas",
+    color: "#D62828",
+    descripcion: "Plan basico para empresas",
     precio: 9.99,
     fechaCreación: new Date(20/10/2020),
     restricciones: {
@@ -34,8 +36,9 @@ export class PlanesService {
 {
     _id: 2,
     nombrePlan: "Pro",
-    descripción: "Plan Pro para empresas",
-    precio: 0,
+    color: "#FCBF49",
+    descripcion: "Plan Pro para empresas",
+    precio: 19.99,
     fechaCreación: new Date(20/10/2020),
     restricciones: {
         limiteFilas: 5,
@@ -47,8 +50,9 @@ export class PlanesService {
 {
     _id: 3,
     nombrePlan: "Ultimate",
-    descripción: "Plan Ultimate para empresas",
-    precio: 0,
+    color: "#F77F00",
+    descripcion: "Plan Ultimate para empresas",
+    precio: 29.99,
     fechaCreación: new Date(20/10/2020),
     restricciones: {
         limiteFilas: 7,
@@ -75,7 +79,8 @@ export class PlanesService {
 export interface Plan{
   _id: Number,
   nombrePlan: String,
-  descripción: String,
+  color: String,
+  descripcion: String,
   precio: Number,
   fechaCreación: Date,
   restricciones: any

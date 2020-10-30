@@ -29,10 +29,12 @@ export class TipoUsuarioService {
   }
 
   getTipoUsuario(id:number){
-    this.tiposUsuario.forEach(tipo => {
-      if(tipo._id === id)
-        return tipo;
+    let resultado;
+    this.tiposUsuario.forEach(tipoU => {
+      if(tipoU._id === id)
+        resultado = tipoU;
     });
+    return resultado;
   }
 }
 

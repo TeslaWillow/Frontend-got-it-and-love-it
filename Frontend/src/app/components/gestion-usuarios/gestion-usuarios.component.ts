@@ -14,6 +14,7 @@ export class GestionUsuariosComponent implements OnInit {
   public usuarios:Usuario[];
   private tipoUsuario:TipoUsuario;
   public tiposUsuario:TipoUsuario[];
+  public verEliminados = true;
   //Variables para formularios reactivos
   public form_nombre:FormControl = new FormControl('');
   public form_apellido:FormControl = new FormControl('');
@@ -35,12 +36,11 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   getTipoUsuario(id:number){
-    return this._TipoUsuarioService.getTipoUsuario(id);
+    return this._TipoUsuarioService.getTipoUsuario(id).tipo;
   }
 
   actualizarUsuario(id:number){
     let usuario = this._UsuariosService.getUsuario(id);
-    console.log(usuario);
     this.form_nombre.setValue(usuario.nombre);
     this.form_apellido.setValue(usuario.apellido);
     this.form_tipoUsuario.setValue(usuario.tipoUsuario); //El valor (id) del html, tiene que hacer match, con el valor de la variable de formulario reactivo para cambiar

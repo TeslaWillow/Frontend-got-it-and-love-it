@@ -8,63 +8,26 @@
             </div>
             <!--  -->
             <div class="row d-flex justify-content-between">
-                <div class="col-sm-12 col-md-4">
-                    <div class="card card-red mb-3 w-100">
-                        <div class="card-header card-red bg-rojo text-center">Plan Basico</div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
-                                <button type="button" class="btn border" (click)="actualizarPlan();"><i class="far fa-edit"></i></button>
-                                <button type="button" class="btn border"><i class="fas fa-times"></i></button>
+                <ng-container *ngFor="let plan of planes">
+                    <div class="col-sm-12 col-md-4" *ngIf="!isGratis(plan.precio)">
+                        <div class="card mb-3 w-100" [style.border-color]="plan.color">
+                            <div class="card-header text-center" [style.border-color]="plan.color" [style.background-color]="plan.color">{{plan.nombrePlan}}</div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
+                                    <button type="button" class="btn border" (click)="actualizarPlan(plan._id);"><i class="far fa-edit"></i></button>
+                                    <button type="button" class="btn border"><i class="fas fa-times"></i></button>
+                                </div>
+                                <h5 class="card-title text-center">{{plan.precio}} $/ Mes</h5>
+                                <ul class="list-group text-sm-center text-md-left">
+                                    <li class="list-group-item">Limite de Filas - <span class="font-weight-bold">{{plan.restricciones.limiteFilas}}</span></li>
+                                    <li class="list-group-item">Limite de Columnas - <span class="font-weight-bold">{{plan.restricciones.limiteColumnas}}</span></li>
+                                    <li class="list-group-item">Limite de Paginas - <span class="font-weight-bold">{{plan.restricciones.limitePaginas}}</span></li>
+                                    <li class="list-group-item">Limite de Almacenamiento - <span class="font-weight-bold">{{plan.restricciones.limiteAlmacenamiento}} MB</span></li>
+                                </ul>
                             </div>
-                            <h5 class="card-title text-center">9.99 $/ Mes</h5>
-                            <ul class="list-group text-sm-center text-md-left">
-                                <li class="list-group-item">Cras justo odio</li>
-                                <li class="list-group-item">Dapibus ac facilisis in</li>
-                                <li class="list-group-item">Morbi leo risus</li>
-                                <li class="list-group-item">Porta ac consectetur ac</li>
-                                <li class="list-group-item">Vestibulum at eros</li>
-                            </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="card card-naranja mb-3 w-100">
-                        <div class="card-header card-naranja bg-naranja text-center">Plan Pro</div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
-                                <button type="button" class="btn border" (click)="actualizarPlan();"><i class="far fa-edit"></i></button>
-                                <button type="button" class="btn border"><i class="fas fa-times"></i></button>
-                            </div>
-                            <h5 class="card-title text-center">19.99 $/ Mes</h5>
-                            <ul class="list-group text-sm-center text-md-left">
-                                <li class="list-group-item">Cras justo odio</li>
-                                <li class="list-group-item">Dapibus ac facilisis in</li>
-                                <li class="list-group-item">Morbi leo risus</li>
-                                <li class="list-group-item">Porta ac consectetur ac</li>
-                                <li class="list-group-item">Vestibulum at eros</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="card card-amarilla mb-3 w-100">
-                        <div class="card-header card-amarilla bg-amarillo text-center">Plan Ultimate</div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
-                                <button type="button" class="btn border" (click)="actualizarPlan();"><i class="far fa-edit"></i></button>
-                                <button type="button" class="btn border"><i class="fas fa-times"></i></button>
-                            </div>
-                            <h5 class="card-title text-center">21.99 $/ Mes</h5>
-                            <ul class="list-group text-sm-center text-md-left">
-                                <li class="list-group-item">Cras justo odio</li>
-                                <li class="list-group-item">Dapibus ac facilisis in</li>
-                                <li class="list-group-item">Morbi leo risus</li>
-                                <li class="list-group-item">Porta ac consectetur ac</li>
-                                <li class="list-group-item">Vestibulum at eros</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </div>
             <div class="row">
                 <div class="col-12 d-flex justify-content-end">
@@ -84,7 +47,44 @@
         </button>
     </div>
     <div class="modal-body">
-        ...
+        <form action="">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inp_edit_nombrePlan">Nombre del plan: </label>
+                    <input [formControl]="form_nombrePlan" type="text" class="form-control" id="inp_edit_nombrePlan" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inp_edit_nombrePlan">Color del plan: </label>
+                    <input [formControl]="form_color" type="color" class="form-control" id="inp_edit_nombrePlan" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inp_edit_precioPlan">Precio del plan: </label>
+                    <input [formControl]="form_precio" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inp_edit_descripcion">Descripcion plan: </label>
+                <textarea [formControl]="form_descripcion" class="form-control" id="inp_edit_descripcion" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Filas: </label>
+                    <input [formControl]="form_limiteFilas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Columnas: </label>
+                    <input [formControl]="form_limiteColumnas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Paginas: </label>
+                    <input [formControl]="form_limitePaginas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Almacenamiento: </label>
+                    <input [formControl]="form_limiteAlmacenamiento" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
@@ -103,35 +103,46 @@
     <div class="modal-body">
         <form action="">
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inp_new_nombrePlan">Nombre del plan: </label>
-                    <input type="text" class="form-control" id="inp_new_nombrePlan" required>
+                <div class="form-group col-md-4">
+                    <label for="inp_edit_nombrePlan">Nombre del plan: </label>
+                    <input [formControl]="form_nombrePlan" type="text" class="form-control" id="inp_edit_nombrePlan" required>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="inp_new_precioPlan">Precio del plan: </label>
-                    <input type="number" class="form-control" id="inp_new_precioPlan" min="1" max="1000" required>
+                <div class="form-group col-md-4">
+                    <label for="inp_edit_nombrePlan">Color del plan: </label>
+                    <input [formControl]="form_color" type="color" class="form-control" id="inp_edit_nombrePlan" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inp_edit_precioPlan">Precio del plan: </label>
+                    <input [formControl]="form_precio" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
                 </div>
             </div>
             <div class="form-group">
-                <div class="input-group is-invalid">
-                    <div class="custom-file">
-                        <select class="custom-select" id="validatedInputGroupSelect" required>
-                                <option value="" disabled selected>Choose...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">Button</button>
-                    </div>
+                <label for="inp_edit_descripcion">Descripcion plan: </label>
+                <textarea [formControl]="form_descripcion" class="form-control" id="inp_edit_descripcion" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Filas: </label>
+                    <input [formControl]="form_limiteFilas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Columnas: </label>
+                    <input [formControl]="form_limiteColumnas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Paginas: </label>
+                    <input [formControl]="form_limitePaginas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inp_edit_precioPlan">Limite de Almacenamiento: </label>
+                    <input [formControl]="form_limiteAlmacenamiento" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
                 </div>
             </div>
-            <!-- Botones Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Actualizar</button>
-            </div>
         </form>
+    </div>
+    <!-- Botones Footer -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+        <button type="button" class="btn btn-primary">Actualizar</button>
     </div>
 </ng-template>
