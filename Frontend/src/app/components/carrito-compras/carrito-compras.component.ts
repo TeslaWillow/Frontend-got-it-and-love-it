@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService } from '../../services/productos.service';
+import { ProductosService, Producto } from '../../services/productos.service';
+import { ComprasService, Compra } from '../../services/compras.service';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -8,9 +9,26 @@ import { ProductosService } from '../../services/productos.service';
 })
 export class CarritoComprasComponent implements OnInit {
 
-  constructor(private _ProductosService:ProductosService) { }
+  private lStorage = window.localStorage;
+  public compras:Compra[];
+  public producto:Producto;
+
+  constructor(
+    private _ComprasService:ComprasService,
+    private _ProductosService:ProductosService) { }
 
   ngOnInit(): void {
+    let compras = this._ComprasService.getCompras();
+    if(this.lStorage.getItem('carrito'))
+      console.log("Recuperando carrito");
+    else
+      this.lStorage.setItem('carrito', JSON.stringify(compras));
+    
+    this.compras = JSON.parse(this.lStorage.getItem('carrito'));
+    console.log(compras);
   }
 
+  getProducto(id:number){
+    return this._ProductosService.getProducto(id);
+  }
 }

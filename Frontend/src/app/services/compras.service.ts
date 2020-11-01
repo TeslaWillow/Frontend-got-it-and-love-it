@@ -8,7 +8,7 @@ export class ComprasService {
   private compras:Compra[] = [
     {
       "_id": 0,
-      "Productoid": 0,
+      "Productoid": 5,
       "fechaCompra": new Date("2018-06-05"),
       "cantidad": 5,
       "total": 4
