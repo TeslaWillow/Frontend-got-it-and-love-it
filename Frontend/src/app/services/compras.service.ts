@@ -63,6 +63,6 @@ export interface Compra {
   _id:Number
   Productoid:Number
   fechaCompra:Date
-  cantidad:Number
+  cantidad:number
   total:Number
 }

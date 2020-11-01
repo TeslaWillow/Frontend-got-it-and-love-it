@@ -10,7 +10,10 @@ import { ArchivosService } from './services/archivos.service';
 import { UsuariosService } from './services/usuarios.service';
 import { TipoUsuarioService } from './services/tipo-usuario.service';
 import { PlanesService } from './services/planes.service';
-
+import { ComprasService } from './services/compras.service';
+import { ProductosService } from './services/productos.service';
+import { CategoriasService } from './services/categorias.service';
+import { EmpresasService } from './services/empresas.service';
 //Componentes
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -65,7 +68,11 @@ import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empre
     ArchivosService,
     UsuariosService,
     TipoUsuarioService,
-    PlanesService
+    PlanesService,
+    ComprasService,
+    ProductosService,
+    CategoriasService,
+    EmpresasService
   ],
   bootstrap: [AppComponent]
 })

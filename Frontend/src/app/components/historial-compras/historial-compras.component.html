@@ -14,29 +14,17 @@
                         <th scope="col">Fecha de compra</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Precio Unitario</th>
+                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Producto 1</td>
-                        <td>11/10/2020</td>
-                        <td>2</td>
-                        <td>9.99 $</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Producto 2</td>
-                        <td>12/10/2020</td>
-                        <td>2</td>
-                        <td>29.99 $</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Producto 3</td>
-                        <td>13/10/2020</td>
-                        <td>1</td>
-                        <td>39.99 $</td>
+                    <tr *ngFor="let compra of compras; let i = index">
+                        <th scope="row">{{i}}</th>
+                        <td class="text-left">{{getProducto(compra.Productoid).nombre}}</td>
+                        <td class="text-left">{{compra.fechaCompra | date:'mediumDate'}}</td>
+                        <td class="text-left">{{compra.cantidad}}</td>
+                        <td class="text-left">{{getProducto(compra.Productoid).precio}} $</td>
+                        <td class="text-left">{{getProducto(compra.Productoid).precio * compra.cantidad}} $</td>
                     </tr>
                 </tbody>
             </table>
