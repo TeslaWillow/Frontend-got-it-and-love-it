@@ -12,6 +12,7 @@ export class CarritoComprasComponent implements OnInit {
   private lStorage = window.localStorage;
   public compras:Compra[];
   public producto:Producto;
+  public total:number;
 
   constructor(
     private _ComprasService:ComprasService,
@@ -25,10 +26,16 @@ export class CarritoComprasComponent implements OnInit {
       this.lStorage.setItem('carrito', JSON.stringify(compras));
     
     this.compras = JSON.parse(this.lStorage.getItem('carrito'));
-    console.log(compras);
   }
 
   getProducto(id:number){
-    return this._ProductosService.getProducto(id);
+    this.producto = this._ProductosService.getProducto(id);
+    console.log(this.producto);
+  }
+
+  sumarTotal(cantidad:number, precio:number):void{
+    console.log("hola");
+    let totalItem = (cantidad * precio);
+    this.total += totalItem;
   }
 }

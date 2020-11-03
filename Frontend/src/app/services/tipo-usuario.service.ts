@@ -39,7 +39,7 @@ export class TipoUsuarioService {
 }
 
 export interface TipoUsuario {
-  _id:Number,
-  tipo:String,
-  descripcion:String
+  _id:number,
+  tipo:string,
+  descripcion:string
 }

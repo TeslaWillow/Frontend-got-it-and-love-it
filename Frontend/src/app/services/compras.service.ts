@@ -60,9 +60,9 @@ export class ComprasService {
 }
 
 export interface Compra {
-  _id:Number
-  Productoid:Number
+  _id:number
+  Productoid:number
   fechaCompra:Date
   cantidad:number
-  total:Number
+  total:number
 }

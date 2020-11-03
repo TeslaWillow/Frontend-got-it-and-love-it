@@ -97,11 +97,11 @@ export class ProductosService {
 
 
 export interface Producto {
-  _id: Number,
-  nombre: String,
-  descripcion: String,
-  precio: Number,
-  calificacion: Number,
-  foto: String,
-  categoria: Number
+  _id: number,
+  nombre: string,
+  descripcion: string,
+  precio: number,
+  calificacion: number,
+  foto: string,
+  categoria: number
 }

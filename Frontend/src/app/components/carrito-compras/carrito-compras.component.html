@@ -18,28 +18,30 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let compra of compras; let i = index">
-                        <tr *ngIf="compra">
+                        <tr *ngIf="compra" class="border-bottom">
+                            <span>{{getProducto(compra.Productoid)}}</span>
                             <th scope="row">{{i}}</th>
                             <td class="d-flex">
                                 <div class="preview d-xs-none d-md-none d-lg-block">
-                                    <img [src]="getProducto(compra.Productoid).foto" class="img-cuadrada" alt="">
+                                    <img [src]="producto.foto" class="img-cuadrada" alt="">
                                 </div>
                                 <div class="datos-producto ml-3 w-75">
-                                    <span class="font-weight-bold">{{getProducto(compra.Productoid).nombre}}</span>
+                                    <span class="font-weight-bold">{{producto.nombre}}</span>
                                     <p class="descripcion-producto d-xs-none d-md-none d-lg-block">
-                                        {{getProducto(compra.Productoid).descripcion}}
+                                        {{producto.descripcion}}
                                     </p>
                                 </div>
                             </td>
                             <td>
-                                <input type="number" class="form-group" name="" id="">
+                                <input type="number" class="form-group w-25 text-center" name="" id="" [value]="compra.cantidad">
                             </td>
                             <td>
-                                <strong>{{getProducto(compra.Productoid).precio}} $</strong>
+                                <strong>{{producto.precio}} $</strong>
                             </td>
                             <td>
                                 <button class="btn btn-outline-danger"><i class="fas fa-times"></i></button>
                             </td>
+                            <span>{{sumarTotal(compra.cantidad, producto.precio)}} </span>
                         </tr>
                     </ng-container>
                     <tr>

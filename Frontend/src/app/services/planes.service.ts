@@ -71,17 +71,17 @@ export class PlanesService {
     return this.Planes;
   }
 
-  getPlane(id){
+  getPlane(id:number){
     return this.Planes[id];
   }
 }
 
 export interface Plan{
-  _id: Number,
-  nombrePlan: String,
-  color: String,
-  descripcion: String,
-  precio: Number,
+  _id: number,
+  nombrePlan: string,
+  color: string,
+  descripcion: string,
+  precio: number,
   fechaCreación: Date,
   restricciones: any
 }
