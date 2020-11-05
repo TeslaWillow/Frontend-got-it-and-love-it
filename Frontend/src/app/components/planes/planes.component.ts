@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlanesService, Plan } from '../../services/planes.service';
 
 @Component({
   selector: 'app-planes',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlanesComponent implements OnInit {
 
-  constructor() { }
+  public planes:Plan[];
+
+  constructor(private _PlanesService:PlanesService) { }
 
   ngOnInit(): void {
+    this.planes = this._PlanesService.getPlanes();
   }
 
+  isGratis(valor:number){
+    if(valor < 1)
+      return true;
+    else
+      return false;
+  }
 }

@@ -6,54 +6,23 @@
             </div>
         </div>
         <div class="row d-flex justify-content-between">
-            <div class="col-sm-12 col-md-4">
-                <div class="card card-red mb-3 w-100">
-                    <div class="card-header card-red bg-rojo text-center">Plan Basico</div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">9.99 $/ Mes</h5>
-                        <ul class="list-group text-sm-center text-md-left">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
-                        </ul>
+            <ng-container *ngFor="let plan of planes">
+                <div class="col-sm-12 col-md-4" *ngIf="!isGratis(plan.precio)">
+                    <div class="card mb-3 w-100" [style.border-color]="plan.color">
+                        <div class="card-header text-center" [style.border-color]="plan.color" [style.background-color]="plan.color">{{plan.nombrePlan}}</div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{plan.precio | currency}} / Mes</h5>
+                            <ul class="list-group text-sm-center text-md-left">
+                                <li class="list-group-item">Limite de Filas - <span class="font-weight-bold">{{plan.restricciones.limiteFilas}}</span></li>
+                                <li class="list-group-item">Limite de Columnas - <span class="font-weight-bold">{{plan.restricciones.limiteColumnas}}</span></li>
+                                <li class="list-group-item">Limite de Paginas - <span class="font-weight-bold">{{plan.restricciones.limitePaginas}}</span></li>
+                                <li class="list-group-item">Limite de Almacenamiento - <span class="font-weight-bold">{{plan.restricciones.limiteAlmacenamiento}}MB</span></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn" [style.background-color]="plan.color">Comprar</a>
                     </div>
-                    <a href="#" class="btn bg-rojo">Comprar</a>
                 </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="card card-naranja mb-3 w-100">
-                    <div class="card-header card-naranja bg-naranja text-center">Plan Pro</div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">19.99 $/ Mes</h5>
-                        <ul class="list-group text-sm-center text-md-left">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
-                        </ul>
-                    </div>
-                    <a href="#" class="btn bg-naranja">Comprar</a>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="card card-amarilla mb-3 w-100">
-                    <div class="card-header card-amarilla bg-amarillo text-center">Plan Ultimate</div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">21.99 $/ Mes</h5>
-                        <ul class="list-group text-sm-center text-md-left">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
-                        </ul>
-                    </div>
-                    <a href="#" class="btn bg-amarillo">Comprar</a>
-                </div>
-            </div>
+            </ng-container>
         </div>
     </div>
 </div>

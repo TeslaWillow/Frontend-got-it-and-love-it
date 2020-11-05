@@ -8,8 +8,8 @@ export class UsuariosService {
   private usuarios:Usuario[] = [
   {
       _id: 0,
-      nombre: "Raul",
-      apellido: "Perez Torres",
+      nombre: "raul",
+      apellido: "perez torres",
       correo: "raulpt@gmail.com",
       password: "pass-cliente",
       telefono: "8888-8888",
@@ -22,8 +22,8 @@ export class UsuariosService {
   },
   {
       _id: 1,
-      nombre: "Lucas",
-      apellido: "Castellanos",
+      nombre: "lucas",
+      apellido: "castellanos",
       correo: "lucscast@gmail.com",
       password: "pass-empresa",
       telefono: "9999-9999",
@@ -36,8 +36,8 @@ export class UsuariosService {
   },
   {
       _id: 3,
-      nombre: "Pedro",
-      apellido: "Martinez",
+      nombre: "pedro",
+      apellido: "martinez",
       correo: "pm@gmail.com",
       password: "pass-admin",
       telefono: "7777-7777",

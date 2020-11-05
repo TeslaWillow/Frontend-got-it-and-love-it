@@ -48,6 +48,14 @@
     background-color: #FCBF49;
 }
 
+.txt-red {
+    color: #D62828;
+}
+
+.txt-naranja {
+    color: #F77F00;
+}
+
 .close {
     outline: none;
 }

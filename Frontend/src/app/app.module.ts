@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { registerLocaleData } from '@angular/common'; //para que las fechas salgan en español
+import  localeEs  from '@angular/common/locales/es'; //para que las fechas salgan en español
 //Routes
 import { APP_ROUTING } from './app.routes';
 
@@ -34,6 +36,9 @@ import { GestionEmpresasComponent } from './components/gestion-empresas/gestion-
 import { GestionPlanesComponent } from './components/gestion-planes/gestion-planes.component';
 import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
 import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empresa.component';
+import { ActivoPipe } from './pipes/activo.pipe';
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -55,7 +60,8 @@ import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empre
     GestionEmpresasComponent,
     GestionPlanesComponent,
     GestionUsuariosComponent,
-    PaginaEmpresaComponent
+    PaginaEmpresaComponent,
+    ActivoPipe
   ],
   imports: [
     BrowserModule,
@@ -72,7 +78,11 @@ import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empre
     ComprasService,
     ProductosService,
     CategoriasService,
-    EmpresasService
+    EmpresasService, 
+    {
+      provide: LOCALE_ID,
+      useValue: 'es'
+    }
   ],
   bootstrap: [AppComponent]
 })

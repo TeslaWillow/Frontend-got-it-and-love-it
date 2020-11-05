@@ -17,7 +17,7 @@
                                     <button type="button" class="btn border" (click)="actualizarPlan(plan._id);"><i class="far fa-edit"></i></button>
                                     <button type="button" class="btn border"><i class="fas fa-times"></i></button>
                                 </div>
-                                <h5 class="card-title text-center">{{plan.precio}} $/ Mes</h5>
+                                <h5 class="card-title text-center">{{plan.precio | currency}} / Mes</h5>
                                 <ul class="list-group text-sm-center text-md-left">
                                     <li class="list-group-item">Limite de Filas - <span class="font-weight-bold">{{plan.restricciones.limiteFilas}}</span></li>
                                     <li class="list-group-item">Limite de Columnas - <span class="font-weight-bold">{{plan.restricciones.limiteColumnas}}</span></li>

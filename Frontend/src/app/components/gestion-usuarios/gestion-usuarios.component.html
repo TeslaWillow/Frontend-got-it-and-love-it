@@ -23,10 +23,10 @@
                     <ng-container *ngFor="let usuario of usuarios; let i = index">
                         <tr *ngIf="usuario.activo || !verEliminados">
                             <th scope="row">{{i}}</th>
-                            <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                            <td>{{usuario.nombre | titlecase }} {{usuario.apellido | titlecase}}</td>
                             <td>{{usuario.correo}}</td>
-                            <td>{{usuario.activo}}</td>
-                            <td>{{getTipoUsuario(usuario.tipoUsuario)}}</td>
+                            <td><i [ngClass]="usuario.activo | Activo"></i></td>
+                            <td>{{getTipoUsuario(usuario.tipoUsuario) | titlecase}}</td>
                             <td>
                                 <button class="btn naranja-outline" (click)="actualizarUsuario(usuario._id);"><i class="far fa-edit"></i></button>
                             </td>

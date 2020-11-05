@@ -8,45 +8,21 @@
             </div>
             <!-- Grid de empresas -->
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-lg-4 mb-3">
-                    <div class="card bg-dark text-white position-relative">
-                        <div class="d-flex justify-content-end w-100 position-absolute grupo-botones" role="group" aria-label="grupo de edicion">
-                            <button type="button" class="btn border"><i class="fas fa-lock"></i></button>
-                            <button type="button" class="btn border"><i class="fas fa-times"></i></button>
-                        </div>
-                        <img class="card-img img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="Card image">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title align-top">Empresa</h5>
-                            <p class="card-text align-bottom">Hogar, Comida, Salud</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-lg-4 mb-3">
-                    <div class="card bg-dark text-white position-relative">
-                        <div class="d-flex justify-content-end w-100 position-absolute grupo-botones" role="group" aria-label="grupo de edicion">
-                            <button type="button" class="btn border"><i class="fas fa-lock"></i></button>
-                            <button type="button" class="btn border"><i class="fas fa-times"></i></button>
-                        </div>
-                        <img class="card-img img-fluid" src="../../../assets/img/alexander-naglestad-Fy8o0YA-e2Q-unsplash.jpg" alt="Card image">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title align-top">Empresa</h5>
-                            <p class="card-text align-bottom">Hogar, Comida, Salud</p>
+                <ng-container *ngFor="let empresa of empresas | slice:desde:hasta">
+                    <div class="col-xs-12 col-sm-6 col-lg-4 mb-3" *ngIf="empresa">
+                        <div class="card bg-dark text-white position-relative">
+                            <div class="d-flex justify-content-end w-100 position-absolute grupo-botones" role="group" aria-label="grupo de edicion">
+                                <button type="button" class="btn border"><i class="fas fa-lock"></i></button>
+                                <button type="button" class="btn border"><i class="fas fa-times"></i></button>
+                            </div>
+                            <img class="card-img img-fluid" [src]="empresa.foto" alt="Card image">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title align-top">{{empresa.nombre | titlecase}}</h5>
+                                <p class="card-text align-bottom">{{empresa.rubro | slice:0:3 }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-lg-4 mb-3">
-                    <div class="card bg-dark text-white position-relative">
-                        <div class="d-flex justify-content-end w-100 position-absolute grupo-botones" role="group" aria-label="grupo de edicion">
-                            <button type="button" class="btn border"><i class="fas fa-lock"></i></button>
-                            <button type="button" class="btn border"><i class="fas fa-times"></i></button>
-                        </div>
-                        <img class="card-img img-fluid" src="../../../assets/img/toa-heftiba-MmPH0quV3rU-unsplash.jpg" alt="Card image">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title align-top">Empresa</h5>
-                            <p class="card-text align-bottom">Hogar, Comida, Salud</p>
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </div>
             <!-- Paginacion -->
             <div class="row mt-4">
