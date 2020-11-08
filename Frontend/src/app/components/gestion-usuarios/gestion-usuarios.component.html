@@ -28,7 +28,7 @@
                             <td><i [ngClass]="usuario.activo | Activo"></i></td>
                             <td>{{getTipoUsuario(usuario.tipoUsuario) | titlecase}}</td>
                             <td>
-                                <button class="btn naranja-outline" (click)="actualizarUsuario(usuario._id);"><i class="far fa-edit"></i></button>
+                                <button class="btn naranja-outline" (click)="modalEditUsuario(usuario._id);"><i class="far fa-edit"></i></button>
                             </td>
                             <td>
                                 <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
@@ -39,7 +39,7 @@
             </table>
             <div class="row">
                 <div class="col-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-lg bg-naranja text-white" (click)="crearNuevoUsuario();">Crear Nuevo Usuario</button>
+                    <button type="button" class="btn btn-lg bg-naranja text-white" (click)="modalNewUsuario();">Crear Nuevo Usuario</button>
                 </div>
             </div>
         </main>
@@ -55,32 +55,38 @@
         </button>
     </div>
     <div class="modal-body">
-        <form>
+        <form autocomplete="off" [formGroup]="form_new_usuarios" (ngSubmit)="guardarUsuario()">
             <div class="form-group">
                 <label for="inp_new_NombreUsuario">Nombre de usuario: </label>
-                <input type="text" class="form-control" id="inp_new_NombreUsuario">
+                <input type="text" class="form-control" id="inp_new_NombreUsuario" formControlName="nombre" [class.is-invalid]="isValid(form_new_usuarios, 'nombre')">
+                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'nombre')">Ingrese minimo 2 letras y maximo 20.</small>
             </div>
             <div class="form-group">
                 <label for="inp_new_ApellidoUsuario">Apellido de usuario: </label>
-                <input type="text" class="form-control" id="inp_new_ApellidoUsuario">
+                <input type="text" class="form-control" id="inp_new_ApellidoUsuario" formControlName="apellido" [class.is-invalid]="isValid(form_new_usuarios, 'apellido')">
+                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'apellido')">Ingrese minimo 2 letras y maximo 20.</small>
             </div>
             <div class="form-group">
                 <label for="inp_new_CorreoUsuario">Correo de usuario: </label>
-                <input type="email" class="form-control" id="inp_new_CorreoUsuario">
+                <input type="email" class="form-control" id="inp_new_CorreoUsuario" formControlName="correo" [class.is-invalid]="isValid(form_new_usuarios, 'correo')">
+                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'correo')">El correo no es valido o ya esta registrado</small>
             </div>
             <div class="form-group">
                 <label for="inp_new_pass">Contraseña del usuario: </label>
-                <input type="password" class="form-control" id="inp_new_pass">
+                <input type="password" class="form-control" id="inp_new_pass" formControlName="pass" [class.is-invalid]="isValid(form_new_usuarios, 'pass')">
+                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'pass')">La contraseña debe tener minimo 8 caracteres</small>
             </div>
             <div class="form-group">
                 <label for="inp_new_passRepeat">Repetir contraseña del usuario: </label>
-                <input type="password" class="form-control" id="inp_new_passRepeat">
+                <input type="password" class="form-control" id="inp_new_passRepeat" formControlName="rpt_pass" [class.is-invalid]="isValid(form_new_usuarios, 'rpt_pass')">
+                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'rpt_pass')">Repetir contraseña</small>
             </div>
             <div class="form-group">
                 <label for="inp_new_tipoUsuario">Tipo de usuario: </label>
-                <select class="form-control" id="inp_new_tipoUsuario">
+                <select class="form-control" id="inp_new_tipoUsuario" formControlName="tipo" [class.is-invalid]="isValid(form_new_usuarios, 'tipo')">
                     <option *ngFor="let tipo of tiposUsuario" [ngValue]="tipo._id">{{tipo.tipo}}</option>
                 </select>
+                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'tipo')">El tipo de usuario es obligatorio</small>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
@@ -99,23 +105,26 @@
         </button>
     </div>
     <div class="modal-body">
-        <form>
+        <form autocomplete="off" [formGroup]="form_edit_usuarios" (ngSubmit)="actualizarUsuario()">
             <div class="form-group">
                 <label for="inp_edit_NombreUsuario">Nombre de usuario: </label>
-                <input [formControl]="form_nombre" type="text" class="form-control" id="inp_edit_NombreUsuario">
+                <input formControlName="nombre" type="text" class="form-control" id="inp_edit_NombreUsuario" [class.is-invalid]="isValid(form_edit_usuarios, 'nombre')">
+                <small class="text-danger" *ngIf="isValid(form_edit_usuarios, 'nombre')">Ingrese minimo 2 letras y maximo 20.</small>
             </div>
             <div class="form-group">
                 <label for="inp_edit_ApellidoUsuario">Apellido de usuario: </label>
-                <input [formControl]="form_apellido" type="text" class="form-control" id="inp_edit_ApellidoUsuario">
+                <input formControlName="apellido" type="text" class="form-control" id="inp_edit_ApellidoUsuario" [class.is-invalid]="isValid(form_edit_usuarios, 'apellido')">
+                <small class="text-danger" *ngIf="isValid(form_edit_usuarios, 'apellido')">Ingrese minimo 2 letras y maximo 20.</small>
             </div>
             <div class="form-group">
                 <label for="inp_edit_tipoUsuario">Tipo de usuario: </label>
-                <select [formControl]="form_tipoUsuario" class="form-control" id="inp_edit_tipoUsuario">
+                <select formControlName="tipo" class="form-control" id="inp_edit_tipoUsuario" [class.is-invalid]="isValid(form_edit_usuarios, 'tipo')">
                   <option *ngFor="let tipo of tiposUsuario" [ngValue]="tipo._id">{{tipo.tipo}}</option>
                 </select>
+                <small class="text-danger" *ngIf="isValid(form_edit_usuarios, 'tipo')">El tipo de usuario es obligatorio</small>
             </div>
             <div class="form-group form-check">
-                <input [formControl]="form_activo" type="checkbox" class="form-check-input" id="inp_edit_estadoUsuario" checked>
+                <input formControlName="activo" type="checkbox" class="form-check-input" id="inp_edit_estadoUsuario" [class.is-invalid]="isValid(form_edit_usuarios, 'activo')">
                 <label class="form-check-label" for="inp_edit_estadoUsuario">Estado activo</label>
                 <small id="emailHelp" class="form-text text-muted">Marcar si el usuario esta activo, de lo contrario estara bloqueado del sistema</small>
             </div>
