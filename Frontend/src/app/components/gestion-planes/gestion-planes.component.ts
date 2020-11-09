@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlanesService, Plan } from '../../services/planes.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-gestion-planes',
@@ -12,52 +12,158 @@ export class GestionPlanesComponent implements OnInit {
 
   public planes:Plan[];
   //Variables para formularios reactivos
-  public form_nombrePlan:FormControl = new FormControl('');
-  public form_color:FormControl = new FormControl('');
-  public form_descripcion:FormControl = new FormControl('');
-  public form_precio:FormControl = new FormControl('');
-  public form_limiteFilas:FormControl = new FormControl('');
-  public form_limiteColumnas:FormControl = new FormControl('');
-  public form_limitePaginas:FormControl = new FormControl('');
-  public form_limiteAlmacenamiento:FormControl = new FormControl('');
+  public form_edit_planes:FormGroup;
+  public form_new_planes:FormGroup;
 
   @ViewChild ('modalCrearPlan') modalCrearPlan;
   @ViewChild ('modalActualizarPlan') modalActualizarPlan;
-  constructor(private modalService:NgbModal, private _PlanesService:PlanesService) { }
+  constructor(
+    private _PlanesService:PlanesService, 
+    private modalService:NgbModal, 
+    private fb:FormBuilder
+  ) { 
+    this.crearFormulario();
+  }
 
   ngOnInit(): void {
     this.planes = this._PlanesService.getPlanes();
   }
 
-  crearPlan(){
-    this.form_nombrePlan.setValue("");
-    this.form_color.setValue("");
-    this.form_descripcion.setValue(""); //El valor (id) del html, tiene que hacer match, con el valor de la variable de formulario reactivo para cambiar
-    this.form_precio.setValue("");
-    this.form_limiteFilas.setValue("");
-    this.form_limiteColumnas.setValue("");
-    this.form_limitePaginas.setValue("");
-    this.form_limiteAlmacenamiento.setValue("");
+  cargarCrearPlan(){
     this.modalService.open(this.modalCrearPlan, {size: 'lg'});
   }
 
-  actualizarPlan(id:number){
+  cargarActualizarPlan(id:number){
     let plan = this._PlanesService.getPlane(id);
-    this.form_nombrePlan.setValue(plan.nombrePlan);
-    this.form_color.setValue(plan.color);
-    this.form_descripcion.setValue(plan.descripcion); //El valor (id) del html, tiene que hacer match, con el valor de la variable de formulario reactivo para cambiar
-    this.form_precio.setValue(plan.precio);
-    this.form_limiteFilas.setValue(plan.restricciones.limiteFilas);
-    this.form_limiteColumnas.setValue(plan.restricciones.limiteColumnas);
-    this.form_limitePaginas.setValue(plan.restricciones.limitePaginas);
-    this.form_limiteAlmacenamiento.setValue(plan.restricciones.limiteAlmacenamiento);
+    this.form_edit_planes = this.fb.group({
+      nombrePlan: [plan.nombrePlan, 
+        [
+          Validators.required, 
+          Validators.minLength(2),
+          Validators.maxLength(15)
+        ]
+      ],
+      color: [plan.color, Validators.required ],
+      descripcion: [plan.descripcion],
+      precio: [plan.precio, 
+        [
+          Validators.required, 
+          Validators.min(0.99),
+          Validators.max(999.99)
+        ]
+      ],
+      limiteFilas: [plan.restricciones.limiteFilas, 
+        [
+          Validators.required, 
+          Validators.min(3),
+          Validators.max(7)
+        ]
+      ],
+      limiteColumnas: [plan.restricciones.limiteColumnas,
+        [
+          Validators.required, 
+          Validators.min(1),
+          Validators.max(12)
+        ]
+      ],
+      limitePaginas: [plan.restricciones.limitePaginas,
+        [
+          Validators.required,
+          Validators.min(1),
+          Validators.max(3)
+        ]
+      ],
+      limiteAlmacenamiento: [plan.restricciones.limiteAlmacenamiento,
+        [
+          Validators.required, 
+          Validators.min(50),
+          Validators.max(1024)
+        ]
+      ]      
+    });
+
     this.modalService.open(this.modalActualizarPlan, {size: 'lg'});
   }
 
+  crearFormulario(){
+    this.form_new_planes = this.fb.group({
+      nombrePlan: ['', 
+        [
+          Validators.required, 
+          Validators.minLength(2),
+          Validators.maxLength(15)
+        ]
+      ],
+      color: ['', Validators.required ],
+      descripcion: [''],
+      precio: ['', 
+        [
+          Validators.required, 
+          Validators.min(0.99),
+          Validators.max(999.99)
+        ]
+      ],
+      limiteFilas: ['', 
+        [
+          Validators.required, 
+          Validators.min(3),
+          Validators.max(7)
+        ]
+      ],
+      limiteColumnas: ['',
+        [
+          Validators.required, 
+          Validators.min(1),
+          Validators.max(12)
+        ]
+      ],
+      limitePaginas: ['',
+        [
+          Validators.required,
+          Validators.min(1),
+          Validators.max(3)
+        ]
+      ],
+      limiteAlmacenamiento: ['',
+        [
+          Validators.required, 
+          Validators.min(50),
+          Validators.max(1024)
+        ]
+      ]      
+    });
+  }
+
   isGratis(valor:number){
-    if(valor < 1)
+    if(valor < 0.99)
       return true;
     else
       return false;
   }
+
+  /* Validador generico*/
+  isValid(formulario:FormGroup, campo:string){
+    return formulario.get(campo).invalid && formulario.get(campo).touched;
+  }
+
+  guardarPlan(){
+    console.log("plan guardado");
+    console.log(this.form_new_planes);
+    if(this.form_new_planes.invalid){
+      return Object.values(this.form_new_planes.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    }
+  }
+
+  actualizarPlan(){
+    console.log("plan actualizado");
+    console.log(this.form_edit_planes);
+    if(this.form_edit_planes.invalid){
+      return Object.values(this.form_edit_planes.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    }
+  }
+
 }

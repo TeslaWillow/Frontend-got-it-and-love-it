@@ -14,7 +14,7 @@
                             <div class="card-header text-center" [style.border-color]="plan.color" [style.background-color]="plan.color">{{plan.nombrePlan}}</div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
-                                    <button type="button" class="btn border" (click)="actualizarPlan(plan._id);"><i class="far fa-edit"></i></button>
+                                    <button type="button" class="btn border" (click)="cargarActualizarPlan(plan._id);"><i class="far fa-edit"></i></button>
                                     <button type="button" class="btn border"><i class="fas fa-times"></i></button>
                                 </div>
                                 <h5 class="card-title text-center">{{plan.precio | currency}} / Mes</h5>
@@ -31,7 +31,7 @@
             </div>
             <div class="row">
                 <div class="col-12 d-flex justify-content-end">
-                    <button type="button" class="btn bg-naranja btn-lg text-white" (click)="crearPlan();">Crear Nuevo Plan</button>
+                    <button type="button" class="btn bg-naranja btn-lg text-white" (click)="cargarCrearPlan();">Crear Nuevo Plan</button>
                 </div>
             </div>
         </main>
@@ -47,48 +47,55 @@
         </button>
     </div>
     <div class="modal-body">
-        <form action="">
+        <form autocomplete="off" [formGroup]="form_new_planes" (ngSubmit)="guardarPlan()">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inp_edit_nombrePlan">Nombre del plan: </label>
-                    <input [formControl]="form_nombrePlan" type="text" class="form-control" id="inp_edit_nombrePlan" required>
+                    <input formControlName="nombrePlan" type="text" class="form-control" id="inp_edit_nombrePlan" [class.is-invalid]="isValid(form_new_planes, 'nombrePlan')">
+                    <small class="text-danger" *ngIf="isValid(form_new_planes, 'nombrePlan')">Ingrese minimo 2 caracteres y maximo 20.</small>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inp_edit_nombrePlan">Color del plan: </label>
-                    <input [formControl]="form_color" type="color" class="form-control" id="inp_edit_nombrePlan" required>
+                    <input formControlName="color" type="color" class="form-control" id="inp_new_color" [class.is-invalid]="isValid(form_new_planes, 'color')">
+                    <small class="text-danger" *ngIf="isValid(form_new_planes, 'color')">Fije un color.</small>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inp_edit_precioPlan">Precio del plan: </label>
-                    <input [formControl]="form_precio" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="precio" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_new_planes, 'precio')">
+                    <small class="text-danger" *ngIf="isValid(form_new_planes, 'precio')">El precio minimo es de 0.99 y 999.99 max</small>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inp_edit_descripcion">Descripcion plan: </label>
-                <textarea [formControl]="form_descripcion" class="form-control" id="inp_edit_descripcion" rows="3"></textarea>
+                <textarea formControlName="descripcion" class="form-control" id="inp_edit_descripcion" rows="3"></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Filas: </label>
-                    <input [formControl]="form_limiteFilas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limiteFilas" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_new_planes, 'limiteFilas')">
+                    <small class="text-danger" *ngIf="isValid(form_new_planes, 'limiteFilas')">Minimo 3 filas y maximo 7</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Columnas: </label>
-                    <input [formControl]="form_limiteColumnas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limiteColumnas" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_new_planes, 'limiteColumnas')">
+                    <small class="text-danger" *ngIf="isValid(form_new_planes, 'limiteColumnas')">Minimo 1 columna y maximo 12</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Paginas: </label>
-                    <input [formControl]="form_limitePaginas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limitePaginas" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_new_planes, 'limitePaginas')">
+                    <small class="text-danger" *ngIf="isValid(form_new_planes, 'limitePaginas')">Minimo 1 paginas y maximo 3</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Almacenamiento: </label>
-                    <input [formControl]="form_limiteAlmacenamiento" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limiteAlmacenamiento" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_new_planes, 'limiteAlmacenamiento')">
+                    <small class="text-danger" *ngIf="isValid(form_new_planes, 'limiteAlmacenamiento')">Minimo 50 MB y maximo 1024</small>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Crear Usuario</button>
+            </div>
         </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
-        <button type="button" class="btn btn-primary">Crear Usuario</button>
     </div>
 </ng-template>
 
@@ -101,41 +108,48 @@
         </button>
     </div>
     <div class="modal-body">
-        <form action="">
+        <form autocomplete="off" [formGroup]="form_edit_planes" (ngSubmit)="guardarPlan()">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inp_edit_nombrePlan">Nombre del plan: </label>
-                    <input [formControl]="form_nombrePlan" type="text" class="form-control" id="inp_edit_nombrePlan" required>
+                    <input formControlName="nombrePlan" type="text" class="form-control" id="inp_edit_nombrePlan" [class.is-invalid]="isValid(form_edit_planes, 'nombrePlan')">
+                    <small class="text-danger" *ngIf="isValid(form_edit_planes, 'nombrePlan')">Ingrese minimo 2 caracteres y maximo 20.</small>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inp_edit_nombrePlan">Color del plan: </label>
-                    <input [formControl]="form_color" type="color" class="form-control" id="inp_edit_nombrePlan" required>
+                    <input formControlName="color" type="color" class="form-control" id="inp_edit_nombrePlan" [class.is-invalid]="isValid(form_edit_planes, 'color')">
+                    <small class="text-danger" *ngIf="isValid(form_edit_planes, 'color')">Fije un color.</small>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inp_edit_precioPlan">Precio del plan: </label>
-                    <input [formControl]="form_precio" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="descripcion" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_edit_planes, 'descripcion')">
+                    <small class="text-danger" *ngIf="isValid(form_edit_planes, 'precio')">El precio minimo es de 0.99 y 999.99 max</small>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inp_edit_descripcion">Descripcion plan: </label>
-                <textarea [formControl]="form_descripcion" class="form-control" id="inp_edit_descripcion" rows="3"></textarea>
+                <textarea formControlName="precio" class="form-control" id="inp_edit_descripcion" rows="3" [class.is-invalid]="isValid(form_edit_planes, 'precio')"></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Filas: </label>
-                    <input [formControl]="form_limiteFilas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limiteFilas" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_edit_planes, 'limiteFilas')">
+                    <small class="text-danger" *ngIf="isValid(form_edit_planes, 'limiteFilas')">Minimo 3 filas y maximo 7</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Columnas: </label>
-                    <input [formControl]="form_limiteColumnas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limiteColumnas" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_edit_planes, 'limiteColumnas')">
+                    <small class="text-danger" *ngIf="isValid(form_edit_planes, 'limiteColumnas')">Minimo 1 columna y maximo 12</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Paginas: </label>
-                    <input [formControl]="form_limitePaginas" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limitePaginas" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_edit_planes, 'limitePaginas')">
+                    <small class="text-danger" *ngIf="isValid(form_edit_planes, 'limitePaginas')">Minimo 1 paginas y maximo 3</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inp_edit_precioPlan">Limite de Almacenamiento: </label>
-                    <input [formControl]="form_limiteAlmacenamiento" type="number" class="form-control" id="inp_edit_precioPlan" min="1" max="1000" required>
+                    <input formControlName="limiteAlmacenamiento" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_edit_planes, 'limiteAlmacenamiento')">
+                    <small class="text-danger" *ngIf="isValid(form_edit_planes, 'limiteAlmacenamiento')">Minimo 50 MB y maximo 1024</small>
                 </div>
             </div>
         </form>
