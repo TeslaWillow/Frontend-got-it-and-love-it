@@ -37,6 +37,8 @@ import { GestionPlanesComponent } from './components/gestion-planes/gestion-plan
 import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
 import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empresa.component';
 import { ActivoPipe } from './pipes/activo.pipe';
+import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
+import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa/lista-paginas-empresa.component';
 
 registerLocaleData(localeEs);
 
@@ -61,7 +63,9 @@ registerLocaleData(localeEs);
     GestionPlanesComponent,
     GestionUsuariosComponent,
     PaginaEmpresaComponent,
-    ActivoPipe
+    ActivoPipe,
+    EditarPerfilComponent,
+    ListaPaginasEmpresaComponent
   ],
   imports: [
     BrowserModule,

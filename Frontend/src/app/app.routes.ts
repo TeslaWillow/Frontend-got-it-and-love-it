@@ -7,6 +7,8 @@ import { EmpresasComponent } from './components/empresas/empresas.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
+
 // Cliente/usuario
 import { HistorialComprasComponent } from './components/historial-compras/historial-compras.component';
 import { CarritoComprasComponent } from './components/carrito-compras/carrito-compras.component';
@@ -14,6 +16,7 @@ import { CarritoComprasComponent } from './components/carrito-compras/carrito-co
 import { BancoArchivosComponent } from './components/banco-archivos/banco-archivos.component';
 import { PlanActualComponent } from './components/plan-actual/plan-actual.component';
 import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empresa.component';
+import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa/lista-paginas-empresa.component';
 // Admin
 import { GestionPlanesComponent } from './components/gestion-planes/gestion-planes.component';
 import { GestionEmpresasComponent } from './components/gestion-empresas/gestion-empresas.component';
@@ -36,6 +39,8 @@ const APP_ROUTES: Routes = [
     {path: 'gestion-planes', component : GestionPlanesComponent},
     {path: 'gestion-empresas', component : GestionEmpresasComponent},
     {path: 'gestion-usuarios', component : GestionUsuariosComponent},
+    {path: 'lista-paginas', component : ListaPaginasEmpresaComponent},
+    {path: 'editar-perfil', component : EditarPerfilComponent},
     {path: '**', pathMatch: 'full', redirectTo: 'landing-page'}
 ];
 

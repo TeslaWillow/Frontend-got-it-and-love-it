@@ -2,14 +2,16 @@
     <div class="container">
         <h1 class="my-5">Inicio sesión de administrador</h1>
         <div class="card px-5 py-4 m-auto" style="max-width: 950px;">
-            <form>
+            <form autocomplete="off" [formGroup]="form_login" (ngSubmit)="loggear()">
                 <div class="form-group">
                     <label for="correoElectronico">Correo Electronico</label>
-                    <input type="email" class="form-control" id="correoElectronico" aria-describedby="correoElectronico">
+                    <input formControlName="correo" type="email" class="form-control" id="correoElectronico" aria-describedby="correoElectronico" [class.is-invalid]="isValid(form_login, 'correo')">
+                    <small class="text-danger" *ngIf="isValid(form_login, 'correo')">El correo no es valido</small>
                 </div>
                 <div class="form-group">
                     <label for="passwordUsuario">Contraseña</label>
-                    <input type="password" class="form-control" id="passwordUsuario">
+                    <input formControlName="pass" type="password" class="form-control" id="passwordUsuario" [class.is-invalid]="isValid(form_login, 'pass')">
+                    <small class="text-danger" *ngIf="isValid(form_login, 'pass')">La contraseña debe tener minimo 8 caracteres</small>
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-confirmar btn-block mb-3">Confirmar</button>

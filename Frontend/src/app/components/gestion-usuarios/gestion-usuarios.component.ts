@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuariosService, Usuario } from '../../services/usuarios.service';
 import { TipoUsuario, TipoUsuarioService } from '../../services/tipo-usuario.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-gestion-usuarios',
@@ -41,23 +41,11 @@ export class GestionUsuariosComponent implements OnInit {
   /* Metodos para abrir y cargar data en los modales*/
   modalEditUsuario(id:number){
     let usuario = this._UsuariosService.getUsuario(id);
-    this.form_edit_usuarios = this.fb.group({
-      nombre: [usuario.nombre, 
-        [
-          Validators.required, 
-          Validators.minLength(2),
-          Validators.maxLength(20)
-        ]
-      ],
-      apellido: [usuario.apellido, 
-        [
-          Validators.required, 
-          Validators.minLength(2),
-          Validators.maxLength(20)
-        ]
-      ],
-      tipo: [usuario.tipoUsuario, Validators.required],
-      activo: [usuario.activo, Validators.required]
+    this.form_edit_usuarios.setValue({
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      tipo: usuario.tipoUsuario,
+      activo: usuario.activo
     });
     this.modalService.open(this.modalActualizarUsuario, {size: 'lg'});
   }
@@ -105,6 +93,25 @@ export class GestionUsuariosComponent implements OnInit {
         ]
       ],
       tipo: ['', Validators.required]
+    });
+    
+    this.form_edit_usuarios = this.fb.group({
+      nombre: ['', 
+        [
+          Validators.required, 
+          Validators.minLength(2),
+          Validators.maxLength(20)
+        ]
+      ],
+      apellido: ['', 
+        [
+          Validators.required, 
+          Validators.minLength(2),
+          Validators.maxLength(20)
+        ]
+      ],
+      tipo: ['',  Validators.required],
+      activo: ['',  Validators.required]
     });
   }
 

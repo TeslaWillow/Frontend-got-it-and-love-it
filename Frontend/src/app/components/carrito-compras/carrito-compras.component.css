@@ -30,3 +30,17 @@
     max-height: 200px;
     max-width: 550px;
 }
+
+.amarillo-outline {
+    color: #FCBF49;
+    border-color: #FCBF49;
+}
+
+.amarillo-outline:hover {
+    color: #FFF;
+    background-color: #FCBF49;
+}
+
+.bg-amarillo {
+    background-color: #FCBF49;
+}

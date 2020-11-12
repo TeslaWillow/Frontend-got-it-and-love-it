@@ -33,7 +33,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="number" class="form-group w-25 text-center" name="" id="" [value]="compra.cantidad">
+                                <input type="number" class="form-group w-25 text-center" name="cantidad" id="cantidad" [value]="compra.cantidad">
                             </td>
                             <td>
                                 <strong>{{producto.precio}} $</strong>
@@ -41,20 +41,24 @@
                             <td>
                                 <button class="btn btn-outline-danger"><i class="fas fa-times"></i></button>
                             </td>
-                            <span>{{sumarTotal(compra.cantidad, producto.precio)}} </span>
                         </tr>
                     </ng-container>
                     <tr>
                         <th scope="row"></th>
                         <td>Total</td>
                         <td></td>
-                        <td><strong>9.99 $</strong></td>
+                        <td><strong>{{sumarTotal()}} $</strong></td>
                         <td></td>
                         <td></td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <button class="btn amarillo-outline btn-lg mr-5">Comprar</button>
+                </div>
+            </div>
         </main>
     </div>
 </div>

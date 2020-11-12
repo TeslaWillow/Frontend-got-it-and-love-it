@@ -12,11 +12,11 @@ export class CarritoComprasComponent implements OnInit {
   private lStorage = window.localStorage;
   public compras:Compra[];
   public producto:Producto;
-  public total:number;
 
   constructor(
     private _ComprasService:ComprasService,
-    private _ProductosService:ProductosService) { }
+    private _ProductosService:ProductosService) { 
+    }
 
   ngOnInit(): void {
     let compras = this._ComprasService.getCompras();
@@ -30,12 +30,19 @@ export class CarritoComprasComponent implements OnInit {
 
   getProducto(id:number){
     this.producto = this._ProductosService.getProducto(id);
-    console.log(this.producto);
   }
 
-  sumarTotal(cantidad:number, precio:number):void{
-    console.log("hola");
-    let totalItem = (cantidad * precio);
-    this.total += totalItem;
+  actualizarCantidad(index:number){
+    let carritoStorage = JSON.parse(this.lStorage.getItem('carrito'));
+  }
+
+  sumarTotal(){
+    let total = 0;
+    let carritoStorage = JSON.parse(this.lStorage.getItem('carrito'));
+    carritoStorage.forEach(compra => {
+      let producto = this._ProductosService.getProducto(compra.Productoid);
+      total += producto.precio * compra.cantidad;
+    });
+    return total;
   }
 }
