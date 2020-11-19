@@ -12,8 +12,7 @@ export class GestionPlanesComponent implements OnInit {
 
   public planes:Plan[];
   //Variables para formularios reactivos
-  public form_edit_planes:FormGroup;
-  public form_new_planes:FormGroup;
+  public form_planes:FormGroup;
 
   @ViewChild ('modalCrearPlan') modalCrearPlan;
   @ViewChild ('modalActualizarPlan') modalActualizarPlan;
@@ -30,63 +29,29 @@ export class GestionPlanesComponent implements OnInit {
   }
 
   cargarCrearPlan(){
+    this.form_planes.reset();
+
     this.modalService.open(this.modalCrearPlan, {size: 'lg'});
   }
 
   cargarActualizarPlan(id:number){
     let plan = this._PlanesService.getPlane(id);
-    this.form_edit_planes = this.fb.group({
-      nombrePlan: [plan.nombrePlan, 
-        [
-          Validators.required, 
-          Validators.minLength(2),
-          Validators.maxLength(15)
-        ]
-      ],
-      color: [plan.color, Validators.required ],
-      descripcion: [plan.descripcion],
-      precio: [plan.precio, 
-        [
-          Validators.required, 
-          Validators.min(0.99),
-          Validators.max(999.99)
-        ]
-      ],
-      limiteFilas: [plan.restricciones.limiteFilas, 
-        [
-          Validators.required, 
-          Validators.min(3),
-          Validators.max(7)
-        ]
-      ],
-      limiteColumnas: [plan.restricciones.limiteColumnas,
-        [
-          Validators.required, 
-          Validators.min(1),
-          Validators.max(12)
-        ]
-      ],
-      limitePaginas: [plan.restricciones.limitePaginas,
-        [
-          Validators.required,
-          Validators.min(1),
-          Validators.max(3)
-        ]
-      ],
-      limiteAlmacenamiento: [plan.restricciones.limiteAlmacenamiento,
-        [
-          Validators.required, 
-          Validators.min(50),
-          Validators.max(1024)
-        ]
-      ]      
+    this.form_planes.setValue({
+      nombrePlan: plan.nombrePlan,
+      color: plan.color,
+      descripcion:  plan.descripcion,
+      precio: plan.precio,
+      limiteFilas: plan.restricciones.limiteFilas,
+      limiteColumnas: plan.restricciones.limiteColumnas,
+      limitePaginas: plan.restricciones.limitePaginas,
+      limiteAlmacenamiento: plan.restricciones.limiteAlmacenamiento
     });
 
     this.modalService.open(this.modalActualizarPlan, {size: 'lg'});
   }
 
   crearFormulario(){
-    this.form_new_planes = this.fb.group({
+    this.form_planes = this.fb.group({
       nombrePlan: ['', 
         [
           Validators.required, 
@@ -148,19 +113,9 @@ export class GestionPlanesComponent implements OnInit {
 
   guardarPlan(){
     console.log("plan guardado");
-    console.log(this.form_new_planes);
-    if(this.form_new_planes.invalid){
-      return Object.values(this.form_new_planes.controls).forEach(control => {
-        control.markAsTouched();
-      });
-    }
-  }
-
-  actualizarPlan(){
-    console.log("plan actualizado");
-    console.log(this.form_edit_planes);
-    if(this.form_edit_planes.invalid){
-      return Object.values(this.form_edit_planes.controls).forEach(control => {
+    console.log(this.form_planes);
+    if(this.form_planes.invalid){
+      return Object.values(this.form_planes.controls).forEach(control => {
         control.markAsTouched();
       });
     }
