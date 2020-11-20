@@ -36,7 +36,7 @@ export class GestionPlanesComponent implements OnInit {
 
   cargarActualizarPlan(id:number){
     let plan = this._PlanesService.getPlane(id);
-    this.form_planes.setValue({
+    this.form_planes.reset({
       nombrePlan: plan.nombrePlan,
       color: plan.color,
       descripcion:  plan.descripcion,

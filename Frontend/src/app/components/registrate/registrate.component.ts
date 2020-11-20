@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsuariosService, Usuario } from '../../services/usuarios.service';
+import { ValidadoresService } from '../../services/validadores.service';
 
 
 @Component({
@@ -14,11 +15,13 @@ export class RegistrateComponent implements OnInit {
   public isEmpresa:Boolean = false;
   public form_reg_usuario:FormGroup;
 
-  constructor(private fb:FormBuilder) {
-    this.crearFormulario();
-   }
+  constructor(
+    private fb:FormBuilder,
+    private _ValidadoresService:ValidadoresService
+    ) {}
 
   ngOnInit(): void {
+    this.crearFormulario();
   }
 
   crearFormulario(){
@@ -49,29 +52,36 @@ export class RegistrateComponent implements OnInit {
           Validators.minLength(8)
         ]
       ],
-      rpt_pass: ['', 
-        [
-          Validators.required, 
-          Validators.minLength(8)
-        ]
-      ],
-      tipo: ['', Validators.required],
-      empresa: this.fb.group({
-        nombreEmpresa: ['',
-          [
-            Validators.required, 
-            Validators.minLength(1),
-            Validators.maxLength(20)
-          ]
-        ],
-        direccionEmpresa: [''],
-        rubroEmpresa: ['', Validators.required]
-      })
+      rpt_pass: [''],
+      tipo: ['cliente', Validators.required],
+      nombreEmpresa: [''],
+      direccionEmpresa: [''],
+      rubroEmpresa: ['']
+    }, {
+      validators: [
+        this._ValidadoresService.passMatch('pass','rpt_pass'),
+        this._ValidadoresService.validatorEmpresa('tipo','nombreEmpresa','rubroEmpresa')
+      ]
     });
+  }
+
+  rpt_pass(){
+    const pass1 = this.form_reg_usuario.get('pass').value;
+    const pass2 = this.form_reg_usuario.get('rpt_pass').value;
+
+    return (pass1 === pass2) ? false : true;
   }
 
   isValid(formulario:FormGroup, campo:string){
     return formulario.get(campo).invalid && formulario.get(campo).touched;
+  }
+
+  radioTipoUsuario(tipo:string){
+    if(tipo === "cliente")
+      this.isEmpresa = false;
+    else
+      this.isEmpresa = true;
+    this.form_reg_usuario.get('tipo').setValue(tipo);
   }
 
   guardarUsuario(){
