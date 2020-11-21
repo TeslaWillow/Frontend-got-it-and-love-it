@@ -58,7 +58,7 @@ export class UsuariosService {
     return this.usuarios;
   }
 
-  getUsuario(id:Number){
+  getUsuario(id:number){
     let resultado;
     this.usuarios.forEach(usuario => {
       if(usuario._id === id)
@@ -66,19 +66,30 @@ export class UsuariosService {
     });
     return resultado;
   }
+
+  validarUsuario(correo:string, password:string){
+    let resultado = null;
+    for (const usuario of this.usuarios) {
+      if((usuario.correo === correo) && (usuario.password === password)){
+        resultado = usuario;
+        break
+      }
+    }
+    return resultado;
+  }
 }
 
 export interface Usuario {
-  _id: Number, //Seran objectId()
-  nombre: String,
-  apellido: String,
-  correo: String,
-  password: String,
-  telefono: String,
-  foto: String,
-  tipoUsuario: Number, //Seran objectId()
-  plan: Number, //Seran objectId()
-  activo: Boolean,
+  _id: number, //Seran objectId()
+  nombre: string,
+  apellido: string,
+  correo: string,
+  password: string,
+  telefono: string,
+  foto: string,
+  tipoUsuario: number, //Seran objectId()
+  plan: number, //Seran objectId()
+  activo: boolean,
   compras: any[],
   empresa: any[]
 }

@@ -64,7 +64,7 @@ export class CategoriasService {
 }
 
 export interface Categoria{
-  _id: Number,
-  nombre: String,
-  descripcion: String
+  _id: number,
+  nombre: string,
+  descripcion: string
 }

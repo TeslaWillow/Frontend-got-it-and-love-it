@@ -78,7 +78,7 @@ export class EmpresasService {
     return this.empresas;
   }
 
-  getEmpresa(id:Number){
+  getEmpresa(id:number){
     let resultado;
     this.empresas.forEach(empresa => {
       if(empresa._id === id)
@@ -89,11 +89,11 @@ export class EmpresasService {
 }
 
 export interface Empresa{
-  _id: Number,
-  nombre: String,
-  direccion: String,
-  foto: String,
-  rubro: String[],
-  productos: Number[],
+  _id: number,
+  nombre: string,
+  direccion: string,
+  foto: string,
+  rubro: string[],
+  productos: number[],
   paginas: any[]
 }

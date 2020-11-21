@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-inicio-sesion-usuario',
@@ -10,7 +11,10 @@ export class InicioSesionUsuarioComponent implements OnInit {
   
   public form_login:FormGroup;
 
-  constructor(private fb:FormBuilder) { }
+  constructor(
+    private fb:FormBuilder,
+    private auth:AuthService
+    ) { }
 
   ngOnInit(): void {
     this.crearFormulario();
@@ -40,6 +44,17 @@ export class InicioSesionUsuarioComponent implements OnInit {
   }
 
   loggear(){
-    console.log("logeando usuario");
+    if(this.form_login.invalid){
+      return Object.values(this.form_login.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    }else{
+      let correo:string = this.form_login.get('correo').value; 
+      let pass:string = this.form_login.get('pass').value;
+      if(this.auth.login(correo, pass))
+        console.log("logeando usuario");
+      else
+        console.log("usuario o contraseña invalidos");
+    }
   }
 }

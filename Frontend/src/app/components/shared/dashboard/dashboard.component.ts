@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +9,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private auth: AuthService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
   }
 
+  cerrarSession(){
+    this.auth.logout();
+    this.router.navigateByUrl('/inicio-sesion-usuario');
+  }
 }

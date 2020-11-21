@@ -76,7 +76,7 @@
         </section>
         <div class="w-75 m-auto pb-5">
             <button type="button" class="btn bg-naranja  btn-block" [routerLink]="['/editar-perfil']"><i class="fas fa-user-cog"></i> Editar perfil</button>
-            <button type="button" class="btn bg-rojo  btn-block" [routerLink]="['/inicio-sesion-usuario']"><i class="fas fa-user-lock"></i> Cerrar Sesión</button>
+            <button type="button" class="btn bg-rojo  btn-block" (click)="cerrarSession()"><i class="fas fa-user-lock"></i> Cerrar Sesión</button>
         </div>
     </div>
 </nav>

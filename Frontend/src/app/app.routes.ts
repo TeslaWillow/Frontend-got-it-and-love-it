@@ -21,6 +21,7 @@ import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa
 import { GestionPlanesComponent } from './components/gestion-planes/gestion-planes.component';
 import { GestionEmpresasComponent } from './components/gestion-empresas/gestion-empresas.component';
 import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const APP_ROUTES: Routes = [
     {path: 'landing-page', component : LandingPageComponent},
@@ -30,17 +31,19 @@ const APP_ROUTES: Routes = [
     {path: 'empresas', component : EmpresasComponent},
     {path: 'admin', component : AdminComponent},
     {path: '404', component : NotFoundComponent},
-    {path: 'dashboard', component : DashboardComponent},
-    {path: 'carrito', component : CarritoComprasComponent},
-    {path: 'historial-compras', component : HistorialComprasComponent},
-    {path: 'banco-archivos', component : BancoArchivosComponent},
-    {path: 'pagina-empresa', component : PaginaEmpresaComponent},
-    {path: 'plan-actual', component : PlanActualComponent},
-    {path: 'gestion-planes', component : GestionPlanesComponent},
-    {path: 'gestion-empresas', component : GestionEmpresasComponent},
-    {path: 'gestion-usuarios', component : GestionUsuariosComponent},
-    {path: 'lista-paginas', component : ListaPaginasEmpresaComponent},
-    {path: 'editar-perfil', component : EditarPerfilComponent},
+    //Rutas que requieren autenticacion
+    {path: 'dashboard', component : DashboardComponent, canActivate: [ AuthGuard ]},
+    {path: 'carrito', component : CarritoComprasComponent, canActivate: [ AuthGuard ]},
+    {path: 'historial-compras', component : HistorialComprasComponent, canActivate: [ AuthGuard ]},
+    {path: 'banco-archivos', component : BancoArchivosComponent, canActivate: [ AuthGuard ]},
+    {path: 'pagina-empresa', component : PaginaEmpresaComponent, canActivate: [ AuthGuard ]},
+    {path: 'plan-actual', component : PlanActualComponent, canActivate: [ AuthGuard ]},
+    {path: 'gestion-planes', component : GestionPlanesComponent, canActivate: [ AuthGuard ]},
+    {path: 'gestion-empresas', component : GestionEmpresasComponent, canActivate: [ AuthGuard ]},
+    {path: 'gestion-usuarios', component : GestionUsuariosComponent, canActivate: [ AuthGuard ]},
+    {path: 'lista-paginas', component : ListaPaginasEmpresaComponent, canActivate: [ AuthGuard ]},
+    {path: 'editar-perfil', component : EditarPerfilComponent, canActivate: [ AuthGuard ]},
+    //Ruta por default
     {path: '**', pathMatch: 'full', redirectTo: 'landing-page'}
 ];
 
