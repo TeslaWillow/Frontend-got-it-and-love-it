@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +10,11 @@ export class HeaderComponent implements OnInit {
 
   public session;
 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.session = JSON.parse(localStorage.getItem("session"));
+  constructor(
+    private auth:AuthService
+  ) {
+    this.session = this.auth.isAuthUser();
   }
+
+  ngOnInit(): void {}
 }

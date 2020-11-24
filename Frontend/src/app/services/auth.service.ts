@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UsuariosService } from './usuarios.service';
+import { TipoUsuarioService } from './tipo-usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,8 @@ import { UsuariosService } from './usuarios.service';
 export class AuthService {
 
   constructor(
-    private _UsuariosService:UsuariosService
+    private _UsuariosService:UsuariosService,
+    private _TipoUsuarioService:TipoUsuarioService
   ) { }
 
   login(correo:string, pass:string){
@@ -22,10 +24,16 @@ export class AuthService {
   }
 
   isAuthUser(): boolean {
-    if(localStorage.getItem('session'))
+    let session = localStorage.getItem('session');
+    if(session !== null && session !== "")
       return true;
     else
       return false;
+  }
+
+  getTipoUsuario(): string {
+    let session = JSON.parse(localStorage.getItem('session'));
+    return this._TipoUsuarioService.getTipoUsuario(session.tipoUsuario).tipo;
   }
 
   logout(){

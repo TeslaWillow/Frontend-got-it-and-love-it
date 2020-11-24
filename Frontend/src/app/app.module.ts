@@ -39,6 +39,9 @@ import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empre
 import { ActivoPipe } from './pipes/activo.pipe';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa/lista-paginas-empresa.component';
+import { GestionPlantillasComponent } from './components/gestion-plantillas/gestion-plantillas.component';
+import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagenes.component';
+import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 
 registerLocaleData(localeEs);
 
@@ -65,7 +68,10 @@ registerLocaleData(localeEs);
     PaginaEmpresaComponent,
     ActivoPipe,
     EditarPerfilComponent,
-    ListaPaginasEmpresaComponent
+    ListaPaginasEmpresaComponent,
+    GestionPlantillasComponent,
+    BancoImagenesComponent,
+    GestionProductosComponent
   ],
   imports: [
     BrowserModule,

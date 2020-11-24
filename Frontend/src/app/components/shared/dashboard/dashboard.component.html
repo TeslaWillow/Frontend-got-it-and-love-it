@@ -9,6 +9,7 @@
                     <i class="fas fa-tachometer-alt"></i> Dashboard <span class="sr-only">(current)</span>
                 </a>
             </li>
+            <!-- Cliente -->
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/carrito']" routerLinkActive="active">
                     <i class="fas fa-shopping-cart"></i> Carrito de compras
@@ -19,34 +20,51 @@
                     <i class="fas fa-history"></i> Historial de compras
                 </a>
             </li>
+            <!-- Empresa -->
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/plan-actual']" routerLinkActive="active">
+                <a class="nav-link" *ngIf="isEmpresa" [routerLink]="['/plan-actual']" routerLinkActive="active">
                     <i class="fas fa-wallet"></i> Plan Actual
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/lista-paginas']" routerLinkActive="active">
+                <a class="nav-link" *ngIf="isEmpresa" [routerLink]="['/lista-paginas']" routerLinkActive="active">
                     <i class="fas fa-briefcase"></i> Paginas de la empresa
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/banco-archivos']" routerLinkActive="active">
+                <a class="nav-link" *ngIf="isEmpresa" [routerLink]="['/banco-archivos']" routerLinkActive="active">
                     <i class="fas fa-archive"></i> Banco de archivos
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/gestion-empresas']" routerLinkActive="active">
+                <a class="nav-link" *ngIf="isEmpresa" [routerLink]="['/banco-imagenes']" routerLinkActive="active">
+                    <i class="far fa-images"></i> Banco de imagenes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="isEmpresa" [routerLink]="['/gestion-productos']" routerLinkActive="active">
+                    <i class="fas fa-store"></i> Gestion de productos
+                </a>
+            </li>
+            <!-- Administrador -->
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="isAdmin" [routerLink]="['/gestion-empresas']" routerLinkActive="active">
                     <i class="fas fa-city"></i> Gestión de empresas
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/gestion-planes']" routerLinkActive="active">
+                <a class="nav-link" *ngIf="isAdmin" [routerLink]="['/gestion-planes']" routerLinkActive="active">
                     <i class="far fa-edit"></i> Gestión de planes
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/gestion-usuarios']" routerLinkActive="active">
+                <a class="nav-link" *ngIf="isAdmin" [routerLink]="['/gestion-usuarios']" routerLinkActive="active">
                     <i class="fas fa-users-cog"></i> Gestión de usuarios
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="isAdmin" [routerLink]="['/gestion-plantillas']" href="#" routerLinkActive="active">
+                    <i class="fas fa-layer-group"></i> Gestión de plantillas
                 </a>
             </li>
         </ul>

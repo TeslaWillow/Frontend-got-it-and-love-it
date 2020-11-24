@@ -17,16 +17,16 @@
                         <a class="nav-link" [routerLink]="['/planes']">Planes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-tipo-btn" [routerLink]="['/inicio-sesion-usuario']">Iniciar Sesión</a>
+                        <a class="nav-link link-tipo-btn" *ngIf="!session" [routerLink]="['/inicio-sesion-usuario']">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-tipo-btn" [routerLink]="['/registrate']">Registrarme</a>
+                        <a class="nav-link link-tipo-btn" *ngIf="!session" [routerLink]="['/registrate']">Registrarme</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-tipo-btn" [routerLink]="['/dashboard']">Dashboard</a>
+                        <a class="nav-link link-tipo-btn" *ngIf="session" [routerLink]="['/dashboard']">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-tipo-btn" [routerLink]="['/carrito']"><i class="fas fa-shopping-cart"></i> Carrito</a>
+                        <a class="nav-link link-tipo-btn" *ngIf="session" [routerLink]="['/carrito']"><i class="fas fa-shopping-cart"></i> Carrito</a>
                     </li>
                 </ul>
             </div>

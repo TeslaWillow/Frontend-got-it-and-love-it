@@ -9,12 +9,23 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
+  public isEmpresa:boolean = false;
+  public isAdmin:boolean = false;
+
   constructor(
     private auth: AuthService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
+    switch(this.auth.getTipoUsuario()){
+      case "empresa":
+        this.isEmpresa = true;
+        break;
+      case "administrador":
+        this.isAdmin = true;
+        break;
+    }
   }
 
   cerrarSession(){

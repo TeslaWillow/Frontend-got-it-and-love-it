@@ -1,5 +1,7 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -10,10 +12,12 @@ import { AuthService } from '../../services/auth.service';
 export class InicioSesionUsuarioComponent implements OnInit {
   
   public form_login:FormGroup;
+  public notAuthUser:boolean = false;
 
   constructor(
     private fb:FormBuilder,
-    private auth:AuthService
+    private auth:AuthService,
+    private router:Router
     ) { }
 
   ngOnInit(): void {
@@ -52,9 +56,9 @@ export class InicioSesionUsuarioComponent implements OnInit {
       let correo:string = this.form_login.get('correo').value; 
       let pass:string = this.form_login.get('pass').value;
       if(this.auth.login(correo, pass))
-        console.log("logeando usuario");
+        this.router.navigateByUrl('/dashboard');
       else
-        console.log("usuario o contraseña invalidos");
+        this.notAuthUser = true;
     }
   }
 }
