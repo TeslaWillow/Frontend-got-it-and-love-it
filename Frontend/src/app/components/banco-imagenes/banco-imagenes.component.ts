@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-banco-imagenes',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BancoImagenesComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild("modalDetallesImagen") _modalDetallesImagen;
+  @ViewChild("modalSubirArchivo") _modalSubirArchivo;
+
+  public variable:number = 3;
+
+  constructor(
+    private _NgbModal:NgbModal
+  ) { }
 
   ngOnInit(): void {
   }
 
+  subirArchivo() : void{
+    this._NgbModal.open(this._modalSubirArchivo, {size: 'lg'});
+  }
+
+  detallesImagen() : void{
+    this._NgbModal.open(this._modalDetallesImagen, {size: 'lg'});
+  }
 }

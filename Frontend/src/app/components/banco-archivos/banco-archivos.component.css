@@ -6,25 +6,39 @@
     font-family: CrimsonText_Regular;
 }
 
-main .card .icono {
-    width: 58%;
-    padding: 36px;
+.naranja-outline {
+    color: #F77F00;
+    border-color: #F77F00;
 }
 
-main .card {
-    cursor: pointer;
-    transition: all ease .3s;
+.naranja-outline:hover {
+    color: #FFF;
+    background-color: #F77F00;
 }
 
-main .card:hover {
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
+.rojo-outline {
+    color: #D62828;
+    border-color: #D62828;
+}
+
+.rojo-outline:hover {
+    color: #FFF;
+    background-color: #D62828;
+}
+
+.amarillo-outline {
+    color: #FCBF49;
+    border-color: #FCBF49;
+}
+
+.amarillo-outline:hover {
+    color: #FFF;
+    background-color: #FCBF49;
 }
 
 .naranja-outline {
     color: #F77F00;
     border-color: #F77F00;
-    padding-left: 50px;
-    padding-right: 50px;
 }
 
 .naranja-outline:hover {

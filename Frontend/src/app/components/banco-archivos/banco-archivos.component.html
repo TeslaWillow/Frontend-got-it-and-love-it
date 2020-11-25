@@ -6,19 +6,38 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Banco de archivos</h1>
             </div>
-            <button class="btn btn-lg naranja-outline" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
+            <button class="btn btn-lg naranja-outline px-5" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
             <div class="row mt-5">
-                <!-- Archivo -->
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3" *ngFor="let archivo of archivos" data-toggle="modal" data-target="#exampleModal" (click)="verDetalles(archivo);">
-                    <div class="card">
-                        <div class="text-center">
-                            <img class="card-img-top img-fluid icono" [src]="archivo.imgUrl" [alt]="archivo.nombre">
-                        </div>
-                        <div class="card-body ">
-                            <p class="card-text text-center font-weight-bold text-truncate ">{{archivo.nombre}}.{{archivo.extencion}}</p>
-                        </div>
-                    </div>
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Nombre Archivo</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Fecha de subida</th>
+                            <th scope="col">Peso Archivo</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let archivo of archivos; let i = index;">
+                            <th scope="row">{{i}}</th>
+                            <td><i [ngClass]="archivo.extencion | tipoArchivo"></i> {{archivo.extencion}} </td>
+                            <td>{{archivo.nombre}}</td>
+                            <td>{{archivo.descripcion}}</td>
+                            <td>{{archivo.fechaDeSubida}}</td>
+                            <td>{{archivo.peso}}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn borderless px-4" (click)="verDetalles(archivo);"><i class="far fa-eye"></i></button>
+                                    <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
+                                    <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>
@@ -35,18 +54,8 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-8">
-                <img class="img-fluid" [src]="archivoModal.imgUrl" alt="">
-            </div>
-            <div class="col-4">
-                <p class="font-weight-bold">Nombre:</p>
-                <p>{{archivoModal.nombre}}</p>
-                <p class="font-weight-bold">Tipo:</p>
-                <p>{{archivoModal.extencion}}</p>
-                <p class="font-weight-bold">Subido en:</p>
-                <p>{{archivoModal.fechaDeSubida}}</p>
-                <p class="font-weight-bold">Peso:</p>
-                <p>{{archivoModal.peso}}</p>
+            <div class="col-12">
+                <img class="img-fluid w-100" [src]="archivoModal.imgUrl" alt="">
             </div>
         </div>
     </div>

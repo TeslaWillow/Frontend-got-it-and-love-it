@@ -30,7 +30,7 @@ export class BancoArchivosComponent implements OnInit {
 
   verDetalles(archivo:Archivo){
     this.archivoModal = archivo;
-    this.modalService.open(this.modalDetallesArchivo, {size: 'lg'});
+    this.modalService.open(this.modalDetallesArchivo, {size: 'md'});
   }
 
   subirArchivo(){

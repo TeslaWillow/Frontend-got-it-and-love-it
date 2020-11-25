@@ -6,7 +6,9 @@ import { registerLocaleData } from '@angular/common'; //para que las fechas salg
 import  localeEs  from '@angular/common/locales/es'; //para que las fechas salgan en español
 //Routes
 import { APP_ROUTING } from './app.routes';
-
+//Pipes
+import { ActivoPipe } from './pipes/activo.pipe';
+import { TipoArchivoPipe } from './pipes/tipo-archivo.pipe';
 //Services
 import { ArchivosService } from './services/archivos.service';
 import { UsuariosService } from './services/usuarios.service';
@@ -36,12 +38,12 @@ import { GestionEmpresasComponent } from './components/gestion-empresas/gestion-
 import { GestionPlanesComponent } from './components/gestion-planes/gestion-planes.component';
 import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
 import { PaginaEmpresaComponent } from './components/pagina-empresa/pagina-empresa.component';
-import { ActivoPipe } from './pipes/activo.pipe';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa/lista-paginas-empresa.component';
 import { GestionPlantillasComponent } from './components/gestion-plantillas/gestion-plantillas.component';
 import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagenes.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
+
 
 registerLocaleData(localeEs);
 
@@ -71,7 +73,8 @@ registerLocaleData(localeEs);
     ListaPaginasEmpresaComponent,
     GestionPlantillasComponent,
     BancoImagenesComponent,
-    GestionProductosComponent
+    GestionProductosComponent,
+    TipoArchivoPipe
   ],
   imports: [
     BrowserModule,

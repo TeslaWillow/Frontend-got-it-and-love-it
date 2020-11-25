@@ -6,6 +6,80 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Banco de imagenes</h1>
             </div>
+            <button class="btn btn-lg naranja-outline px-5" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
+            <div class="row my-3">
+                <div class="col-sm-6 col-md-4 col-lg-3" (click)="detallesImagen();">
+                    <div class="card w-100 mb-3">
+                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card w-100 mb-3" (click)="detallesImagen();">
+                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card w-100 mb-3" (click)="detallesImagen();">
+                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card w-100 mb-3" (click)="detallesImagen();">
+                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </div>
+
+<ng-template #modalSubirArchivo let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Subir Archivo</h5>
+        <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="formFile">Subir un Archivo</label>
+                <input type="file" class="form-control-file" id="formFile">
+                <button type="submit" class="btn naranja-outline mt-3">Subir</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalDetallesImagen let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles del archivo</h5>
+        <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-8">
+                <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="">
+            </div>
+            <div class="col-4">
+                <p class="font-weight-bold">Nombre:</p>
+                <p>nombre</p>
+                <p class="font-weight-bold">Tipo:</p>
+                <p>tipo</p>
+                <p class="font-weight-bold">Subido en:</p>
+                <p>fecha de subida</p>
+                <p class="font-weight-bold">Peso:</p>
+                <p>peso</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+        <button type="button" class="btn btn-outline-danger">Borrar</button>
+    </div>
+</ng-template>
