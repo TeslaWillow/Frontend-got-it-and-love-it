@@ -29,3 +29,43 @@
 .borderless {
     border: none;
 }
+
+.naranja-outline {
+    color: #F77F00;
+    border-color: #F77F00;
+}
+
+.naranja-outline:hover {
+    color: #FFF;
+    background-color: #F77F00;
+}
+
+.rojo-outline {
+    color: #D62828;
+    border-color: #D62828;
+}
+
+.rojo-outline:hover {
+    color: #FFF;
+    background-color: #D62828;
+}
+
+.amarillo-outline {
+    color: #FCBF49;
+    border-color: #FCBF49;
+}
+
+.amarillo-outline:hover {
+    color: #FFF;
+    background-color: #FCBF49;
+}
+
+.naranja-outline {
+    color: #F77F00;
+    border-color: #F77F00;
+}
+
+.naranja-outline:hover {
+    color: #FFF;
+    background-color: #F77F00;
+}

@@ -6,6 +6,144 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Gestion de productos</h1>
             </div>
+            <button class="btn btn-lg naranja-outline px-3">Crear producto</button>
+            <button class="btn btn-lg amarillo-outline px-3 ml-3" (click)="crearCategoria();"> Crear categoría</button>
+            <button class="btn btn-lg rojo-outline px-3 ml-3" (click)="verCategorias();"> Ver categorias</button>
+            <div class="row mt-5">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Nombre Producto</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Fecha de adición</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of productos; let i = index;">
+                            <th scope="row">{{i}}</th>
+                            <td>
+                                <img class="img-fluid w-100" style="max-width: 65px;" [src]="producto.foto" alt="">
+                            </td>
+                            <td>{{producto.nombre}}</td>
+                            <td>{{producto.descripcion}}</td>
+                            <td>{{producto.categoria}}</td>
+                            <td>{{producto.precio}}</td>
+                            <td>{{producto.calificacion}}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn borderless px-4"><i class="far fa-eye"></i></button>
+                                    <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
+                                    <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
 </div>
+
+<!-- Modal ver producto -->
+<ng-template #detallesProducto let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Actualizar producto</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</ng-template>
+
+<!-- Modal actualizar producto-->
+<ng-template #actualizarProducto let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Actualizar producto</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</ng-template>
+
+<!-- Modal actualizar producto-->
+<ng-template #crearProducto let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Crear producto</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</ng-template>
+
+<!-- Modal crear categoria-->
+<ng-template #modalCrearCategoria let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Crear categoria</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="nombreCategoria">Nombre categoria</label>
+                <input type="text" class="form-control" id="nombreCategoria" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descripcion categoria textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <button class="btn naranja-outline" type="submit"> Crear categoria </button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<!-- Modal ver categoria-->
+<ng-template #modalVerCategorias let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Ver categorias</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Alimentos</td>
+                    <td>Muchos alimentos para comer</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
+                            <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

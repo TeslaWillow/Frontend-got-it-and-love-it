@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductosService, Producto } from '../../services/productos.service';
 
 @Component({
   selector: 'app-gestion-productos',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GestionProductosComponent implements OnInit {
 
-  constructor() { }
+  public productos:Producto[];
+
+  @ViewChild('modalCrearCategoria') modalCrearCategoria;
+  @ViewChild('modalVerCategorias') modalVerCategorias;
+
+  constructor(
+    private _NgModel:NgbModal,
+    private _ProductosService:ProductosService
+  ) { }
 
   ngOnInit(): void {
+    this.productos = this._ProductosService.getProductos();
   }
+
+  verCategorias(){
+    this._NgModel.open(this.modalVerCategorias, {size: "lg"});
+  }
+
+  crearCategoria(){
+    this._NgModel.open(this.modalCrearCategoria, {size: "lg"});
+  }
+
+
 
 }
