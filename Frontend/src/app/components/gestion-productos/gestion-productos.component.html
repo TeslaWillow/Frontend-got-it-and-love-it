@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Gestion de productos</h1>
             </div>
-            <button class="btn btn-lg naranja-outline px-3">Crear producto</button>
+            <button class="btn btn-lg naranja-outline px-3" (click)="crearProducto();">Crear producto</button>
             <button class="btn btn-lg amarillo-outline px-3 ml-3" (click)="crearCategoria();"> Crear categoría</button>
             <button class="btn btn-lg rojo-outline px-3 ml-3" (click)="verCategorias();"> Ver categorias</button>
             <div class="row mt-5">
@@ -76,15 +76,42 @@
 </ng-template>
 
 <!-- Modal actualizar producto-->
-<ng-template #crearProducto let-modal>
+<ng-template #modalCrearProducto let-modal>
     <div class="modal-header">
         <h5 class="modal-title" id="actualizarUsuarioLabel">Crear producto</h5>
-        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">  
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-
+        <form action="">
+            <div class="form-group">
+                <label for="nombreProducto">Nombre producto</label>
+                <input type="text" name="nombreProducto" class="form-control" id="nombreProducto">
+            </div>
+            <div class="form-group">
+                <label for="descripcionProducto">Descripcion producto textarea</label>
+                <textarea class="form-control" name="descripcionProducto" id="descripcionProducto" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="nombreProducto">Precio producto</label>
+                <input type="number" name="nombreProducto" class="form-control" id="nombreProducto">
+            </div>
+            <div class="form-group">
+                <label for="fotoProducto">Foto producto</label>
+                <input type="file" name="fotoProducto" class="form-control-file" id="fotoProducto">
+            </div>
+            <div class="form-group">
+                <label for="selectCategoria">Categoria</label>
+                <select class="form-control" name="selectCategoria" id="selectCategoria">
+                    <option value="" selected disabled>--Escoja una categoria--</option>
+                  <option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.nombre}}</option>
+                </select>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <button class="btn naranja-outline" type="submit"> Crear producto </button>
+            </div>
+        </form>
     </div>
 </ng-template>
 
@@ -117,7 +144,7 @@
 <ng-template #modalVerCategorias let-modal>
     <div class="modal-header">
         <h5 class="modal-title" id="actualizarUsuarioLabel">Ver categorias</h5>
-        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -132,10 +159,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Alimentos</td>
-                    <td>Muchos alimentos para comer</td>
+                <tr *ngFor="let categoria of categorias; let i = index;">
+                    <th scope="row">{{i}}</th>
+                    <td>{{categoria.nombre}}</td>
+                    <td>{{categoria.descripcion}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>

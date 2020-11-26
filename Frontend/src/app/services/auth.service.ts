@@ -31,6 +31,10 @@ export class AuthService {
       return false;
   }
 
+  getSession(){
+    return JSON.parse(localStorage.getItem('session'));
+  }
+
   getTipoUsuario(): string {
     let session = JSON.parse(localStorage.getItem('session'));
     return this._TipoUsuarioService.getTipoUsuario(session.tipoUsuario).tipo;

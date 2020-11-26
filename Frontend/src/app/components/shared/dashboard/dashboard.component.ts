@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { Usuario } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,7 @@ export class DashboardComponent implements OnInit {
 
   public isEmpresa:boolean = false;
   public isAdmin:boolean = false;
+  public usuario:Usuario;
 
   constructor(
     private auth: AuthService,
@@ -25,7 +27,8 @@ export class DashboardComponent implements OnInit {
       case "administrador":
         this.isAdmin = true;
         break;
-    }
+    };
+    this.usuario = this.auth.getSession();
   }
 
   cerrarSession(){

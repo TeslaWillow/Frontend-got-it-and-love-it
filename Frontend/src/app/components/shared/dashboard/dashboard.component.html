@@ -73,22 +73,22 @@
         </h6>
         <div class="flex-column w-50 m-auto">
             <div class="text-center">
-                <img src="../../../../assets/img/profile/cliente-img.jpg" class="rounded-circle img-fluid" alt="Imagen de perfil">
+                <img [src]="usuario.foto" class="rounded-circle img-fluid" alt="Imagen de perfil">
             </div>
         </div>
         <section class="datos-generales">
             <ul class="flex-column list-group">
                 <li class="list-group-item d-flex flex-column">
                     <span class="font-weight-bold">Nombre</span>
-                    <span>Raul Perez Torres</span>
+                    <span>{{usuario.nombre | titlecase}} {{usuario.apellido | titlecase}}</span>
                 </li>
                 <li class="list-group-item d-flex flex-column">
                     <span class="font-weight-bold">Correo</span>
-                    <span>raulpt@gmail.com</span>
+                    <span>{{usuario.correo}}</span>
                 </li>
                 <li class="list-group-item d-flex flex-column">
                     <span class="font-weight-bold">Tipo Usuario</span>
-                    <span>Cliente, Empresa, Admin</span>
+                    <span>{{usuario.tipoUsuario | tipoUsuario | titlecase}}</span>
                 </li>
             </ul>
         </section>

@@ -43,6 +43,7 @@ import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa
 import { GestionPlantillasComponent } from './components/gestion-plantillas/gestion-plantillas.component';
 import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagenes.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
+import { TipoUsuarioPipe } from './pipes/tipo-usuario.pipe';
 
 
 registerLocaleData(localeEs);
@@ -74,7 +75,8 @@ registerLocaleData(localeEs);
     GestionPlantillasComponent,
     BancoImagenesComponent,
     GestionProductosComponent,
-    TipoArchivoPipe
+    TipoArchivoPipe,
+    TipoUsuarioPipe
   ],
   imports: [
     BrowserModule,

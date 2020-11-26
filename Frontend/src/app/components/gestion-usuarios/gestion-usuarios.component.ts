@@ -34,10 +34,6 @@ export class GestionUsuariosComponent implements OnInit {
     this.usuarios = this._UsuariosService.getUsuarios();
     this.tiposUsuario = this._TipoUsuarioService.getTiposUsuario();
   }
-  /*Metodos para acceder a los servicios*/ 
-  getTipoUsuario(id:number){
-    return this._TipoUsuarioService.getTipoUsuario(id).tipo;
-  }
   /* Metodos para abrir y cargar data en los modales*/
   modalEditUsuario(id:number){
     let usuario = this._UsuariosService.getUsuario(id);
