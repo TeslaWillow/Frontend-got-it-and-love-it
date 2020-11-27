@@ -8,24 +8,9 @@
             </div>
             <button class="btn btn-lg naranja-outline px-5" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
             <div class="row my-3">
-                <div class="col-sm-6 col-md-4 col-lg-3" (click)="detallesImagen();">
+                <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let imagen of imagenes" (click)="detallesImagen(imagen._id);">
                     <div class="card w-100 mb-3">
-                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card w-100 mb-3" (click)="detallesImagen();">
-                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card w-100 mb-3" (click)="detallesImagen();">
-                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="card w-100 mb-3" (click)="detallesImagen();">
-                        <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="foto">
+                        <img class="img-fluid" [src]="imagen.imgUrl" [alt]="imagen.nombre">
                     </div>
                 </div>
             </div>
@@ -62,19 +47,19 @@
         </button>
     </div>
     <div class="modal-body">
-        <div class="row">
+        <div class="row" *ngIf="imagenModal">
             <div class="col-8">
-                <img class="img-fluid" src="../../../assets/img/agnieszka-kowalczyk-z-qxSYHXrh4-unsplash.jpg" alt="">
+                <img class="img-fluid" [src]="imagenModal.imgUrl" [alt]="imagenModal.nombre">
             </div>
             <div class="col-4">
                 <p class="font-weight-bold">Nombre:</p>
-                <p>nombre</p>
+                <p>{{imagenModal.nombre}}</p>
                 <p class="font-weight-bold">Tipo:</p>
-                <p>tipo</p>
+                <p>{{imagenModal.extencion}}</p>
                 <p class="font-weight-bold">Subido en:</p>
-                <p>fecha de subida</p>
+                <p>{{imagenModal.fechaDeSubida | date:'mediumDate'}}</p>
                 <p class="font-weight-bold">Peso:</p>
-                <p>peso</p>
+                <p>{{imagenModal.peso}}</p>
             </div>
         </div>
     </div>

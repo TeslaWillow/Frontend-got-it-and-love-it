@@ -37,7 +37,7 @@ export class GestionUsuariosComponent implements OnInit {
   /* Metodos para abrir y cargar data en los modales*/
   modalEditUsuario(id:number){
     let usuario = this._UsuariosService.getUsuario(id);
-    this.form_edit_usuarios.setValue({
+    this.form_edit_usuarios.reset({
       nombre: usuario.nombre,
       apellido: usuario.apellido,
       tipo: usuario.tipoUsuario,
@@ -112,7 +112,6 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   guardarUsuario(){
-    console.log(this.form_new_usuarios);
     if(this.form_new_usuarios.invalid){
       return Object.values(this.form_new_usuarios.controls).forEach(control => {
         control.markAsTouched();
@@ -121,7 +120,6 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   actualizarUsuario(){
-    console.log(this.form_edit_usuarios);
     if(this.form_edit_usuarios.invalid){
       return Object.values(this.form_edit_usuarios.controls).forEach(control => {
         control.markAsTouched();

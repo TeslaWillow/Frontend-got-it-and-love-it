@@ -19,7 +19,7 @@
                             <th scope="col">Descripcion</th>
                             <th scope="col">Categoría</th>
                             <th scope="col">Precio</th>
-                            <th scope="col">Fecha de adición</th>
+                            <th scope="col">Calificación</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -27,17 +27,17 @@
                         <tr *ngFor="let producto of productos; let i = index;">
                             <th scope="row">{{i}}</th>
                             <td>
-                                <img class="img-fluid w-100" style="max-width: 65px;" [src]="producto.foto" alt="">
+                                <img class="img-fluid w-100" style="max-width: 65px; max-height: 65px; overflow: hidden;" [src]="producto.foto" alt="">
                             </td>
                             <td>{{producto.nombre}}</td>
                             <td>{{producto.descripcion}}</td>
-                            <td>{{producto.categoria}}</td>
-                            <td>{{producto.precio}}</td>
-                            <td>{{producto.calificacion}}</td>
+                            <td>{{producto.categoria | categoria}}</td>
+                            <td>{{producto.precio | currency}}</td>
+                            <td class="text-center">{{producto.calificacion}}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn borderless px-4"><i class="far fa-eye"></i></button>
-                                    <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
+                                    <button type="button" class="btn naranja-outline borderless px-4" (click)="editarProducto(producto._id);"><i class="far fa-edit"></i></button>
                                     <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
                                 </div>
                             </td>
@@ -58,27 +58,14 @@
         </button>
     </div>
     <div class="modal-body">
-
+        <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
     </div>
 </ng-template>
 
 <!-- Modal actualizar producto-->
-<ng-template #actualizarProducto let-modal>
+<ng-template #modalEditarProducto let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="actualizarUsuarioLabel">Actualizar producto</h5>
-        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-
-    </div>
-</ng-template>
-
-<!-- Modal actualizar producto-->
-<ng-template #modalCrearProducto let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="actualizarUsuarioLabel">Crear producto</h5>
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Editar producto</h5>
         <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">  
             <span aria-hidden="true">&times;</span>
         </button>
@@ -109,6 +96,53 @@
                 </select>
             </div>
             <div class="form-group d-flex justify-content-end">
+                <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
+                <button class="btn naranja-outline" type="submit"> Crear producto </button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<!-- Modal crear producto-->
+<ng-template #modalCrearProducto let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Crear producto</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">  
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form autocomplete="off" [formGroup]="formProductos" (ngSubmit)="guardarProducto()">
+            <div class="form-group">
+                <label for="nombreProducto">Nombre producto</label>
+                <input type="text" name="nombreProducto" class="form-control" id="nombreProducto" formControlName="nombre" [class.is-invalid]="isValid(formProductos, 'nombre')">
+                <small class="text-danger" *ngIf="isValid(formProductos, 'nombre')">Ingrese minimo 5 letras y maximo 200.</small>
+            </div>
+            <div class="form-group">
+                <label for="descripcionProducto">Descripcion producto textarea</label>
+                <textarea class="form-control" name="descripcionProducto" id="descripcionProducto" rows="3" formControlName="descripcion" [class.is-invalid]="isValid(formProductos, 'descripcion')"></textarea>
+                <small class="text-danger" *ngIf="isValid(formProductos, 'descripcion')">Maximo 500 caracteres.</small>
+            </div>
+            <div class="form-group">
+                <label for="nombreProducto">Precio producto</label>
+                <input type="number" name="nombreProducto" class="form-control" id="nombreProducto" formControlName="precio" [class.is-invalid]="isValid(formProductos, 'precio')">
+                <small class="text-danger" *ngIf="isValid(formProductos, 'precio')">Minimo 1$</small>
+            </div>
+            <div class="form-group">
+                <label for="fotoProducto">Foto producto</label>
+                <input type="file" name="fotoProducto" class="form-control-file" id="fotoProducto">
+                <small class="text-danger">La foto es requerida</small>
+            </div>
+            <div class="form-group">
+                <label for="selectCategoria">Categoria</label>
+                <select class="form-control" name="selectCategoria" id="selectCategoria" formControlName="categoria" [class.is-invalid]="isValid(formProductos, 'categoria')">
+                    <option value="" selected disabled>--Escoja una categoria--</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.nombre}}</option>
+                </select>
+                <small class="text-danger" *ngIf="isValid(formProductos, 'categoria')">Categoria requerrida</small>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
                 <button class="btn naranja-outline" type="submit"> Crear producto </button>
             </div>
         </form>
@@ -130,10 +164,11 @@
                 <input type="text" class="form-control" id="nombreCategoria" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Descripcion categoria textarea</label>
+                <label for="exampleFormControlTextarea1">Descripcion categoria</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
             <div class="form-group d-flex justify-content-end">
+                <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
                 <button class="btn naranja-outline" type="submit"> Crear categoria </button>
             </div>
         </form>
@@ -172,5 +207,8 @@
                 </tr>
             </tbody>
         </table>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary" type="button" (click)="modal.close()"> Cerrar </button>
+        </div>
     </div>
 </ng-template>
