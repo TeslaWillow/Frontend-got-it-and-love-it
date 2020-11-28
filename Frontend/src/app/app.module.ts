@@ -4,11 +4,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { registerLocaleData } from '@angular/common'; //para que las fechas salgan en español
 import  localeEs  from '@angular/common/locales/es'; //para que las fechas salgan en español
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; //Validaciones para los inputs de tipo file
 //Routes
 import { APP_ROUTING } from './app.routes';
 //Pipes
 import { ActivoPipe } from './pipes/activo.pipe';
 import { TipoArchivoPipe } from './pipes/tipo-archivo.pipe';
+import { TipoUsuarioPipe } from './pipes/tipo-usuario.pipe';
+import { CategoriaPipe } from './pipes/categoria.pipe';
 //Services
 import { ArchivosService } from './services/archivos.service';
 import { UsuariosService } from './services/usuarios.service';
@@ -43,8 +46,7 @@ import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa
 import { GestionPlantillasComponent } from './components/gestion-plantillas/gestion-plantillas.component';
 import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagenes.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
-import { TipoUsuarioPipe } from './pipes/tipo-usuario.pipe';
-import { CategoriaPipe } from './pipes/categoria.pipe';
+
 
 
 registerLocaleData(localeEs);
@@ -85,7 +87,8 @@ registerLocaleData(localeEs);
     NgbModule,
     APP_ROUTING, 
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RxReactiveFormsModule
   ],
   providers: [
     ArchivosService,

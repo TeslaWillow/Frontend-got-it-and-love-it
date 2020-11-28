@@ -116,6 +116,8 @@ export class GestionUsuariosComponent implements OnInit {
       return Object.values(this.form_new_usuarios.controls).forEach(control => {
         control.markAsTouched();
       });
+    }else{
+      console.log("usuario Guardado");
     }
   }
 
@@ -124,6 +126,8 @@ export class GestionUsuariosComponent implements OnInit {
       return Object.values(this.form_edit_usuarios.controls).forEach(control => {
         control.markAsTouched();
       });
+    }else{
+      console.log("usuario Actualizado");
     }
   }
   
