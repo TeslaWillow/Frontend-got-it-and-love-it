@@ -19,7 +19,7 @@
                                 <li class="list-group-item">Limite de Almacenamiento - <span class="font-weight-bold">{{plan.restricciones.limiteAlmacenamiento}}MB</span></li>
                             </ul>
                         </div>
-                        <a href="#" class="btn" [style.background-color]="plan.color">Comprar</a>
+                        <a class="btn" [style.background-color]="plan.color" (click)="comprarPlan(plan._id);">Comprar</a>
                     </div>
                 </div>
             </ng-container>
@@ -27,3 +27,59 @@
     </div>
 </div>
 <app-footer></app-footer>
+
+<!-- Modal pagar carrito -->
+<ng-template #modalPagarPlan let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pagar productos en carrito</h5>
+        <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-around p-2 fa-2x">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <i class="fab fa-cc-discover"></i>
+                <i class="fab fa-cc-diners-club"></i>
+                <i class="fab fa-cc-jcb"></i>
+            </div>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="inpt_destinatario">Destinatario de la tarjeta:</label>
+                <input type="text" class="form-control" id="inpt_destinatario" placeholder="JOHN SMITH">
+            </div>
+            <div class="form-group">
+                <label for="inpt_numeroTarjeta">Numero de tarjeta:</label>
+                <input type="number" class="form-control" id="inpt_numeroTarjeta" placeholder="0000111122223333">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-3">
+                    <label for="inpt_FVDia">Día de vencimiento</label>
+                    <input type="number" class="form-control" name="inpt_FVDia" id="inpt_FVDia" placeholder="DD">
+                </div>
+                <div class="form-group col-3">
+                    <label for="inpt_FVMes">Mes de vencimiento</label>
+                    <input type="number" class="form-control" name="inpt_FVMes" id="inpt_FVMes" placeholder="MM">
+                </div>
+                <div class="form-group col-6">
+                    <label for="inpt_codigoSeguridad">CVV:</label>
+                    <input type="number" class="form-control" id="inpt_codigoSeguridad" placeholder="012">
+                </div>
+            </div>
+            <div class="d-flex justify-content-start flex-column">
+                <p class="text-left font-weight-bold">Plan adquirido: <span>{{plan.nombrePlan}}</span></p>
+                <p class="text-left font-weight-bold">Total a pagar: <span>{{plan.precio}} $</span></p>
+            </div>
+            <div class="d-flex justify-content-start">
+                <button class="btn naranja-outline" type="submit">Comprar</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn rojo-outline" (click)="modal.close()">Cerrar</button>
+    </div>
+</ng-template>

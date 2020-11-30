@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlanesService, Plan } from '../../services/planes.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-planes',
@@ -9,8 +10,14 @@ import { PlanesService, Plan } from '../../services/planes.service';
 export class PlanesComponent implements OnInit {
 
   public planes:Plan[];
+  public plan:Plan;
 
-  constructor(private _PlanesService:PlanesService) { }
+  @ViewChild("modalPagarPlan") modalPagarPlan;
+
+  constructor(
+    private _PlanesService:PlanesService,
+    private _NgbModal:NgbModal
+    ) { }
 
   ngOnInit(): void {
     this.planes = this._PlanesService.getPlanes();
@@ -21,5 +28,10 @@ export class PlanesComponent implements OnInit {
       return true;
     else
       return false;
+  }
+
+  comprarPlan(_id:number){
+    this.plan = this._PlanesService.getPlane(_id);
+    this._NgbModal.open(this.modalPagarPlan, {size:"lg"});
   }
 }
