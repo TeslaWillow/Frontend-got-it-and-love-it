@@ -18,12 +18,12 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let compra of compras; let i = index">
+                        <span>{{getProducto(compra.Productoid)}}</span>
                         <tr *ngIf="compra" class="border-bottom">
-                            <span>{{getProducto(compra.Productoid)}}</span>
-                            <th scope="row">{{i}}</th>
+                            <td class="font-weight-bold" scope="row">{{i}}</td>
                             <td class="d-flex">
                                 <div class="preview d-xs-none d-md-none d-lg-block">
-                                    <img [src]="producto.foto" class="img-cuadrada" alt="">
+                                    <img [src]="producto.foto" class="img-miniatura" alt="">
                                 </div>
                                 <div class="datos-producto ml-3 w-75">
                                     <span class="font-weight-bold">{{producto.nombre}}</span>
@@ -56,9 +56,59 @@
             </table>
             <div class="row">
                 <div class="col-12 d-flex justify-content-end">
-                    <button class="btn amarillo-outline btn-lg mr-5">Comprar</button>
+                    <button class="btn amarillo-outline btn-lg mr-5" (click)="comprar();">Comprar</button>
                 </div>
             </div>
         </main>
     </div>
 </div>
+
+
+<!-- Modal pagar carrito -->
+<ng-template #modalPagarCarrito let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pagar productos en carrito</h5>
+        <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-around p-2 fa-2x">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <i class="fab fa-cc-discover"></i>
+                <i class="fab fa-cc-diners-club"></i>
+                <i class="fab fa-cc-jcb"></i>
+            </div>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="inpt_destinatario">Destinatario de la tarjeta:</label>
+                <input type="text" class="form-control" id="inpt_destinatario" placeholder="JOHN SMITH">
+            </div>
+            <div class="form-group">
+                <label for="inpt_numeroTarjeta">Numero de tarjeta:</label>
+                <input type="number" class="form-control" id="inpt_numeroTarjeta" placeholder="0000111122223333">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-3">
+                    <label for="inpt_FVDia">Día de vencimiento</label>
+                    <input type="number" class="form-control" name="inpt_FVDia" id="inpt_FVDia" placeholder="DD">
+                </div>
+                <div class="form-group col-3">
+                    <label for="inpt_FVMes">Mes de vencimiento</label>
+                    <input type="number" class="form-control" name="inpt_FVMes" id="inpt_FVMes" placeholder="MM">
+                </div>
+                <div class="form-group col-6">
+                    <label for="inpt_codigoSeguridad">CVV:</label>
+                    <input type="number" class="form-control" id="inpt_codigoSeguridad" placeholder="012">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+    </div>
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductosService, Producto } from '../../services/productos.service';
 import { Categoria, CategoriasService } from '../../services/categorias.service';
@@ -16,7 +16,7 @@ export class GestionProductosComponent implements OnInit {
   public categorias:Categoria[];
   public formProductos:FormGroup;
   public formCategorias:FormGroup;
-  public imagen:File;
+  public imagen:string;
 
   @ViewChild('modalCrearCategoria') modalCrearCategoria;
   @ViewChild('modalVerCategorias') modalVerCategorias;
@@ -27,7 +27,8 @@ export class GestionProductosComponent implements OnInit {
     private _NgModel:NgbModal,
     private _ProductosService:ProductosService,
     private _CategoriasService:CategoriasService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private cd: ChangeDetectorRef
   ) { 
     this.crearFormularios();
   }
@@ -42,11 +43,24 @@ export class GestionProductosComponent implements OnInit {
   }
 
   unaFuncion(event:any){
-    console.log("algo paso");
-    // if (event.target.files.length > 0) {
-    //   this.imagen = event.target.files[0];
-    //   console.log(event.target.files[0]);
-    // }
+    if(event.target.files && event.target.files.length > 0){
+      const archivo = (event.target as HTMLInputElement).files[0];
+      if(archivo.type.split("/")[0] === "image"){
+        this.formProductos.patchValue({
+          foto: archivo
+        });
+        this.formProductos.get('foto').updateValueAndValidity();
+    
+        //preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagen = reader.result as string;
+        };
+        reader.readAsDataURL(archivo);
+      }else{
+        this.imagen = null;
+      }
+    }
   }
 
   verCategorias(){
@@ -58,13 +72,19 @@ export class GestionProductosComponent implements OnInit {
     this._NgModel.open(this.modalCrearCategoria, {size: "lg"});
   }
 
-  crearProducto(){
+  limpiarFormularioProductos(){
     this.formProductos.reset();
+    this.imagen = null;
+  }
+
+  crearProducto(){
+    this.limpiarFormularioProductos();
     this.categorias = this._CategoriasService.getCategorias();
     this._NgModel.open(this.modalCrearProducto, {size: "lg"});
   }
 
   editarProducto(_id:number){
+    this.limpiarFormularioProductos();
     let producto:Producto = this._ProductosService.getProducto(_id);
     this.categorias = this._CategoriasService.getCategorias();
     this.formProductos.reset({
@@ -94,7 +114,7 @@ export class GestionProductosComponent implements OnInit {
       ]],
       foto: ['',  [
         RxwebValidators.file({minFiles:1, maxFiles:1 }),
-        RxwebValidators.extension({extensions:["jpeg","gif", "png"]})
+        RxwebValidators.extension({extensions:["jpeg","gif","png","jpg"]})
       ]],
       categoria: ['', [
         Validators.required
@@ -119,7 +139,7 @@ export class GestionProductosComponent implements OnInit {
         control.markAsTouched();
       });
     }else{
-      console.log("Guardando producto");
+      console.log("Guardando producto", this.formProductos.value);
     }
   }
 

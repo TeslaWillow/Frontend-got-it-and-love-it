@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductosService, Producto } from '../../services/productos.service';
 import { ComprasService, Compra } from '../../services/compras.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -13,10 +14,13 @@ export class CarritoComprasComponent implements OnInit {
   public compras:Compra[];
   public producto:Producto;
 
+  @ViewChild('modalPagarCarrito') modalPagarCarrito;
+
   constructor(
     private _ComprasService:ComprasService,
-    private _ProductosService:ProductosService) { 
-    }
+    private _ProductosService:ProductosService,
+    private _NgbModal:NgbModal
+    ) { }
 
   ngOnInit(): void {
     let compras = this._ComprasService.getCompras();
@@ -34,6 +38,10 @@ export class CarritoComprasComponent implements OnInit {
 
   actualizarCantidad(index:number){
     let carritoStorage = JSON.parse(this.lStorage.getItem('carrito'));
+  }
+
+  comprar(){
+    this._NgbModal.open(this.modalPagarCarrito, {size:"lg"});
   }
 
   sumarTotal(){

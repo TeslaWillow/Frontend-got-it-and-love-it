@@ -62,46 +62,6 @@
     </div>
 </ng-template>
 
-<!-- Modal actualizar producto-->
-<ng-template #modalEditarProducto let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="actualizarUsuarioLabel">Editar producto</h5>
-        <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">  
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form autocomplete="off" [formGroup]="formProductos" (ngSubmit)="actualizarProducto()">
-            <div class="form-group">
-                <label for="nombreProducto">Nombre producto</label>
-                <input type="text" name="nombreProducto" class="form-control" id="nombreProducto" formControlName="nombre">
-            </div>
-            <div class="form-group">
-                <label for="descripcionProducto">Descripcion producto textarea</label>
-                <textarea class="form-control" name="descripcionProducto" id="descripcionProducto" rows="3" formControlName="descripcion"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="nombreProducto">Precio producto</label>
-                <input type="number" name="precioProducto" class="form-control" id="precioProducto" formControlName="precio">
-            </div>
-            <div class="form-group">
-                <label for="fotoProducto">Foto producto</label>
-                <input type="file" name="fotoProducto" class="form-control-file" (change)="unaFuncion($event);" formControlName="foto" [class.is-invalid]="isValid(formProductos, 'foto')">
-            </div>
-            <div class="form-group">
-                <label for="selectCategoria">Categoria</label>
-                <select class="form-control" name="selectCategoria" id="selectCategoria" formControlName="categoria">
-                  <option *ngFor="let categoria of categorias" [ngValue]="categoria._id">{{categoria.nombre}}</option>
-                </select>
-            </div>
-            <div class="form-group d-flex justify-content-end">
-                <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
-                <button class="btn naranja-outline" type="submit"> Crear producto </button>
-            </div>
-        </form>
-    </div>
-</ng-template>
-
 <!-- Modal crear producto-->
 <ng-template #modalCrearProducto let-modal>
     <div class="modal-header">
@@ -129,8 +89,9 @@
             </div>
             <div class="form-group">
                 <label for="fotoProducto">Foto producto</label>
-                <input type="file" name="fotoProducto" class="form-control-file" id="fotoProducto" formControlName="foto" [class.is-invalid]="isValid(formProductos, 'foto')">
+                <input type="file" name="fotoProducto" class="form-control-file" id="fotoProducto" (change)="unaFuncion($event);" formControlName="foto">
                 <small class="text-danger" *ngIf="isValid(formProductos, 'foto')">La foto es requerida y necesita ser una extención valida (jpg,png,gif)</small>
+                <img class="img-fluid mt-1 w-25" *ngIf="imagen && imagen !== null" [src]="imagen" alt="">
             </div>
             <div class="form-group">
                 <label for="selectCategoria">Categoria</label>
@@ -139,6 +100,46 @@
                     <option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.nombre}}</option>
                 </select>
                 <small class="text-danger" *ngIf="isValid(formProductos, 'categoria')">Categoria requerrida</small>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
+                <button class="btn naranja-outline" type="submit"> Crear producto </button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<!-- Modal actualizar producto-->
+<ng-template #modalEditarProducto let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Editar producto</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">  
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form autocomplete="off" [formGroup]="formProductos" (ngSubmit)="actualizarProducto()">
+            <div class="form-group">
+                <label for="nombreProducto">Nombre producto</label>
+                <input type="text" name="nombreProducto" class="form-control" id="nombreProducto" formControlName="nombre">
+            </div>
+            <div class="form-group">
+                <label for="descripcionProducto">Descripcion producto textarea</label>
+                <textarea class="form-control" name="descripcionProducto" id="descripcionProducto" rows="3" formControlName="descripcion"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="nombreProducto">Precio producto</label>
+                <input type="number" name="precioProducto" class="form-control" id="precioProducto" formControlName="precio">
+            </div>
+            <div class="form-group">
+                <label for="fotoProducto">Foto producto</label>
+                <input type="file" name="fotoProducto" class="form-control-file" formControlName="foto" [class.is-invalid]="isValid(formProductos, 'foto')">
+            </div>
+            <div class="form-group">
+                <label for="selectCategoria">Categoria</label>
+                <select class="form-control" name="selectCategoria" id="selectCategoria" formControlName="categoria">
+                  <option *ngFor="let categoria of categorias" [ngValue]="categoria._id">{{categoria.nombre}}</option>
+                </select>
             </div>
             <div class="form-group d-flex justify-content-end">
                 <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
