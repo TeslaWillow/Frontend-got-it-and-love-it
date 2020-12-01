@@ -76,7 +76,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off" [formGroup]="formProductos" (ngSubmit)="guardarProducto()">
+        <form autocomplete="off" [formGroup]="formProductos" (ngSubmit)="POST_Producto()">
             <div class="form-group">
                 <label for="nombreProducto">Nombre producto</label>
                 <input type="text" name="nombreProducto" class="form-control" id="nombreProducto" formControlName="nombre" [class.is-invalid]="isValid(formProductos, 'nombre')">
@@ -94,7 +94,7 @@
             </div>
             <div class="form-group">
                 <label for="fotoProducto">Foto producto</label>
-                <input type="file" name="fotoProducto" class="form-control-file" id="fotoProducto" (change)="unaFuncion($event);" formControlName="foto">
+                <input type="file" name="fotoProducto" class="form-control-file" id="fotoProducto" (change)="cargarFoto($event);" formControlName="foto">
                 <small class="text-danger" *ngIf="isValid(formProductos, 'foto')">La foto es requerida y necesita ser una extención valida (jpg,png,gif)</small>
                 <img class="img-fluid mt-1 w-25" *ngIf="imagen && imagen !== null" [src]="imagen" alt="">
             </div>
@@ -123,32 +123,38 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off" [formGroup]="formProductos" (ngSubmit)="actualizarProducto()">
+        <form autocomplete="off" [formGroup]="formProductos" (ngSubmit)="PUT_Producto()">
             <div class="form-group">
                 <label for="nombreProducto">Nombre producto</label>
-                <input type="text" name="nombreProducto" class="form-control" id="nombreProducto" formControlName="nombre">
+                <input type="text" name="nombreProducto" class="form-control" id="nombreProducto" formControlName="nombre" [class.is-invalid]="isValid(formProductos, 'nombre')">
+                <small class="text-danger" *ngIf="isValid(formProductos, 'nombre')">Ingrese minimo 5 letras y maximo 200.</small>
             </div>
             <div class="form-group">
                 <label for="descripcionProducto">Descripcion producto textarea</label>
-                <textarea class="form-control" name="descripcionProducto" id="descripcionProducto" rows="3" formControlName="descripcion"></textarea>
+                <textarea class="form-control" name="descripcionProducto" id="descripcionProducto" rows="3" formControlName="descripcion" [class.is-invalid]="isValid(formProductos, 'descripcion')"></textarea>
+                <small class="text-danger" *ngIf="isValid(formProductos, 'descripcion')">Maximo 500 caracteres.</small>
             </div>
             <div class="form-group">
                 <label for="nombreProducto">Precio producto</label>
-                <input type="number" name="precioProducto" class="form-control" id="precioProducto" formControlName="precio">
+                <input type="number" name="precioProducto" class="form-control" id="precioProducto" formControlName="precio" [class.is-invalid]="isValid(formProductos, 'precio')">
+                <small class="text-danger" *ngIf="isValid(formProductos, 'precio')">Minimo 1$</small>
             </div>
             <div class="form-group">
                 <label for="fotoProducto">Foto producto</label>
-                <input type="file" name="fotoProducto" class="form-control-file" formControlName="foto" [class.is-invalid]="isValid(formProductos, 'foto')">
+                <input type="file" name="fotoProducto" class="form-control-file" id="fotoProducto" (change)="cargarFoto($event);" formControlName="foto">
+                <small class="text-danger" *ngIf="isValid(formProductos, 'foto')">La foto es requerida y necesita ser una extención valida (jpg,png,gif)</small>
+                <img class="img-fluid mt-1 w-25" *ngIf="imagen && imagen !== null" [src]="imagen" alt="">
             </div>
             <div class="form-group">
                 <label for="selectCategoria">Categoria</label>
-                <select class="form-control" name="selectCategoria" id="selectCategoria" formControlName="categoria">
+                <select class="form-control" name="selectCategoria" id="selectCategoria" formControlName="categoria" [class.is-invalid]="isValid(formProductos, 'categoria')">
                   <option *ngFor="let categoria of categorias" [ngValue]="categoria._id">{{categoria.nombre}}</option>
                 </select>
+                <small class="text-danger" *ngIf="isValid(formProductos, 'categoria')">Categoria requerrida</small>
             </div>
             <div class="form-group d-flex justify-content-end">
                 <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
-                <button class="btn naranja-outline" type="submit"> Crear producto </button>
+                <button class="btn naranja-outline" type="submit"> Editar producto </button>
             </div>
         </form>
     </div>
@@ -163,7 +169,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off" [formGroup]="formCategorias" (ngSubmit)="guardarCategoria()">
+        <form autocomplete="off" [formGroup]="formCategorias" (ngSubmit)="POST_Categoria()">
             <div class="form-group">
                 <label for="nombreCategoria">Nombre categoria</label>
                 <input type="text" class="form-control" id="nombreCategoria" formControlName="nombre" [class.is-invalid]="isValid(formCategorias, 'nombre')">
@@ -207,7 +213,7 @@
                     <td>{{categoria.descripcion}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
+                            <button type="button" class="btn naranja-outline borderless px-4" (click)="editarCategoria(categoria._id);"><i class="far fa-edit"></i></button>
                             <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
                         </div>
                     </td>
@@ -217,5 +223,33 @@
         <div class="d-flex justify-content-end">
             <button class="btn btn-secondary" type="button" (click)="modal.close()"> Cerrar </button>
         </div>
+    </div>
+</ng-template>
+
+<!-- modal editar categoria -->
+<ng-template #modalEditCategoria let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Crear categoria</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close" style="outline: none;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form autocomplete="off" [formGroup]="formCategorias" (ngSubmit)="PUT_Categoria()">
+            <div class="form-group">
+                <label for="nombreCategoria">Nombre categoria</label>
+                <input type="text" class="form-control" id="nombreCategoria" formControlName="nombre" [class.is-invalid]="isValid(formCategorias, 'nombre')">
+                <small class="text-danger" *ngIf="isValid(formCategorias, 'nombre')">Requerido. Minimo 2 caracteres, maximo 100</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descripcion categoria</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="descripcion" [class.is-invalid]="isValid(formCategorias, 'descripcion')"></textarea>
+                <small class="text-danger" *ngIf="isValid(formCategorias, 'descripcion')">Maximo 200 caracteres</small>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <button class="btn btn-secondary mr-2" type="button" (click)="modal.close()"> Cerrar </button>
+                <button class="btn naranja-outline" type="submit"> Crear categoria </button>
+            </div>
+        </form>
     </div>
 </ng-template>
