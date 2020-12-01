@@ -47,27 +47,32 @@
                 <i class="fab fa-cc-jcb"></i>
             </div>
         </div>
-        <form>
+        <form autocomplete="off" [formGroup]="formTarjetaPlan" (ngSubmit)="pagar()">
             <div class="form-group">
                 <label for="inpt_destinatario">Destinatario de la tarjeta:</label>
-                <input type="text" class="form-control" id="inpt_destinatario" placeholder="JOHN SMITH">
+                <input type="text" class="form-control" id="inpt_destinatario" placeholder="JOHN SMITH" formControlName="destinatario" [class.is-invalid]="isValid(formTarjetaPlan, 'destinatario')">
+                <small class="text-danger" *ngIf="isValid(formTarjetaPlan, 'destinatario')">Campo no valido</small>
             </div>
             <div class="form-group">
                 <label for="inpt_numeroTarjeta">Numero de tarjeta:</label>
-                <input type="number" class="form-control" id="inpt_numeroTarjeta" placeholder="0000111122223333">
+                <input type="number" class="form-control" id="inpt_numeroTarjeta" placeholder="0000111122223333" formControlName="numeroTarjeta" [class.is-invalid]="isValid(formTarjetaPlan, 'numeroTarjeta')">
+                <small class="text-danger" *ngIf="isValid(formTarjetaPlan, 'numeroTarjeta')">Campo no valido</small>
             </div>
             <div class="form-row">
                 <div class="form-group col-3">
-                    <label for="inpt_FVDia">Día de vencimiento</label>
-                    <input type="number" class="form-control" name="inpt_FVDia" id="inpt_FVDia" placeholder="DD">
+                    <label for="inpt_FVMes">Mes de vencimiento</label>
+                    <input type="number" class="form-control" name="inpt_FVMes" id="inpt_FVMes" placeholder="MM" formControlName="mesVencimiento" [class.is-invalid]="isValid(formTarjetaPlan, 'mesVencimiento')">
+                    <small class="text-danger" *ngIf="isValid(formTarjetaPlan, 'mesVencimiento')">Campo no valido</small>
                 </div>
                 <div class="form-group col-3">
-                    <label for="inpt_FVMes">Mes de vencimiento</label>
-                    <input type="number" class="form-control" name="inpt_FVMes" id="inpt_FVMes" placeholder="MM">
+                    <label for="inpt_FVYear">Año de vencimiento</label>
+                    <input type="number" class="form-control" name="inpt_FVDia" id="inpt_FVYear" placeholder="YY" formControlName="yearVencimiento" [class.is-invalid]="isValid(formTarjetaPlan, 'yearVencimiento')">
+                    <small class="text-danger" *ngIf="isValid(formTarjetaPlan, 'yearVencimiento')">Campo no valido</small>
                 </div>
                 <div class="form-group col-6">
                     <label for="inpt_codigoSeguridad">CVV:</label>
-                    <input type="number" class="form-control" id="inpt_codigoSeguridad" placeholder="012">
+                    <input type="number" class="form-control" id="inpt_codigoSeguridad" placeholder="012" formControlName="CCV" [class.is-invalid]="isValid(formTarjetaPlan, 'CCV')">
+                    <small class="text-danger" *ngIf="isValid(formTarjetaPlan, 'CCV')">Campo no valido</small>
                 </div>
             </div>
             <div class="d-flex justify-content-start flex-column">

@@ -17,6 +17,7 @@ export class GestionProductosComponent implements OnInit {
   public formProductos:FormGroup;
   public formCategorias:FormGroup;
   public imagen:string;
+  public verInactivos = true;
 
   @ViewChild('modalCrearCategoria') modalCrearCategoria;
   @ViewChild('modalVerCategorias') modalVerCategorias;
