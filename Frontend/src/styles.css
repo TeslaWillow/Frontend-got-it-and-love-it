@@ -76,3 +76,8 @@
     max-height: 100px;
     border-radius: 5px;
 }
+
+.borde-drag-drop {
+    border: 1px solid #d628286b;
+    border-style: dashed;
+}

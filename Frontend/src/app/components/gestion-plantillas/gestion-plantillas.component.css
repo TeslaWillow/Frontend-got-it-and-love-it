@@ -5,3 +5,14 @@
 .jumbotron h1 {
     font-family: CrimsonText_Regular;
 }
+
+.app-ace-editor {
+    border: 2px solid #f8f9fa;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.altura-standar {
+    height: 200px;
+    max-height: 200px;
+    overflow: hidden;
+}

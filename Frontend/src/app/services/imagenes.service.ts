@@ -52,6 +52,7 @@ export class ImagenesService {
       peso: "15 MB"
     }
   ];
+  private CARPETA_IMG = 'img';
 
   constructor() {  }
 
@@ -66,6 +67,10 @@ export class ImagenesService {
         resultado = imagen;
     });
     return resultado;
+  }
+
+  postImagen(imagen:any){
+    console.log("Guardando imagen: ",imagen);
   }
 }
 
