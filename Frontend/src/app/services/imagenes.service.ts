@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FileItem } from '../Models/file-item';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,10 @@ export class ImagenesService {
         resultado = imagen;
     });
     return resultado;
+  }
+
+  postImagenes( imagenes:FileItem[]){
+    console.log( imagenes );
   }
 
   postImagen(imagen:any){

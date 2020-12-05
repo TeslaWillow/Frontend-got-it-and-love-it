@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, OnInit , ElementRef, ViewChild } from '@angular/core';
 import * as ace from "ace-builds";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FileItem } from '../../Models/file-item';
+import { ImagenesService } from '../../services/imagenes.service';
+import { FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-gestion-plantillas',
@@ -8,14 +12,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./gestion-plantillas.component.css']
 })
 export class GestionPlantillasComponent implements OnInit, AfterViewInit {
-  
-  archivos:File[];
+  public dejandoCaerImgs = false;
+  public archivos:FileItem[] = [];
+  public formPlantilla:FormGroup;
 
   @ViewChild("editorCSS") private editorCSS: ElementRef<HTMLElement>;
   @ViewChild("editorJS") private editorJS: ElementRef<HTMLElement>;
   @ViewChild("modalCrearPlantilla") modalCrearPlantilla; 
 
-  constructor(private _NgbModal:NgbModal) { }
+  constructor(
+    private _NgbModal:NgbModal,
+    private _ImagenesService:ImagenesService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -57,6 +65,8 @@ export class GestionPlantillasComponent implements OnInit, AfterViewInit {
   }
   
   POST_Plantilla(){
+    this._ImagenesService.postImagenes(this.archivos);
     console.log("plantilla creada chabo");
   }
+
 }

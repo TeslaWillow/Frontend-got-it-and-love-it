@@ -1,20 +1,22 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "Backend de gotitloveit",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Héctor Caballero",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.10.10",
-    "mongoose-unique-validator": "^2.0.3",
-    "underscore": "^1.11.0"
-  }
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "Backend de gotitloveit",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "author": "Héctor Caballero",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.0.0",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongoose": "^5.10.10",
+        "mongoose-unique-validator": "^2.0.3",
+        "nodemon": "^2.0.6",
+        "underscore": "^1.11.0"
+    }
 }

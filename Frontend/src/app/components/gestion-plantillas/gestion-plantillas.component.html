@@ -32,7 +32,7 @@
                         <div class="col-12">
                             <!-- Drag-n-drop -->
                             <p class="font-weight-bold">Deje caer las imagenes relacionadas aquí: </p>
-                            <div class="altura-standar w-100 text-center justify-content-center d-flex align-items-center borde-drag-drop">
+                            <div appNgDropFiles (mouseSobre)="dejandoCaerImgs = $event" [ngClass]="{'file-over': dejandoCaerImgs}" class="altura-standar w-100 text-center justify-content-center d-flex align-items-center borde-drag-drop">
                                 <i class="fas fa-images fa-5x animate__animated animate__bounce"></i>
                             </div>
                             <!-- ./Drag-n-drop -->
@@ -66,7 +66,7 @@
                             <div class="btn-group my-3 d-flex justify-content-center" role="group" aria-label="Basic example">
                                 <button type="button" class="btn rojo-outline">Limpiar Todo</button>
                                 <button type="button" class="btn rojo-outline">Limpiar Imagenes</button>
-                                <button type="button" class="btn naranja-outline" (click)="POST_Plantilla();">Crear Plantilla</button>
+                                <button type="button" class="btn naranja-outline" (click)="POST_Plantilla();" [disabled]="archivos.length === 0">Crear Plantilla</button>
                             </div>
                         </div>
                     </div>

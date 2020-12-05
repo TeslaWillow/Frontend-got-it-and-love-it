@@ -78,6 +78,10 @@
 }
 
 .borde-drag-drop {
-    border: 1px solid #d628286b;
+    border: 1px solid #d6282842;
     border-style: dashed;
+}
+
+.file-over {
+    border: 1px solid #F77F00;
 }

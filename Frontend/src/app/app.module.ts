@@ -46,6 +46,7 @@ import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa
 import { GestionPlantillasComponent } from './components/gestion-plantillas/gestion-plantillas.component';
 import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagenes.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
+import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 
 
 
@@ -80,7 +81,8 @@ registerLocaleData(localeEs);
     GestionProductosComponent,
     TipoArchivoPipe,
     TipoUsuarioPipe,
-    CategoriaPipe
+    CategoriaPipe,
+    NgDropFilesDirective
   ],
   imports: [
     BrowserModule,
