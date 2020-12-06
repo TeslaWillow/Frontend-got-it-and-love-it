@@ -74,10 +74,14 @@ export class ImagenesService {
   postImagenes(imagenes:FileItem[]){
     let formData = new FormData();
     for (const imagen of imagenes){
-      formData.append("imagenes[]", imagen.archivo, imagen.nombreArchivo);
+      formData.append("archivo", imagen.archivo, imagen.nombreArchivo);
     }
     this.http.post(`${this.URL_BACKEND}/imagenes/subir`, formData).subscribe((res) => {
-      console.log(res);
+      if(res){
+        for(const imagen of imagenes){
+          imagen.progressUpload = 100;
+        }
+      }
     });
   }
 

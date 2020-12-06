@@ -15,7 +15,8 @@ export class GestionPlantillasComponent implements OnInit, AfterViewInit {
   public dejandoCaerImgs = false;
   public archivos:FileItem[] = [];
   public formPlantilla:FormGroup;
-
+  private EditorCSS;
+  private EditorJS;
   @ViewChild("editorCSS") private editorCSS: ElementRef<HTMLElement>;
   @ViewChild("editorJS") private editorJS: ElementRef<HTMLElement>;
   @ViewChild("modalCrearPlantilla") modalCrearPlantilla; 
@@ -32,29 +33,30 @@ export class GestionPlantillasComponent implements OnInit, AfterViewInit {
     ace.config.set("fontSize", "14px");
     ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
 
-    const EditorCSS = ace.edit(this.editorCSS.nativeElement);
-    const EditorJS = ace.edit(this.editorJS.nativeElement);
-    EditorCSS.session.setValue(`body {
+    this.EditorCSS = ace.edit(this.editorCSS.nativeElement);
+    this.EditorJS = ace.edit(this.editorJS.nativeElement);
+    this.EditorCSS.session.setValue(`body {
       padding: 0;
     } /*Escribe tu codigo CSS aquí*/`
     );
 
-    EditorJS.session.setValue(`function saludar(){ 
+    this.EditorJS.session.setValue(`function saludar(){ 
       alert('Hola mundo'); 
     } /*Escribe tu codigo JS aquí*/`
     );
 
     //Configuracion del editor CSS
-    EditorCSS.setTheme('ace/theme/twilight');
-    EditorCSS.session.setMode('ace/mode/css');
-    EditorJS.setTheme('ace/theme/twilight');
-    EditorJS.session.setMode('ace/mode/javascript');
+    this.EditorCSS.setTheme('ace/theme/twilight');
+    this.EditorCSS.session.setMode('ace/mode/css');
+    this.EditorJS.setTheme('ace/theme/twilight');
+    this.EditorJS.session.setMode('ace/mode/javascript');
     //Configuracion del editor JS
     
 
-    /* De aquí obtenemos la información
-    aceEditor.on("change", () => {
-      console.log(aceEditor.getValue());
+    /* De aquí obtenemos la información */
+    /*
+    EditorCSS.on("change", () => {
+      console.log(typeof EditorCSS.getValue());
     });
     */
   }
@@ -70,7 +72,7 @@ export class GestionPlantillasComponent implements OnInit, AfterViewInit {
   
   POST_Plantilla(){
     this._ImagenesService.postImagenes(this.archivos);
-    console.log("plantilla creada chabo");
+    console.log("CSS:" + this.EditorCSS.getValue());
   }
 
 }

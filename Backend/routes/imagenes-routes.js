@@ -28,15 +28,14 @@ const storage = multer.diskStorage({
 const multerMiddleware = multer({
     storage,
     dest: path.join(__dirname, '../public/uploads')
-}).single('archivo');
+}).array('archivo');
 //--------------------------
 //Fin - Declaracion de middlewares
 //--------------------------
 
 //Declaracion de Rutas
 router.post('/subir', multerMiddleware, (req, res) => {
-    res.send(req.file);
-    console.log(req.file);
+    res.send(true);
 });
 //Fin declaracion de rutas
 
