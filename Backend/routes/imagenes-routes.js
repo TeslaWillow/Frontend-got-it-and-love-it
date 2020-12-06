@@ -36,6 +36,7 @@ const multerMiddleware = multer({
 //Declaracion de Rutas
 router.post('/subir', multerMiddleware, (req, res) => {
     res.send(true);
+    console.log(req.files);
 });
 //Fin declaracion de rutas
 

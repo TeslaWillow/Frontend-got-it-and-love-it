@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UsuariosService } from './usuarios.service';
+import { Usuario, UsuariosService } from './usuarios.service';
 import { TipoUsuarioService } from './tipo-usuario.service';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class AuthService {
       return false;
   }
 
-  getSession(){
+  getSession(): Usuario{
     return JSON.parse(localStorage.getItem('session'));
   }
 

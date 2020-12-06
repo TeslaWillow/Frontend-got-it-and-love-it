@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { Plan, PlanesService } from '../../services/planes.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-plan-actual',
@@ -7,14 +8,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./plan-actual.component.css']
 })
 export class PlanActualComponent implements OnInit {
+  public planActual:Plan;
 
-  @ViewChild("modalActualizarPlan") modalActualizarPlan;
-  constructor(private modalService:NgbModal) { }
+  constructor(
+    private _PlanesService:PlanesService,
+    private _auth:AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.planActual = this._PlanesService.getPlane(this._auth.getSession().plan);
   }
 
-  actualizarPlan(){
-    this.modalService.open(this.modalActualizarPlan, {size: 'lg'});
-  }
 }
