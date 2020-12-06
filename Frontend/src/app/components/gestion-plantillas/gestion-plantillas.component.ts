@@ -59,6 +59,10 @@ export class GestionPlantillasComponent implements OnInit, AfterViewInit {
     */
   }
   
+  limpiarImagenes(){
+    this.archivos = [];
+  }
+
   crearPlantilla(){
     this.ngAfterViewInit();
     this._NgbModal.open(this.modalCrearPlantilla, {size:"lg"});

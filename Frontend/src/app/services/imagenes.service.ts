@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FileItem } from '../Models/file-item';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -53,9 +54,9 @@ export class ImagenesService {
       peso: "15 MB"
     }
   ];
-  private CARPETA_IMG = 'img';
+  private URL_BACKEND = 'http://localhost:8888';
 
-  constructor() {  }
+  constructor(private http:HttpClient) {  }
 
   getImagenes(){
     return this.imagenes;
@@ -70,8 +71,14 @@ export class ImagenesService {
     return resultado;
   }
 
-  postImagenes( imagenes:FileItem[]){
-    console.log( imagenes );
+  postImagenes(imagenes:FileItem[]){
+    let formData = new FormData();
+    for (const imagen of imagenes){
+      formData.append("imagenes[]", imagen.archivo, imagen.nombreArchivo);
+    }
+    this.http.post(`${this.URL_BACKEND}/imagenes/subir`, formData).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   postImagen(imagen:any){

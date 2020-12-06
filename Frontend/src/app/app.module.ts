@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { registerLocaleData } from '@angular/common'; //para que las fechas salgan en español
 import  localeEs  from '@angular/common/locales/es'; //para que las fechas salgan en español
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; //Validaciones para los inputs de tipo file
+import { HttpClientModule } from '@angular/common/http';
 //Routes
 import { APP_ROUTING } from './app.routes';
 //Pipes
@@ -87,7 +88,8 @@ registerLocaleData(localeEs);
   imports: [
     BrowserModule,
     NgbModule,
-    APP_ROUTING, 
+    APP_ROUTING,
+    HttpClientModule, 
     FormsModule, 
     ReactiveFormsModule,
     RxReactiveFormsModule
