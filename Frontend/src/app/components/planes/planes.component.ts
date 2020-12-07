@@ -27,7 +27,7 @@ export class PlanesComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.planes = this._PlanesService.getPlanes();
+    this.planes = this._PlanesService.GET_Planes();
   }
 
   crearFormulario(){
@@ -78,7 +78,7 @@ export class PlanesComponent implements OnInit {
 
   comprarPlan(_id:number){
     this.formTarjetaPlan.reset();
-    this.plan = this._PlanesService.getPlane(_id);
+    this.plan = this._PlanesService.GET_Plan(_id);
     this._NgbModal.open(this.modalPagarPlan, {size:"lg"});
   }
 

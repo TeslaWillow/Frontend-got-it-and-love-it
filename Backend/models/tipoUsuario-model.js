@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 /*
     String, Number, Date, Buffer, Boolean, Mixed, ObjectId, Array, Decimal128, Map, Schema
 */
-var usuariosSchema = new Schema({
+var tipoUsuarioSchema = new Schema({
     tipo: {
         type: String,
         required: [true, 'El tipo es necesario']
@@ -16,4 +16,4 @@ var usuariosSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('tipoUsuario', usuariosSchema);
+module.exports = mongoose.model('tipoUsuario', tipoUsuarioSchema);

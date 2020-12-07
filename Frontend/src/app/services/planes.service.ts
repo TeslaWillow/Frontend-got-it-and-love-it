@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanesService {
-
+  private URL_BACKEND = 'http://localhost:8888';
   private Planes:Plan[] = [{
     _id: 0,
     nombrePlan: "Gratis",
@@ -63,16 +64,22 @@ export class PlanesService {
 }
 ];
 
-  constructor() { 
+  constructor(private http:HttpClient) { 
     console.log("Servicio de planes activo");
   }
 
-  getPlanes(){
+  GET_Planes(){
     return this.Planes;
   }
 
-  getPlane(id:number){
+  GET_Plan(id:number){
     return this.Planes[id];
+  }
+
+  POST_Plan(datos:any){
+    this.http.post(`${this.URL_BACKEND}/planes/`, datos).subscribe((res) => {
+      console.log(res);
+    });
   }
 }
 

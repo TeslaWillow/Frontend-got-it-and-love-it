@@ -7,9 +7,10 @@ var database = require('./controller/database');
 //Variables de los routers
 var usuariosRoutes = require('./routes/usuarios-routes');
 var imagenesRoutes = require('./routes/imagenes-routes');
-var app = express();
-
+var planesRoutes = require('./routes/planes-route');
+var empresasRoutes = require('./routes/empresas-routes');
 //Middleware
+var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Routers
 app.use('/usuarios', usuariosRoutes);
 app.use('/imagenes', imagenesRoutes);
-
+app.use('/planes', planesRoutes);
+app.use('/empresas', empresasRoutes);
 // Static files
 app.use(express.static(path.join(__dirname, 'public')))
 

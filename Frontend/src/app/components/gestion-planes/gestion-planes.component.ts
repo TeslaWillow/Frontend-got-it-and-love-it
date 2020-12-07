@@ -25,7 +25,7 @@ export class GestionPlanesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.planes = this._PlanesService.getPlanes();
+    this.planes = this._PlanesService.GET_Planes();
   }
 
   cargarCrearPlan(){
@@ -35,7 +35,7 @@ export class GestionPlanesComponent implements OnInit {
   }
 
   cargarActualizarPlan(id:number){
-    let plan = this._PlanesService.getPlane(id);
+    let plan = this._PlanesService.GET_Plan(id);
     this.form_planes.reset({
       nombrePlan: plan.nombrePlan,
       color: plan.color,
@@ -112,12 +112,12 @@ export class GestionPlanesComponent implements OnInit {
   }
 
   guardarPlan(){
-    console.log("plan guardado");
-    console.log(this.form_planes);
     if(this.form_planes.invalid){
       return Object.values(this.form_planes.controls).forEach(control => {
         control.markAsTouched();
       });
+    }else{
+      
     }
   }
 
