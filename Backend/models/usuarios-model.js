@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+const puerto = process.env.PORT || 8888;
+const URL = `http://localhost:${puerto}`;
 var uniqueValidator = require('mongoose-unique-validator');
 
 var Schema = mongoose.Schema;
@@ -31,7 +33,7 @@ var usuariosSchema = new Schema({
     foto: {
         type: String,
         required: false,
-        default: "assets/img/profile-img/cliente-img.jpg"
+        default: `${URL}/assets/profile/default-profile.png`
     },
     activo: {
         type: Boolean,
@@ -39,25 +41,25 @@ var usuariosSchema = new Schema({
         default: true
     },
     tipoUsuario: {
-        type: mongoose.Types.ObjectId,
-        ref: 'tipoUsuario',
-        required: false,
-        default: mongoose.Types.ObjectId("5f994defa49f640504568adf") //Cliente
+        type: Schema.ObjectId,
+        ref: 'tipousuarios',
+        required: true
     },
     plan: {
-        type: mongoose.Types.ObjectId,
+        type: Schema.ObjectId,
         ref: 'plan',
-        required: false,
-        default: mongoose.Types.ObjectId("5f997430a49f640504568ae8") //Plan Gratis
+        required: true
     },
-    compras: {
-        type: Array,
+    compras: [{
+        type: Schema.ObjectId,
+        ref: "compras",
         required: false
-    },
-    empresa: {
-        type: Array,
+    }],
+    empresa: [{
+        type: Schema.ObjectId,
+        ref: "empresas",
         required: false
-    }
+    }]
 });
 
 usuariosSchema.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });

@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+const puerto = process.env.PORT || 8888;
+const URL = `http://localhost:${puerto}`;
 var Schema = mongoose.Schema;
 /*
     String, Number, Date, Buffer, Boolean, Mixed, ObjectId, Array, Decimal128, Map, Schema
@@ -18,9 +20,9 @@ var empresaSchema = new Schema({
         default: false
     },
     foto: {
-        type: Schema.ObjectId,
-        ref: "imagenes",
-        default: null
+        type: String,
+        required: true,
+        default: `${URL}/assets/enterprise/default-enterprise.jpg`
     },
     rubro: {
         type: String,

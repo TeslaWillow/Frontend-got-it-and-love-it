@@ -9,8 +9,6 @@ const mkdirp = require('mkdirp');
 let express = require('express');
 let router = express.Router();
 let Imagen = require('../models/imagenes-model');
-const planesModel = require('../models/planes-model');
-const bodyParser = require('body-parser');
 //--------------------------
 //Declaracion de middlewares
 //--------------------------
