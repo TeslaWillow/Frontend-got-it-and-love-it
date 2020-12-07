@@ -21,7 +21,7 @@ var empresaSchema = new Schema({
     },
     foto: {
         type: String,
-        required: true,
+        required: false,
         default: `${URL}/assets/enterprise/default-enterprise.jpg`
     },
     rubro: {

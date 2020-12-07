@@ -15,6 +15,11 @@ var productosSchema = new Schema({
         type: String,
         required: false
     },
+    activo: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
     precio: {
         type: Number,
         required: [true, "El precio es requerido"]

@@ -2,7 +2,7 @@
 const Mongoose = require('mongoose');
 const puerto = process.env.PORT || 8888;
 const URL = `http://localhost:${puerto}`;
-const folderImages = 'uploads/imagenes';
+const folderImages = 'uploads/imagenes/empresas/bancoimagenes';
 const path = require("path");
 const multer = require("multer");
 const mkdirp = require('mkdirp');
@@ -70,8 +70,8 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/subir/:id', multerMiddleware, (req, res) => {
-    const _id = req.params.id;
+router.post('/subir/:idEmpresa', multerMiddleware, (req, res) => {
+    const _id = req.params.idEmpresa;
     const archivos = [];
     for (const file of req.files) {
         const nombreArchivo = file.originalname;

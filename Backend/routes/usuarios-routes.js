@@ -126,11 +126,11 @@ router.post('/', (req, res) => {
 
 router.put('/:id', multerMiddleware, (req, res) => {
     const _id = req.params.id;
-    const nombreArchivo = req.file.originalname;
-    const rutaArchivo = `${URL}/${folderImages}/${_id}/${nombreArchivo}`;
-
-    if (req.file) req.body.foto = rutaArchivo;
-
+    if (req.file && req.file.originalname != "") {
+        const nombreArchivo = req.file.originalname;
+        const rutaArchivo = `${URL}/${folderImages}/${_id}/${nombreArchivo}`;
+        req.body.foto = rutaArchivo;
+    }
     let body = _.pick(req.body, [
         "nombre", "apellido",
         "telefono", "foto",

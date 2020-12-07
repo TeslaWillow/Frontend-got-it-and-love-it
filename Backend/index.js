@@ -11,6 +11,7 @@ var planesRoutes = require('./routes/planes-route');
 var empresasRoutes = require('./routes/empresas-routes');
 var tipoUsuarioRoutes = require('./routes/tipoUsuario-router');
 var categoriasRoutes = require('./routes/categorias-routes');
+var productosRoutes = require('./routes/productos-routes');
 //Middleware
 var app = express();
 app.use(cors());
@@ -24,6 +25,7 @@ app.use('/planes', planesRoutes);
 app.use('/empresas', empresasRoutes);
 app.use('/tipoUsuario', tipoUsuarioRoutes);
 app.use('/categorias', categoriasRoutes);
+app.use('/productos', productosRoutes);
 // Static files
 app.use(express.static(path.join(__dirname, 'public')))
 
