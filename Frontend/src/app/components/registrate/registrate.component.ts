@@ -17,7 +17,8 @@ export class RegistrateComponent implements OnInit {
 
   constructor(
     private fb:FormBuilder,
-    private _ValidadoresService:ValidadoresService
+    private _ValidadoresService:ValidadoresService,
+    private _UsuariosService:UsuariosService
     ) {}
 
   ngOnInit(): void {
@@ -85,7 +86,7 @@ export class RegistrateComponent implements OnInit {
   }
 
   guardarUsuario(){
-    console.log("guardando usuario");
+    console.log("guardando usuario: ");
     console.log(this.form_reg_usuario);
     if(this.form_reg_usuario.invalid){
       return Object.values(this.form_reg_usuario.controls).forEach(control => {
@@ -94,6 +95,8 @@ export class RegistrateComponent implements OnInit {
         else
           control.markAsTouched();
       });
+    }else{
+      this._UsuariosService.POST_Usuario(this.form_reg_usuario);
     }
   }
 

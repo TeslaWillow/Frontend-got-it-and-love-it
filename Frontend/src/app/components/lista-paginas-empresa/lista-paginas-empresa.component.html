@@ -38,9 +38,74 @@
             </table>
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-end">
-                    <button class="btn btn-lg naranja-outline" [routerLink]="['/pagina-empresa']">Crear nueva pagina</button>
+                    <button class="btn btn-lg rojo-outline mr-3" (click)="detallesDeempresa();">Detalles de tu empresa</button>
+                    <button class="btn btn-lg naranja-outline" (click)="crearNuevaPagina();">Crear nueva pagina</button>
                 </div>
             </div>
         </main>
     </div>
 </div>
+
+<ng-template #modalDetallesDeEmpresa let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Detalles de tu empresa</h5>
+        <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="inpt_nombreEmpresa">Nombre de tu empresa</label>
+                <input type="text" class="form-control" id="inpt_nombreEmpresa" aria-describedby="nombreEmpresa">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Dirección de tu empresa</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Rubro de tu empresa</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Alimentos</option>
+                  <option>Salud</option>
+                </select>
+            </div>
+        </form>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary mr-3" (click)="modal.close()">Cerrar</button>
+            <button type="button" class="btn naranja-outline">Guardar detalles</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalCrearPagina let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="actualizarUsuarioLabel">Crea tu pagina</h5>
+        <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <Label class="mb-3">¿Como deseas crear tu pagina?</Label>
+            <br>
+            <div class="btn-group btn-group-toggle">
+                <button class="btn btn-lg amarillo-outline" (click)="usarPlantilla = !usarPlantilla"> 
+                    <span *ngIf="!usarPlantilla">Empezar desde 0</span>
+                    <span *ngIf="usarPlantilla">Usar una plantilla</span>
+                </button>
+            </div>
+            <div class="form-group animate__animated animate__fadeIn mt-3" *ngIf="usarPlantilla">
+                <label for="exampleFormControlSelect1">Plantillas disponibles</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>Standar</option>
+                  <option>Deep Blue</option>
+                </select>
+            </div>
+        </form>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary mr-3" (click)="modal.close()">Cerrar</button>
+            <button type="button" class="btn naranja-outline">Crear pagina</button>
+        </div>
+    </div>
+</ng-template>

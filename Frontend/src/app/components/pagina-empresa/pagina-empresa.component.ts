@@ -44,7 +44,6 @@ export class PaginaEmpresaComponent implements OnInit {
 
   anchoColumna(elementos:number):any{
     let ancho = (100/elementos) - 0.5;
-    console.log(ancho);
     return ancho.toString();
   }
 

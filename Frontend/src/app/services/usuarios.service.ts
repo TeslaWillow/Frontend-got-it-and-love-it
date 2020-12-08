@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -48,9 +50,10 @@ export class UsuariosService {
       compras: [],
       empresa: []
   }
-];
+  ];
+  private URL_BACKEND = 'http://localhost:8888';
 
-  constructor() { 
+  constructor(private http:HttpClient) { 
     console.log("Servicio dummy listo de usuarios");
   }
 
@@ -65,6 +68,15 @@ export class UsuariosService {
         resultado = usuario;
     });
     return resultado;
+  }
+
+  POST_Usuario(nuevoUsuario:FormGroup){
+    let formData = new FormData();
+    formData.append("nombre", nuevoUsuario.controls["nombre"].value);
+    formData.append("apellido", nuevoUsuario.controls["apellido"].value);
+    formData.append("correo", nuevoUsuario.controls["correo"].value);
+    formData.append("password", nuevoUsuario.controls["pass"].value);
+    return this.http.post(`${this.URL_BACKEND}/usuarios/`, formData);
   }
 
   validarUsuario(correo:string, password:string){
