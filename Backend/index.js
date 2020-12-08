@@ -9,9 +9,10 @@ var usuariosRoutes = require('./routes/usuarios-routes');
 var imagenesRoutes = require('./routes/imagenes-routes');
 var planesRoutes = require('./routes/planes-route');
 var empresasRoutes = require('./routes/empresas-routes');
-var tipoUsuarioRoutes = require('./routes/tipoUsuario-router');
+var tipoUsuarioRoutes = require('./routes/tipousuario-router');
 var categoriasRoutes = require('./routes/categorias-routes');
 var productosRoutes = require('./routes/productos-routes');
+var comprasRoutes = require('./routes/compras-routes');
 //Middleware
 var app = express();
 app.use(cors());
@@ -26,6 +27,7 @@ app.use('/empresas', empresasRoutes);
 app.use('/tipoUsuario', tipoUsuarioRoutes);
 app.use('/categorias', categoriasRoutes);
 app.use('/productos', productosRoutes);
+app.use('/compras', comprasRoutes);
 // Static files
 app.use(express.static(path.join(__dirname, 'public')))
 

@@ -1,7 +1,7 @@
 'use strict';
 let express = require('express');
 let router = express.Router();
-let tipoUsuario = require('../models/tipoUsuario-model');
+let tipoUsuario = require('../models/tipousuario-model');
 
 router.get('/', (req, res) => {
     tipoUsuario.find().exec((err, data) => {
