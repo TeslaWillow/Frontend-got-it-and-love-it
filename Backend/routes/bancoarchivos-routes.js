@@ -2,13 +2,13 @@
 const Mongoose = require('mongoose');
 const puerto = process.env.PORT || 8888;
 const URL = `http://localhost:${puerto}`;
-const folderImages = 'uploads/imagenes/empresas/bancoimagenes';
+const folderImages = 'uploads/archivos';
 const path = require("path");
 const multer = require("multer");
 const mkdirp = require('mkdirp');
 let express = require('express');
 let router = express.Router();
-let Imagen = require('../models/imagenes-model');
+let Archivo = require('../models/bancoarchivos-model');
 let Empresa = require('../models/empresas-model');
 //--------------------------
 //Declaracion de middlewares
@@ -18,27 +18,17 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     },
     destination: (req, file, cb) => {
-        const _id = req.params.id;
+        const _id = req.params.idEmpresa;
         const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
 
         mkdirp(dir, err => cb(err, dir));
-    },
-    limits: { fileSize: 1 },
-    fileFilter: (req, file, cb) => {
-        const fileTypes = /jpeg|jpg|png|gif/;
-        const mimeType = fileTypes.test(file.mimetype);
-        const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-        if (mimeType && extname) {
-            return cb(null, true);
-        }
-        cb("Error: El archivo no es soportado");
     }
 });
 
 const multerMiddleware = multer({
     storage,
     dest: (req, file, cb) => {
-        const _id = req.params.id;
+        const _id = req.params.idEmpresa;
         const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
 
         mkdirp(dir, err => cb(err, dir));
@@ -47,33 +37,42 @@ const multerMiddleware = multer({
 //--------------------------
 //Fin - Declaracion de middlewares
 //--------------------------
-
-//Declaracion de Rutas
+// Obtener todos los archivos
 router.get('/', (req, res) => {
-    Imagen.find().exec((err, data) => {
+    Archivo.find().exec((err, data) => {
         if (err) {
-            return res.status(500).json({
-                ok: false,
-                err
-            });
-        };
-        if (!data) {
-            return res.status(400).json({
-                ok: false,
-                err
-            });
+            res.status(500).json({ ok: false, err });
         }
-
-        res.status(200).json({
-            ok: true,
-            data
-        });
+        if (!data) {
+            res.status(400).json({ ok: false, err });
+        }
+        res.status(200).json({ ok: true, data });
     });
 });
 
+// Obtener los archivos de una empresa
+router.get('/:id', (req, res) => {
+    const _id = Mongoose.Types.ObjectId(req.params.id);
+    Empresa.aggregate([{ "$match": { _id: _id } }, {
+            $lookup: {
+                from: 'bancoarchivos',
+                localField: 'bancoArchivos',
+                foreignField: '_id',
+                as: 'bancoArchivos'
+            }
+        }])
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.send(err);
+        });
+});
+
+//Crear archivos
 router.post('/subir/:idEmpresa', multerMiddleware, (req, res) => {
     const _id = req.params.idEmpresa;
-    const archivos = [];
+    const archivosDB = [];
     for (const file of req.files) {
         const nombreArchivo = file.originalname;
         const rutaArchivo = `${URL}/${folderImages}/${_id}/${nombreArchivo}`;
@@ -84,22 +83,23 @@ router.post('/subir/:idEmpresa', multerMiddleware, (req, res) => {
             extencion: path.extname(nombreArchivo),
             peso: file.size,
         };
-        archivos.push(archivo);
+        archivosDB.push(archivo);
     }
-    Imagen.insertMany(archivos, (err, imagenesDB) => {
+    Archivo.insertMany(archivosDB, (err, archivos) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
+                mensaje: "error a nivel de archivo",
                 err
             });
         };
-        if (!imagenesDB) {
+        if (!archivos) {
             return res.status(400).json({
                 ok: false,
+                mensaje: "error a nivel de archivo",
                 err
             });
         }
-
         Empresa.findById(_id, (err, empresa) => {
             if (err) {
                 return res.status(500).json({
@@ -115,14 +115,14 @@ router.post('/subir/:idEmpresa', multerMiddleware, (req, res) => {
                     err
                 });
             }
-            for (const imagen of imagenesDB) {
-                empresa.imagenes.push(imagen._id);
+            for (const archivo of archivos) {
+                empresa.bancoArchivos.push(archivo._id);
             }
             empresa.save((err) => {
                 if (err) {
                     return res.status(500).json({ ok: false, mensaje: "Error a nivel de empresa", err });
                 }
-                res.status(200).json({ ok: true, imagenesDB, empresa });
+                res.status(200).json({ ok: true, archivos, empresa });
             });
         });
     });

@@ -50,14 +50,14 @@ var usuariosSchema = new Schema({
         ref: 'plan',
         required: true
     },
-    empresa: {
-        type: Schema.ObjectId,
-        ref: "empresas",
-        required: false
-    },
     compras: [{
         type: Schema.ObjectId,
         ref: "compras",
+        required: false
+    }],
+    empresa: [{
+        type: Schema.ObjectId,
+        ref: "empresas",
         required: false
     }]
 });

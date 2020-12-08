@@ -68,10 +68,16 @@ router.get('/', (req, res) => {
             }
         }])
         .then(data => {
-            res.send(data);
+            res.status(200).json({
+                ok: true,
+                data
+            });
         })
         .catch(err => {
-            res.send(err);
+            res.status(400).json({
+                ok: false,
+                err
+            });
         });
 });
 
@@ -94,10 +100,16 @@ router.get('/:id', (req, res) => {
             }
         }])
         .then(data => {
-            res.send(data);
+            res.status(200).json({
+                ok: true,
+                data
+            });
         })
         .catch(err => {
-            res.send(err);
+            res.status(400).json({
+                ok: false,
+                err
+            });
         });
 });
 
@@ -154,10 +166,14 @@ router.delete('/:id', (req, res) => {
     const _id = req.params.id;
     Usuario.findByIdAndUpdate(_id, { activo: false }, { new: true, runValidators: true })
         .then(data => {
-            res.status(200).send(data);
+            res.status(200).json({
+                ok: true,
+                data
+            });
         })
         .catch(err => {
             res.status(400).json({
+                ok: false,
                 mensaje: "Ocurrio un problema al actualizar al usuario",
                 err: err
             });

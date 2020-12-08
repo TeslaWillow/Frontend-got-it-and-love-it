@@ -33,6 +33,7 @@ router.post('/:idUsuario', (req, res) => {
         if (err) {
             res.status(500).json({
                 ok: false,
+                mensaje: "Fallo a nivel de producto",
                 err
             });
         }
@@ -52,12 +53,14 @@ router.post('/:idUsuario', (req, res) => {
             if (err) {
                 return res.status(500).json({
                     ok: false,
+                    mensaje: "Fallo a nivel de compra",
                     err
                 });
             };
             if (!compra) {
                 return res.status(400).json({
                     ok: false,
+                    mensaje: "no podemos recuperar la compra",
                     err
                 });
             }
@@ -66,18 +69,23 @@ router.post('/:idUsuario', (req, res) => {
                 if (err) {
                     res.status(500).json({
                         ok: false,
+                        mensaje: "Fallo a nivel de usuario",
                         err
                     });
                 }
                 if (!usuario) {
                     return res.status(400).json({
                         ok: false,
+                        mensaje: "no se pudo encontrar al usuario",
                         err
                     });
                 }
                 usuario.compras.push(compra._id);
                 usuario.save((err) => {
-                    if (err) return res.status(500).json({ ok: false, err });
+                    if (err) {
+                        combraDB.deleteOne();
+                        return res.status(500).json({ ok: false, mensaje: "Error a nivel de usuario", err });
+                    }
                     res.status(200).json({ ok: true, compra, producto });
                 });
             });
