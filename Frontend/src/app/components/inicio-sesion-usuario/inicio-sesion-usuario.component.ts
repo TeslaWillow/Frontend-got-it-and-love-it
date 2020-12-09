@@ -1,4 +1,3 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,7 +12,11 @@ export class InicioSesionUsuarioComponent implements OnInit {
   
   public form_login:FormGroup;
   public notAuthUser:boolean = false;
-
+  public solicitandoInformacion = false;
+  public errores = {
+    ok: true,
+    mensaje: ""
+  };
   constructor(
     private fb:FormBuilder,
     private auth:AuthService,
@@ -33,7 +36,7 @@ export class InicioSesionUsuarioComponent implements OnInit {
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
         ]
       ],
-      pass: ['', 
+      password: ['', 
         [
           Validators.required, 
           Validators.minLength(8)
@@ -46,19 +49,42 @@ export class InicioSesionUsuarioComponent implements OnInit {
   isValid(formulario:FormGroup, campo:string){
     return formulario.get(campo).invalid && formulario.get(campo).touched;
   }
+  /*limpiar los errores*/ 
+  limpiarErrores(){
+    this.errores.ok = true;
+    this.errores.mensaje = "";
+  }
 
   loggear(){
+    this.limpiarErrores();
     if(this.form_login.invalid){
       return Object.values(this.form_login.controls).forEach(control => {
         control.markAsTouched();
       });
     }else{
-      let correo:string = this.form_login.get('correo').value; 
-      let pass:string = this.form_login.get('pass').value;
-      if(this.auth.login(correo, pass))
-        this.router.navigateByUrl('/dashboard');
-      else
-        this.notAuthUser = true;
+       this.solicitandoInformacion = true;
+       this.auth.login(this.form_login.value).subscribe(
+         (res:any) => {
+            this.auth.createSession(res);
+            this.solicitandoInformacion = false;
+            this.router.navigateByUrl('/dashboard');
+         },
+         (err:any) => {
+            this.solicitandoInformacion = false;
+            if(err.status === 400){
+              this.errores.mensaje = err.error.mensaje;
+              this.errores.ok = err.error.ok;
+            }
+            else if(err.status === 500){
+              this.errores.mensaje = "Tenemos problemas con el servidor. D':";
+              this.errores.ok = false;
+            }
+            else{
+              this.errores.mensaje = "Tenemos problemas para conectarnos con el servidor. D':";
+              this.errores.ok = false;
+            }
+         }
+       );
     }
   }
 }

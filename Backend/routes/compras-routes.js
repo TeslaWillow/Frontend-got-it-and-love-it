@@ -6,9 +6,9 @@ const _ = require("underscore");
 let Compra = require('../models/compras-model');
 let Producto = require('../models/productos-model');
 let Usuario = require('../models/usuarios-model');
-
+const { verificaToken } = require('../middleware/auth-middleware');
 //Obtener todos los usuarios
-router.get('/', (req, res) => {
+router.get('/', verificaToken, (req, res) => {
     Compra.aggregate([{
             $lookup: {
                 from: 'productos',
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 });
 
 //Crear una compra
-router.post('/:idUsuario', (req, res) => {
+router.post('/:idUsuario', verificaToken, (req, res) => {
     const _idUsuario = req.params.idUsuario;
     req.body.producto = Mongoose.Types.ObjectId(req.body.producto);
     Producto.findById(req.body.producto, (err, producto) => {
@@ -89,6 +89,27 @@ router.post('/:idUsuario', (req, res) => {
                     res.status(200).json({ ok: true, compra, producto });
                 });
             });
+        });
+    });
+});
+
+//Obtener las compras de un usuario dasdasda
+router.get('/usuario', verificaToken, (req, res) => {
+    Usuario.findById(req.usuario._id, (err, usuarioDB) => {
+        if (err) { res.status(500).json({ ok: false, mensaje: "hubo un problema en el servidor", err }); }
+        Compra.aggregate([
+            { "$match": { "_id": { "$in": usuarioDB.compras } } },
+            {
+                $lookup: {
+                    from: 'productos',
+                    localField: 'producto',
+                    foreignField: '_id',
+                    as: 'producto'
+                }
+            }
+        ], (err, data) => {
+            if (err) { res.status(500).json({ ok: false, mensaje: "hubo un problema en el servidor", err }); }
+            res.send(data);
         });
     });
 });

@@ -12,7 +12,7 @@ export class TipoUsuarioPipe implements PipeTransform {
 
   transform(value: number, ...args: unknown[]): string {
     let tipoUsuario:TipoUsuario = this._TipoUsuarioService.getTipoUsuario(value);
-    return tipoUsuario.tipo;
+    return "Esto no funcionaba jaja";
   }
 
 }

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComprasService {
-
+  private URL_BACKEND = 'http://localhost:8888';
+  /*
   private compras:Compra[] = [
     {
       "_id": 0,
@@ -42,27 +44,27 @@ export class ComprasService {
       "total": 0
     }
   ];
+  */
+  
+  constructor(private http:HttpClient) { }
 
-  constructor() { }
-
-  getCompras(){
-    return this.compras;
+  getComprasUsuario(){
+    let userToken = JSON.parse(localStorage.getItem("session")).token;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': userToken })
+    };
+    return this.http.get(`${this.URL_BACKEND}/compras/usuario/`, httpOptions);
   }
 
-  getCompra(id:number){
-    let resultado;
-    this.compras.forEach(compra => {
-      if(compra._id === id)
-        resultado = compra;
-    });
-    return resultado;
-  }
 }
 
 export interface Compra {
   _id:number
   Productoid:number
+  producto:any,
+  fotoProducto:string,
   fechaCompra:Date
+  precioUnitario:number,
   cantidad:number
   total:number
 }

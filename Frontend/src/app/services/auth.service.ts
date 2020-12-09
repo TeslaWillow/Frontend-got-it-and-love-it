@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Usuario, UsuariosService } from './usuarios.service';
-import { TipoUsuarioService } from './tipo-usuario.service';
+import { TipoUsuarioService, TipoUsuario } from './tipo-usuario.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,20 +11,16 @@ export class AuthService {
   private URL_BACKEND = 'http://localhost:8888';
 
   constructor(
-    private _UsuariosService:UsuariosService,
     private _TipoUsuarioService:TipoUsuarioService,
     private http:HttpClient
   ) { }
 
-  login(correo:string, pass:string){
-    let usuario = this._UsuariosService.validarUsuario(correo,pass)
-    if(usuario){
-      localStorage.setItem('session', JSON.stringify(usuario));
-      return true;
-    }
-    else{
-      return false;
-    }
+  login(usuario:JSON){
+    return this.http.post(`${this.URL_BACKEND}/login/`, usuario);
+  }
+
+  createSession(usuario:JSON){
+    localStorage.setItem('session', JSON.stringify(usuario));
   }
 
   isAuthUser(): boolean {
@@ -41,7 +37,7 @@ export class AuthService {
 
   getTipoUsuario(): string {
     let session = JSON.parse(localStorage.getItem('session'));
-    return this._TipoUsuarioService.getTipoUsuario(session.tipoUsuario).tipo;
+    return session.TipoUsuario;
   }
 
   logout(){

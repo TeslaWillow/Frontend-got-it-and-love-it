@@ -20,11 +20,11 @@
                 <tbody>
                     <tr *ngFor="let compra of compras; let i = index">
                         <th scope="row">{{i}}</th>
-                        <td class="text-left">{{getProducto(compra.Productoid).nombre}}</td>
+                        <td class="text-left">{{compra.producto[0].nombre}}</td>
                         <td class="text-left">{{compra.fechaCompra | date:'mediumDate'}}</td>
                         <td class="text-left">{{compra.cantidad}}</td>
-                        <td class="text-left">{{getProducto(compra.Productoid).precio}} $</td>
-                        <td class="text-left">{{getProducto(compra.Productoid).precio * compra.cantidad}} $</td>
+                        <td class="text-left">{{compra.precioUnitario | currency}}</td>
+                        <td class="text-left">{{compra.total | currency}}</td>
                     </tr>
                 </tbody>
             </table>

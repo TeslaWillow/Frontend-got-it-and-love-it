@@ -15,7 +15,7 @@ let verificaToken = (req, res, next) => {
                 err
             });
         }
-
+        // Datos del usuario que esta solicitando informacion
         req.usuario = decoded.usuario;
         next();
     });

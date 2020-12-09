@@ -17,10 +17,14 @@ export class HistorialComprasComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.compras = this._ComprasService.getCompras();
-  }
-
-  getProducto(id:number){
-    return this._ProductosService.getProducto(id);
+    this._ComprasService.getComprasUsuario().subscribe( 
+      (res:any) => {
+        this.compras = res;
+        console.log(this.compras);
+      },
+      (err:any) => {
+        console.log("ocurrio un error");
+      }  
+    );
   }
 }

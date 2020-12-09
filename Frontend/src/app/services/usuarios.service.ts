@@ -87,16 +87,16 @@ export class UsuariosService {
 }
 
 export interface Usuario {
-  _id: number, //Seran objectId()
-  nombre: string,
-  apellido: string,
-  correo: string,
-  password: string,
-  telefono: string,
-  foto: string,
-  tipoUsuario: number, //Seran objectId()
-  plan: number, //Seran objectId()
-  activo: boolean,
+  _id: any, //Seran objectId()
+  nombre: any,
+  apellido: any,
+  correo: any,
+  password: any,
+  telefono: any,
+  foto: any,
+  tipoUsuario: any, //Seran objectId()
+  plan: any, //Seran objectId()
+  activo: any,
   compras: any[],
   empresa: any[]
 }

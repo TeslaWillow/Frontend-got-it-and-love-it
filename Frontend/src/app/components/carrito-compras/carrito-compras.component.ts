@@ -23,7 +23,7 @@ export class CarritoComprasComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    let compras = this._ComprasService.getCompras();
+    let compras = this._ComprasService.getComprasUsuario();
     if(this.lStorage.getItem('carrito'))
       console.log("Recuperando carrito");
     else

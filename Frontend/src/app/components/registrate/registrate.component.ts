@@ -99,8 +99,6 @@ export class RegistrateComponent implements OnInit {
           this.solicitandoInformacion = false;
         if(res.ok)
           this.router.navigateByUrl('/inicio-sesion-usuario');
-        else
-          console.log(res);
         },
         (err:any) => {
           this.solicitandoInformacion = false;

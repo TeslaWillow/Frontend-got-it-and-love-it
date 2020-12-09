@@ -5,6 +5,7 @@ let router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 let Usuario = require('../models/usuarios-model');
+let TipoUsuario = require('../models/tipousuario-model');
 
 router.post('/', (req, res) => {
     let body = req.body;
@@ -29,13 +30,30 @@ router.post('/', (req, res) => {
                 mensaje: "Usuario o contraseña incorrectos"
             });
         };
-        const token = jwt.sign({
-            usuario: usuarioDB
-        }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN }); //Expira en 1 mes
-        res.status(200).json({
-            ok: true,
-            usuario: usuarioDB.nombre,
-            token
+
+        TipoUsuario.findById(usuarioDB.tipoUsuario, (err, tipoUsuarioDB) => {
+            if (!tipoUsuarioDB) {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: "Su tipo de usuario no existe"
+                });
+            }
+
+            const token = jwt.sign({
+                usuario: usuarioDB
+            }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN }); //Expira en 1 mes
+
+            res.status(200).json({
+                ok: true,
+                nombre: usuarioDB.nombre,
+                apellido: usuarioDB.apellido,
+                correo: usuarioDB.correo,
+                plan: usuarioDB.plan,
+                tipo: usuarioDB.tipoUsuario,
+                foto: usuarioDB.foto,
+                tipoUsuario: tipoUsuarioDB.tipo,
+                token
+            });
         });
     });
 });
