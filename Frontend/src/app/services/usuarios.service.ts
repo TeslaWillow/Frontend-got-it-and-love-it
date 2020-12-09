@@ -70,13 +70,8 @@ export class UsuariosService {
     return resultado;
   }
 
-  POST_Usuario(nuevoUsuario:FormGroup){
-    let formData = new FormData();
-    formData.append("nombre", nuevoUsuario.controls["nombre"].value);
-    formData.append("apellido", nuevoUsuario.controls["apellido"].value);
-    formData.append("correo", nuevoUsuario.controls["correo"].value);
-    formData.append("password", nuevoUsuario.controls["pass"].value);
-    return this.http.post(`${this.URL_BACKEND}/usuarios/`, formData);
+  POST_Usuario(nuevoUsuario:JSON){
+    return this.http.post(`${this.URL_BACKEND}/usuarios/`, nuevoUsuario);
   }
 
   validarUsuario(correo:string, password:string){

@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Usuario, UsuariosService } from './usuarios.service';
 import { TipoUsuarioService } from './tipo-usuario.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private URL_BACKEND = 'http://localhost:8888';
+
   constructor(
     private _UsuariosService:UsuariosService,
-    private _TipoUsuarioService:TipoUsuarioService
+    private _TipoUsuarioService:TipoUsuarioService,
+    private http:HttpClient
   ) { }
 
   login(correo:string, pass:string){

@@ -43,12 +43,14 @@ var usuariosSchema = new Schema({
     tipoUsuario: {
         type: Schema.ObjectId,
         ref: 'tipousuarios',
-        required: true
+        required: false,
+        default: "5fce59f5293da2340357c06e"
     },
     plan: {
         type: Schema.ObjectId,
         ref: 'plan',
-        required: true
+        required: false,
+        default: "5fcd7a1d9dac060bc4e77e6e"
     },
     compras: [{
         type: Schema.ObjectId,
@@ -61,6 +63,14 @@ var usuariosSchema = new Schema({
         required: false
     }]
 });
+
+usuariosSchema.methods.toJSON = function() {
+    let user = this;
+    let userObject = user.toObject();
+    delete userObject.password;
+
+    return userObject;
+}
 
 usuariosSchema.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
 

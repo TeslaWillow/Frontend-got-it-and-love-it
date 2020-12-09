@@ -1,4 +1,4 @@
-<div class="container-full-bg">
+<div class="container-full-bg animate__animated animate__fadeIn animate__faster">
     <div class="jumbotron">
         <h1 class="my-5">Registrate</h1>
         <div class="card px-5 py-4 m-auto" style="max-width: 950px;">
@@ -22,48 +22,25 @@
                 </div>
                 <div class="form-group">
                     <label for="passwordUsuario">Contraseña</label>
-                    <input formControlName="pass" type="password" class="form-control" id="passwordUsuario" [class.is-invalid]="isValid(form_reg_usuario, 'pass')">
-                    <small class="text-danger" *ngIf="isValid(form_reg_usuario, 'pass')">La contraseña debe tener minimo 8 caracteres</small>
+                    <input formControlName="password" type="password" class="form-control" id="passwordUsuario" [class.is-invalid]="isValid(form_reg_usuario, 'password')">
+                    <small class="text-danger" *ngIf="isValid(form_reg_usuario, 'password')">La contraseña debe tener minimo 8 caracteres</small>
                 </div>
                 <div class="form-group">
                     <label for="RepetirpasswordUsuario">Repetir Contraseña</label>
                     <input formControlName="rpt_pass" type="password" class="form-control" id="RepetirpasswordUsuario" [class.is-invalid]="rpt_pass()">
                     <small class="text-danger" *ngIf="rpt_pass()">Las contraseñas no coinciden</small>
                 </div>
-                <label>¿Cómo desea utilizar la plataforma?</label>
-                <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
-                    <label class="btn btn-radio mr-sm-0 mr-md-2 active">
-                      <input formControlName="tipo"  type="radio" name="tipo" id="tipo1" (click)="radioTipoUsuario('cliente')" value="cliente"><i class="fas fa-shopping-bag"></i> Cliente
-                    </label>
-                    <label class="btn btn-radio">
-                      <input formControlName="tipo" type="radio" name="tipo" id="tipo2" (click)="radioTipoUsuario('empresa')" value="empresa"><i class="fas fa-user-tie"></i> Empresa
-                    </label>
-                </div>
-                <!-- Datos de empresa -->
-                <div *ngIf="isEmpresa" class="formularioEmpresa animate__animated animate__fadeIn">
-                    <div class="form-group mt-3">
-                        <label for="nombreEmpresa">Nombre de la empresa</label>
-                        <input formControlName="nombreEmpresa" type="text" class="form-control" id="nombreEmpresa" aria-describedby="correoElectronico" [class.is-invalid]="isValid(form_reg_usuario, 'nombreEmpresa')">
-                        <small class="text-danger" *ngIf="isValid(form_reg_usuario, 'nombreEmpresa')">El nombre debe tener minimo 1 letra</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="direccionEmpresa">Dirección de la empresa</label>
-                        <textarea formControlName="direccionEmpresa" class="form-control" name="direccionEmpresa" id="direccionEmpresa" [class.is-invalid]="isValid(form_reg_usuario, 'direccionEmpresa')"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="rubroEmpresa">Rubro de su empresa</label>
-                        <select formControlName="rubroEmpresa" id="rubroEmpresa" class="form-control" [class.is-invalid]="isValid(form_reg_usuario, 'rubroEmpresa')">
-                              <option selected disabled value="-1">-- Escoga un rubro --</option>
-                              <option>Tecnologia</option>
-                              <option>Hogar</option>
-                              <option>Salud</option>
-                              <option>Arte</option>
-                        </select>
-                        <small class="text-danger" *ngIf="isValid(form_reg_usuario, 'rubroEmpresa')">Campo obligatorio</small>
-                    </div>
-                </div>
                 <hr>
-                <button type="submit" class="btn btn-confirmar btn-block mb-3">Confirmar</button>
+                <div class="alert alert-danger" role="alert" *ngIf="serverError">
+                    Parece que tenemos problemas en nuestros servidores. Quizas sea mejor intentar más tarde. D':
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="dataError">
+                    Parece ser que tu correo ya esta registrado, intenta inciar sesión o usar otro correo.
+                </div>
+                <button type="submit" class="btn btn-confirmar btn-block mb-3">
+                    Confirmar
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="solicitandoInformacion"></span>
+                </button>
             </form>
         </div>
         <!-- <pre style="color: #055808">
