@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-end w-100" role="group" aria-label="grupo de edicion">
                                     <button type="button" class="btn border" (click)="cargarActualizarPlan(plan._id);"><i class="far fa-edit"></i></button>
-                                    <button type="button" class="btn border"><i class="fas fa-times"></i></button>
+                                    <button type="button" class="btn border" (click)="DELETE_inhabilitarPlan(plan);"><i class="fas fa-times"></i></button>
                                 </div>
                                 <h5 class="card-title text-center">{{plan.precio | currency}} / Mes</h5>
                                 <ul class="list-group text-sm-center text-md-left">
@@ -67,7 +67,7 @@
             </div>
             <div class="form-group">
                 <label for="inp_edit_descripcion">Descripcion plan: </label>
-                <textarea formControlName="descripcion" class="form-control" id="inp_edit_descripcion" rows="3"></textarea>
+                <textarea formControlName="descripcion" class="form-control" id="inp_edit_descripcion" rows="3" [class.is-invalid]="isValid(form_planes, 'descripcion')"></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -108,7 +108,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off" [formGroup]="form_planes" (ngSubmit)="actualizarPlan()">
+        <form autocomplete="off" [formGroup]="form_planes" (ngSubmit)="PUT_actualizarPlan()">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inp_edit_nombrePlan">Nombre del plan: </label>
@@ -122,13 +122,13 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inp_edit_precioPlan">Precio del plan: </label>
-                    <input formControlName="descripcion" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_planes, 'descripcion')">
+                    <input formControlName="precio" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_planes, 'precio')">
                     <small class="text-danger" *ngIf="isValid(form_planes, 'precio')">El precio minimo es de 0.99 y 999.99 max</small>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inp_edit_descripcion">Descripcion plan: </label>
-                <textarea formControlName="descripcion" class="form-control" id="inp_edit_descripcion" rows="3" [class.is-invalid]="isValid(form_planes, 'precio')"></textarea>
+                <textarea formControlName="descripcion" class="form-control" id="inp_edit_descripcion" rows="3" [class.is-invalid]="isValid(form_planes, 'descripcion')"></textarea>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -152,11 +152,11 @@
                     <small class="text-danger" *ngIf="isValid(form_planes, 'limiteAlmacenamiento')">Minimo 1024 bytes</small>
                 </div>
             </div>
+            <!-- Botones Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+                <button type="submit" class="btn naranja-outline">Actualizar</button>
+            </div>
         </form>
-    </div>
-    <!-- Botones Footer -->
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
-        <button type="button" class="btn naranja-outline">Actualizar</button>
     </div>
 </ng-template>

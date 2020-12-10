@@ -15,9 +15,14 @@ var empresaSchema = new Schema({
         required: false
     },
     bloqueda: {
-        type: String,
+        type: Boolean,
         required: false,
         default: false
+    },
+    activo: {
+        type: Boolean,
+        required: false,
+        default: true
     },
     foto: {
         type: String,

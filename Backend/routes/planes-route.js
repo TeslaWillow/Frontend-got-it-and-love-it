@@ -52,20 +52,13 @@ router.get('/:id', (req, res) => {
 // Guardar un nuevo plan
 router.post('/', (req, res) => {
     let body = req.body;
-    let planDB = new Plan({
-        nombrePlan: body.nombrePlan,
-        descripcion: body.descripcion,
-        activo: true,
-        precio: body.precio,
-        color: body.color,
-        fechaCreacion: body.fechaCreacion,
-        restricciones: {
-            limiteFilas: body.limiteFilas,
-            limiteColumnas: body.limiteColumnas,
-            limitePaginas: body.limitePaginas,
-            limiteAlmacenamiento: body.limiteAlmacenamiento
-        }
-    });
+    body.restricciones = {
+        limiteFilas: body.limiteFilas,
+        limiteColumnas: body.limiteColumnas,
+        limitePaginas: body.limitePaginas,
+        limiteAlmacenamiento: body.limiteAlmacenamiento
+    }
+    const planDB = new Plan(body);
     planDB.save((err, data) => {
         if (err) {
             return res.status(500).json({
@@ -91,21 +84,13 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     let _id = req.params.id;
     let body = req.body;
-    let planActualizado = {
-        nombrePlan: body.nombrePlan,
-        descripcion: body.descripcion,
-        precio: body.precio,
-        activo: body.activo,
-        color: body.color,
-        fechaCreacion: body.fechaCreacion,
-        restricciones: {
-            limiteFilas: body.limiteFilas,
-            limiteColumnas: body.limiteColumnas,
-            limitePaginas: body.limitePaginas,
-            limiteAlmacenamiento: body.limiteAlmacenamiento
-        }
-    }
-    Plan.findByIdAndUpdate(_id, planActualizado, { new: true, runValidators: true, context: 'query', useFindAndModify: false }, (err, data) => {
+    body.restricciones = {
+        limiteFilas: body.limiteFilas,
+        limiteColumnas: body.limiteColumnas,
+        limitePaginas: body.limitePaginas,
+        limiteAlmacenamiento: body.limiteAlmacenamiento
+    };
+    Plan.findByIdAndUpdate(_id, body, { new: true, runValidators: true, context: 'query', useFindAndModify: false }, (err, data) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -130,13 +115,11 @@ router.put('/:id', (req, res) => {
 // Inhabilitar un plan
 router.delete('/:id', (req, res) => {
     let _id = req.params.id;
-    let planInhabilitado = {
-        activo: false
-    }
-    Plan.findByIdAndUpdate(_id, planInhabilitado, { new: true, runValidators: true, context: 'query', useFindAndModify: false }, (err, data) => {
+    Plan.findByIdAndUpdate(_id, { activo: false }, { new: true, runValidators: true, context: 'query', useFindAndModify: false }, (err, data) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
+                mensaje: "Hubo un error en el servidor",
                 err
             });
         };

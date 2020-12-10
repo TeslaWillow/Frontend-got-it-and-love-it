@@ -57,11 +57,11 @@ var usuariosSchema = new Schema({
         ref: "compras",
         required: false
     }],
-    empresa: [{
+    empresa: {
         type: Schema.ObjectId,
         ref: "empresas",
         required: false
-    }]
+    }
 });
 
 usuariosSchema.methods.toJSON = function() {

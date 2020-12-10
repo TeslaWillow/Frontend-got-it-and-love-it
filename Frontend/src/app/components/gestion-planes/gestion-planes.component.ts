@@ -148,16 +148,20 @@ export class GestionPlanesComponent implements OnInit {
     }
   }
 
-  actualizarPlan(){
+  PUT_actualizarPlan(){
     if(this.form_planes.invalid){
       return Object.values(this.form_planes.controls).forEach(control => {
         control.markAsTouched();
       });
     }else{
+      console.log("Actualizando plan...");
       this._PlanesService.PUT_Plan(this.plan._id ,this.form_planes.value).subscribe(
         (res:any) => {
-          if(res.ok)
+          if(res.ok){
+            console.log(res.data);
+            this.modalService.dismissAll(this.modalActualizarPlan);
             this.GET_Llenarplanes();
+          }
         },
         (err:any) => {
           console.log(err);
@@ -166,4 +170,18 @@ export class GestionPlanesComponent implements OnInit {
     }
   }
 
+  DELETE_inhabilitarPlan(plan:Plan){
+    console.log("Inhabilitando plan...");
+    this._PlanesService.DELETE_Plan(plan._id).subscribe(
+      (res:any) => {
+        if(res.ok){
+          console.log(res.data);
+          this.GET_Llenarplanes();
+        }
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
+  }
 }

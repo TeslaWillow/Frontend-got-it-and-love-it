@@ -16,7 +16,8 @@ var planesSchema = new Schema({
     },
     activo: {
         type: Boolean,
-        required: [true, "El estado del plan es requerido"]
+        required: false,
+        default: true
     },
     precio: {
         type: Number,

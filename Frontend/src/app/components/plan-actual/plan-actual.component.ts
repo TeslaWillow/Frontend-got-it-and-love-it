@@ -20,7 +20,9 @@ export class PlanActualComponent implements OnInit {
       (res:any) => {
         this.planActual = res.data;
       },
-      (err:any) => {}
+      (err:any) => {
+        console.log("Ocurrio un error");
+      }
     );
   }
 

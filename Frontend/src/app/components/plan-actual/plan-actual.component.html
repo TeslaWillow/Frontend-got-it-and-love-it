@@ -16,7 +16,7 @@
                         <th scope="col">Precio</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="planActual">
                     <tr>
                         <th scope="row">1</th>
                         <td>{{planActual.nombrePlan}}</td>

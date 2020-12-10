@@ -3,51 +3,15 @@ const Mongoose = require('mongoose');
 const puerto = process.env.PORT || 8888;
 const URL = `http://localhost:${puerto}`;
 const folderImages = 'uploads/imagenes/empresas/productos';
-const path = require("path");
-const multer = require("multer");
-const mkdirp = require('mkdirp');
 let express = require('express');
 let router = express.Router();
 const _ = require("underscore");
+//Middlewares
+let { productoImagenMiddleware } = require('../middleware/productoImg-middleware');
+let { verificaToken } = require('../middleware/auth-middleware');
+//Declaracion de modelos
 let Producto = require('../models/productos-model');
 let Empresa = require('../models/empresas-model');
-//--------------------------
-//Declaracion de middlewares
-//--------------------------
-const storage = multer.diskStorage({
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
-    destination: (req, file, cb) => {
-        const _id = req.params.idEmpresa;
-        const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
-
-        mkdirp(dir, err => cb(err, dir));
-    },
-    limits: { fileSize: 1 },
-    fileFilter: (req, file, cb) => {
-        const fileTypes = /jpeg|jpg|png|gif/;
-        const mimeType = fileTypes.test(file.mimetype);
-        const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-        if (mimeType && extname) {
-            return cb(null, true);
-        }
-        cb("Error: El archivo no es soportado");
-    }
-});
-
-const multerMiddleware = multer({
-    storage,
-    dest: (req, file, cb) => {
-        const _id = req.params.idEmpresa;
-        const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
-
-        mkdirp(dir, err => cb(err, dir));
-    }
-}).single('archivo');
-//--------------------------
-//Fin - Declaracion de middlewares
-//--------------------------
 
 //Obtener todos los productos
 router.get('/', (req, res) => {
@@ -88,7 +52,7 @@ router.get('/:id', (req, res) => {
 });
 
 // crear un producto
-router.post('/:idEmpresa', multerMiddleware, (req, res) => {
+router.post('/:idEmpresa', verificaToken, productoImagenMiddleware, (req, res) => {
     const _idEmpresa = req.params.idEmpresa;
     if (req.file && req.file.originalname != "") {
         const nombreArchivo = req.file.originalname;
@@ -134,7 +98,7 @@ router.post('/:idEmpresa', multerMiddleware, (req, res) => {
     });
 });
 // actualizar un producto
-router.put('/:idEmpresa/:idProducto', multerMiddleware, (req, res) => {
+router.put('/:idEmpresa/:idProducto', verificaToken, productoImagenMiddleware, (req, res) => {
     const _idEmpresa = req.params.idEmpresa;
     const _idProducto = req.params.idProducto;
     if (req.file && req.file.originalname != "") {
@@ -164,7 +128,7 @@ router.put('/:idEmpresa/:idProducto', multerMiddleware, (req, res) => {
     });
 });
 //  eliminar un producto
-router.delete('/:idProducto', (req, res) => {
+router.delete('/:idProducto', verificaToken, (req, res) => {
     const _id = req.params.idProducto;
     Producto.findByIdAndUpdate(_id, { activo: false }, { new: true, runValidators: true, context: 'query', useFindAndModify: false })
         .then(data => {

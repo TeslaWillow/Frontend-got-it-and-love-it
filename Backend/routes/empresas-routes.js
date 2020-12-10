@@ -2,7 +2,10 @@
 let express = require('express');
 let router = express.Router();
 let Empresa = require('../models/empresas-model');
+let Usuario = require('../models/usuarios-model');
+let { verificaToken } = require('../middleware/auth-middleware');
 
+//Obtener los datos de todas las empresas
 router.get('/', (req, res) => {
     Empresa.find().exec((err, data) => {
         if (err) {
@@ -25,20 +28,10 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-    let body = req.body;
-    let empresaDB = new Empresa({
-        nombre: body.nombre,
-        direccion: body.direccion,
-        bloqueda: false,
-        rubro: body.rubro,
-        productos: [],
-        bancoArchivos: [],
-        imagenes: [],
-        paginas: []
-    });
-
-    empresaDB.save((err, data) => {
+//Obtener una empresa en concreto
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    Empresa.findOne({ _id: id }).exec((err, data) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -54,9 +47,83 @@ router.post('/', (req, res) => {
 
         res.status(200).json({
             ok: true,
-            plan: data
+            data
         });
     });
+});
+
+//Obtener la empresa del usuario
+router.get('/usuario', verificaToken, (req, res) => {
+    const id = req.usuario._id;
+    Empresa.findOne({ _id: id }).exec((err, data) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            });
+        };
+        if (!data) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+
+        res.status(200).json({
+            ok: true,
+            data
+        });
+    });
+});
+
+router.post('/', verificaToken, (req, res) => {
+    if (typeof req.usuario.empresa === "undefined") {
+        const body = req.body;
+        let empresaDB = new Empresa(body);
+        empresaDB.save((err, empresaDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    mensaje: "ocurrio un problema en los servidores",
+                    err
+                });
+            };
+            if (!empresaDB) {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: "no pudimos encontrar la empresa",
+                    err
+                });
+            }
+
+            Usuario.findById(req.usuario._id, (err, usuarioDB) => {
+                if (err) {
+                    res.status(500).json({
+                        ok: false,
+                        err
+                    });
+                }
+                if (!usuarioDB) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+                }
+                usuarioDB.empresa = empresaDB._id;
+                usuarioDB.save((err) => {
+                    if (err) return res.status(500).json({ ok: false, err });
+                    res.status(200).json({ ok: true, empresaDB, usuarioDB });
+                });
+            });
+        });
+    } else {
+        res.status(400).json({
+            ok: false,
+            empresa: true,
+            mensaje: "Este usuario ya tiene una empresa",
+            tip: "Intenta modificar tu empresa"
+        });
+    }
 });
 
 module.exports = router;
