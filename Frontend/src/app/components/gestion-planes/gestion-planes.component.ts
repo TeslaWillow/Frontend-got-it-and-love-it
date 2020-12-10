@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class GestionPlanesComponent implements OnInit {
 
   public planes:Plan[];
+  public plan:Plan;
   //Variables para formularios reactivos
   public form_planes:FormGroup;
 
@@ -25,7 +26,7 @@ export class GestionPlanesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.planes = this._PlanesService.GET_Planes();
+    this.GET_Llenarplanes();
   }
 
   cargarCrearPlan(){
@@ -34,20 +35,26 @@ export class GestionPlanesComponent implements OnInit {
     this.modalService.open(this.modalCrearPlan, {size: 'lg'});
   }
 
-  cargarActualizarPlan(id:number){
-    let plan = this._PlanesService.GET_Plan(id);
-    this.form_planes.reset({
-      nombrePlan: plan.nombrePlan,
-      color: plan.color,
-      descripcion:  plan.descripcion,
-      precio: plan.precio,
-      limiteFilas: plan.restricciones.limiteFilas,
-      limiteColumnas: plan.restricciones.limiteColumnas,
-      limitePaginas: plan.restricciones.limitePaginas,
-      limiteAlmacenamiento: plan.restricciones.limiteAlmacenamiento
-    });
-
-    this.modalService.open(this.modalActualizarPlan, {size: 'lg'});
+  cargarActualizarPlan(_idPlan:string){
+    this._PlanesService.GET_Plan(_idPlan).subscribe(
+      (res:any) => {
+        this.plan = res.data;
+        this.form_planes.reset({
+          nombrePlan: this.plan.nombrePlan,
+          color: this.plan.color,
+          descripcion:  this.plan.descripcion,
+          precio: this.plan.precio,
+          limiteFilas: this.plan.restricciones.limiteFilas,
+          limiteColumnas: this.plan.restricciones.limiteColumnas,
+          limitePaginas: this.plan.restricciones.limitePaginas,
+          limiteAlmacenamiento: this.plan.restricciones.limiteAlmacenamiento
+        });
+        this.modalService.open(this.modalActualizarPlan, {size: 'lg'});
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 
   crearFormulario(){
@@ -92,8 +99,7 @@ export class GestionPlanesComponent implements OnInit {
       limiteAlmacenamiento: ['',
         [
           Validators.required, 
-          Validators.min(50),
-          Validators.max(1024)
+          Validators.min(1024)
         ]
       ]      
     });
@@ -111,13 +117,52 @@ export class GestionPlanesComponent implements OnInit {
     return formulario.get(campo).invalid && formulario.get(campo).touched;
   }
 
-  guardarPlan(){
+  GET_Llenarplanes(){
+    this._PlanesService.GET_Planes().subscribe(
+      (res:any) => {
+        this.planes = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
+  }
+
+  POST_guardarPlan(){
     if(this.form_planes.invalid){
       return Object.values(this.form_planes.controls).forEach(control => {
         control.markAsTouched();
       });
     }else{
-      
+      this._PlanesService.POST_Plan(this.form_planes.value).subscribe(
+        (res:any) => {
+          if(res.ok){
+            this.modalService.dismissAll(this.modalCrearPlan);
+            this.GET_Llenarplanes();
+          }
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  actualizarPlan(){
+    if(this.form_planes.invalid){
+      return Object.values(this.form_planes.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    }else{
+      this._PlanesService.PUT_Plan(this.plan._id ,this.form_planes.value).subscribe(
+        (res:any) => {
+          if(res.ok)
+            this.GET_Llenarplanes();
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
     }
   }
 

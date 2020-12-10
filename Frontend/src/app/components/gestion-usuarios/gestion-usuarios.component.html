@@ -26,12 +26,12 @@
                             <td>{{usuario.nombre | titlecase }} {{usuario.apellido | titlecase}}</td>
                             <td>{{usuario.correo}}</td>
                             <td><i [ngClass]="usuario.activo | Activo"></i></td>
-                            <td>{{usuario.tipoUsuario | tipoUsuario | titlecase}}</td>
+                            <td>{{usuario.tipoUsuario[0].tipo | titlecase}}</td>
                             <td>
-                                <button class="btn naranja-outline" (click)="modalEditUsuario(usuario._id);"><i class="far fa-edit"></i></button>
+                                <button class="btn naranja-outline" (click)="modalEditUsuario(usuario);"><i class="far fa-edit"></i></button>
                             </td>
                             <td>
-                                <button class="btn rojo-outline"><i class="fas fa-times"></i></button>
+                                <button class="btn rojo-outline" (click)="inhabilitarUsuario(usuario);"><i class="fas fa-times"></i></button>
                             </td>
                         </tr>
                     </ng-container>
@@ -73,13 +73,13 @@
             </div>
             <div class="form-group">
                 <label for="inp_new_pass">Contraseña del usuario: </label>
-                <input type="password" class="form-control" id="inp_new_pass" formControlName="pass" [class.is-invalid]="isValid(form_new_usuarios, 'pass')">
-                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'pass')">La contraseña debe tener minimo 8 caracteres</small>
+                <input type="password" class="form-control" id="inp_new_pass" formControlName="password" [class.is-invalid]="isValid(form_new_usuarios, 'password')">
+                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'password')">La contraseña debe tener minimo 8 caracteres</small>
             </div>
             <div class="form-group">
                 <label for="inp_new_passRepeat">Repetir contraseña del usuario: </label>
-                <input type="password" class="form-control" id="inp_new_passRepeat" formControlName="rpt_pass" [class.is-invalid]="isValid(form_new_usuarios, 'rpt_pass')">
-                <small class="text-danger" *ngIf="isValid(form_new_usuarios, 'rpt_pass')">Repetir contraseña</small>
+                <input type="password" class="form-control" id="inp_new_passRepeat" formControlName="rpt_pass" [class.is-invalid]="rpt_pass(form_new_usuarios)">
+                <small class="text-danger" *ngIf="rpt_pass(form_new_usuarios)">Las contraseñas no coinciden</small>
             </div>
             <div class="form-group">
                 <label for="inp_new_tipoUsuario">Tipo de usuario: </label>
@@ -105,7 +105,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off" [formGroup]="form_edit_usuarios" (ngSubmit)="actualizarUsuario()">
+        <form autocomplete="off" [formGroup]="form_edit_usuarios" (ngSubmit)="actualizarUsuario(usuario)">
             <div class="form-group">
                 <label for="inp_edit_NombreUsuario">Nombre de usuario: </label>
                 <input formControlName="nombre" type="text" class="form-control" id="inp_edit_NombreUsuario" [class.is-invalid]="isValid(form_edit_usuarios, 'nombre')">

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
-
+/*
   private usuarios:Usuario[] = [
   {
       _id: 0,
@@ -51,38 +51,44 @@ export class UsuariosService {
       empresa: []
   }
   ];
+*/
+  
   private URL_BACKEND = 'http://localhost:8888';
+  private httpOptions;
 
-  constructor(private http:HttpClient) { 
-    console.log("Servicio dummy listo de usuarios");
+  constructor(
+    private http:HttpClient
+    ) {}
+
+  SET_Headers(){
+    let userToken = JSON.parse(localStorage.getItem("session")).token;
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': userToken })
+    };
   }
 
-  getUsuarios(){
-    return this.usuarios;
+  GET_Usuarios(){
+    this.SET_Headers();
+    return this.http.get(`${this.URL_BACKEND}/usuarios/`, this.httpOptions);
   }
 
-  getUsuario(id:number){
-    let resultado;
-    this.usuarios.forEach(usuario => {
-      if(usuario._id === id)
-        resultado = usuario;
-    });
-    return resultado;
+  GET_Usuario(_id:string){
+    this.SET_Headers();
+    return this.http.get(`${this.URL_BACKEND}/usuarios/${_id}`, this.httpOptions);
   }
 
+  PUT_Usuario(_id:string, usuarioActualizado:JSON){
+    this.SET_Headers();
+    return this.http.put(`${this.URL_BACKEND}/usuarios/${_id}`, usuarioActualizado, this.httpOptions);
+  };
+  //Cualquiera puede crear un usuario por eso no se verifica si es un usuario logeado o no
   POST_Usuario(nuevoUsuario:JSON){
     return this.http.post(`${this.URL_BACKEND}/usuarios/`, nuevoUsuario);
   }
 
-  validarUsuario(correo:string, password:string){
-    let resultado = null;
-    for (const usuario of this.usuarios) {
-      if((usuario.correo === correo) && (usuario.password === password)){
-        resultado = usuario;
-        break
-      }
-    }
-    return resultado;
+  DELETE_Usuario(_id:string){
+    this.SET_Headers();
+    return this.http.delete(`${this.URL_BACKEND}/usuarios/${_id}`, this.httpOptions);
   }
 }
 

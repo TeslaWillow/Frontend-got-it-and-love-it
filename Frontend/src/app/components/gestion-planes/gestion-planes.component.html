@@ -9,7 +9,7 @@
             <!--  -->
             <div class="row d-flex justify-content-between">
                 <ng-container *ngFor="let plan of planes">
-                    <div class="col-sm-12 col-md-4" *ngIf="!isGratis(plan.precio)">
+                    <div class="col-sm-12 col-md-6 col-lg-4" *ngIf="!isGratis(plan.precio)">
                         <div class="card mb-3 w-100" [style.border-color]="plan.color">
                             <div class="card-header text-center" [style.border-color]="plan.color" [style.background-color]="plan.color">{{plan.nombrePlan}}</div>
                             <div class="card-body">
@@ -22,7 +22,7 @@
                                     <li class="list-group-item">Limite de Filas - <span class="font-weight-bold">{{plan.restricciones.limiteFilas}}</span></li>
                                     <li class="list-group-item">Limite de Columnas - <span class="font-weight-bold">{{plan.restricciones.limiteColumnas}}</span></li>
                                     <li class="list-group-item">Limite de Paginas - <span class="font-weight-bold">{{plan.restricciones.limitePaginas}}</span></li>
-                                    <li class="list-group-item">Limite de Almacenamiento - <span class="font-weight-bold">{{plan.restricciones.limiteAlmacenamiento}} MB</span></li>
+                                    <li class="list-group-item">Limite de Almacenamiento-<span class="font-weight-bold">{{plan.restricciones.limiteAlmacenamiento | pesoArchivos | number:'1.0-0'}} MB</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off" [formGroup]="form_planes" (ngSubmit)="guardarPlan()">
+        <form autocomplete="off" [formGroup]="form_planes" (ngSubmit)="POST_guardarPlan()">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inp_edit_nombrePlan">Nombre del plan: </label>
@@ -108,7 +108,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off" [formGroup]="form_planes" (ngSubmit)="guardarPlan()">
+        <form autocomplete="off" [formGroup]="form_planes" (ngSubmit)="actualizarPlan()">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inp_edit_nombrePlan">Nombre del plan: </label>
@@ -147,9 +147,9 @@
                     <small class="text-danger" *ngIf="isValid(form_planes, 'limitePaginas')">Minimo 1 paginas y maximo 3</small>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inp_edit_precioPlan">Limite de Almacenamiento: </label>
+                    <label for="inp_edit_precioPlan">Limite de Almacenamiento (bytes): </label>
                     <input formControlName="limiteAlmacenamiento" type="number" class="form-control" id="inp_edit_precioPlan" [class.is-invalid]="isValid(form_planes, 'limiteAlmacenamiento')">
-                    <small class="text-danger" *ngIf="isValid(form_planes, 'limiteAlmacenamiento')">Minimo 50 MB y maximo 1024</small>
+                    <small class="text-danger" *ngIf="isValid(form_planes, 'limiteAlmacenamiento')">Minimo 1024 bytes</small>
                 </div>
             </div>
         </form>

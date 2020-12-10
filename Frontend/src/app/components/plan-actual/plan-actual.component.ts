@@ -16,7 +16,12 @@ export class PlanActualComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.planActual = this._PlanesService.GET_Plan(this._auth.getSession().plan);
+    this._PlanesService.GET_Plan(this._auth.getSession().plan).subscribe(
+      (res:any) => {
+        this.planActual = res.data;
+      },
+      (err:any) => {}
+    );
   }
 
 }

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanesService {
   private URL_BACKEND = 'http://localhost:8888';
+  private httpOptions;
   private Planes:Plan[] = [{
     _id: 0,
     nombrePlan: "Gratis",
@@ -64,31 +65,49 @@ export class PlanesService {
 }
 ];
 
-  constructor(private http:HttpClient) { 
-    console.log("Servicio de planes activo");
+  constructor(
+    private http:HttpClient
+    ) {}
+
+  SET_Headers(){
+    let userToken = JSON.parse(localStorage.getItem("session")).token;
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': userToken })
+    };
   }
 
+  //No requiren autenticación
   GET_Planes(){
-    return this.Planes;
+    return this.http.get(`${this.URL_BACKEND}/planes/`);
   }
 
-  GET_Plan(id:number){
-    return this.Planes[id];
+  GET_Plan(_idPlan:String){
+    return this.http.get(`${this.URL_BACKEND}/planes/${_idPlan}`);
   }
 
-  POST_Plan(datos:any){
-    this.http.post(`${this.URL_BACKEND}/planes/`, datos).subscribe((res) => {
-      console.log(res);
-    });
+  //Requieren autenticacion
+  POST_Plan(nuevoPlan:JSON){
+    this.SET_Headers();
+    return this.http.post(`${this.URL_BACKEND}/planes/`, nuevoPlan, this.httpOptions);
+  }
+
+  PUT_Plan(_idPlan:String, planActualizado:JSON){
+    this.SET_Headers();
+    return this.http.put(`${this.URL_BACKEND}/planes/${_idPlan}`, planActualizado, this.httpOptions);
+  }
+
+  DELETE_Plan(_idPlan:String){
+    this.SET_Headers();
+    return this.http.put(`${this.URL_BACKEND}/planes/${_idPlan}`, this.httpOptions);
   }
 }
 
 export interface Plan{
-  _id: number,
-  nombrePlan: string,
-  color: string,
-  descripcion: string,
-  precio: number,
-  fechaCreación: Date,
+  _id: any,
+  nombrePlan: any,
+  color: any,
+  descripcion: any,
+  precio: any,
+  fechaCreación: any,
   restricciones: any
 }

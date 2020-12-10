@@ -118,10 +118,14 @@ router.put('/:id', verificaToken, guardarAvatar, (req, res) => {
 
     Usuario.findByIdAndUpdate(_id, body, { new: true, runValidators: true, useFindAndModify: false })
         .then(data => {
-            res.status(200).send(data);
+            res.status(200).json({
+                ok: true,
+                data
+            });
         })
         .catch(err => {
             res.status(400).json({
+                ok: false,
                 mensaje: "Ocurrio un problema al actualizar al usuario",
                 err: err
             });

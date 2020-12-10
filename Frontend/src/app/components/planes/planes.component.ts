@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlanesService, Plan } from '../../services/planes.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
-import { maxLength } from '@rxweb/reactive-form-validators';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-planes',
@@ -27,7 +25,15 @@ export class PlanesComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.planes = this._PlanesService.GET_Planes();
+    this._PlanesService.GET_Planes().subscribe(
+      (res:any) => {
+        console.log(res.data);
+        this.planes = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 
   crearFormulario(){
@@ -69,16 +75,24 @@ export class PlanesComponent implements OnInit {
     return formulario.get(campo).invalid && formulario.get(campo).touched;
   }
 
-  isGratis(valor:number){
-    if(valor < 1)
+  isGratis(precio:number){
+    if(precio < 1)
       return true;
     else
       return false;
   }
 
-  comprarPlan(_id:number){
+  comprarPlan(_id:string){
     this.formTarjetaPlan.reset();
-    this.plan = this._PlanesService.GET_Plan(_id);
+    this._PlanesService.GET_Plan(_id).subscribe(
+      (res:any) => {
+        this.plan = res.data;
+        console.log(this.plan);
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
     this._NgbModal.open(this.modalPagarPlan, {size:"lg"});
   }
 

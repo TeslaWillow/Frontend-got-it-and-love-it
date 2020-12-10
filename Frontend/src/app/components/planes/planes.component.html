@@ -16,7 +16,7 @@
                                 <li class="list-group-item">Limite de Filas - <span class="font-weight-bold">{{plan.restricciones.limiteFilas}}</span></li>
                                 <li class="list-group-item">Limite de Columnas - <span class="font-weight-bold">{{plan.restricciones.limiteColumnas}}</span></li>
                                 <li class="list-group-item">Limite de Paginas - <span class="font-weight-bold">{{plan.restricciones.limitePaginas}}</span></li>
-                                <li class="list-group-item">Limite de Almacenamiento - <span class="font-weight-bold">{{plan.restricciones.limiteAlmacenamiento}}MB</span></li>
+                                <li class="list-group-item">Limite de Almacenamiento - <span class="font-weight-bold">{{plan.restricciones.limiteAlmacenamiento | pesoArchivos | number:'1.0-0'}}MB</span></li>
                             </ul>
                         </div>
                         <a class="btn" [style.background-color]="plan.color" (click)="comprarPlan(plan._id);">Comprar</a>
@@ -75,7 +75,7 @@
                     <small class="text-danger" *ngIf="isValid(formTarjetaPlan, 'CCV')">Campo no valido</small>
                 </div>
             </div>
-            <div class="d-flex justify-content-start flex-column">
+            <div class="d-flex justify-content-start flex-column" *ngIf="plan">
                 <p class="text-left font-weight-bold">Plan adquirido: <span>{{plan.nombrePlan}}</span></p>
                 <p class="text-left font-weight-bold">Total a pagar: <span>{{plan.precio}} $</span></p>
             </div>

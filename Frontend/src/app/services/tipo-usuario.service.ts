@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoUsuarioService {
-
+  private URL_BACKEND = 'http://localhost:8888';
+  private httpOptions;
   private tiposUsuario:TipoUsuario[] = [{
     _id: 0,
     tipo: "cliente",
@@ -19,13 +21,24 @@ export class TipoUsuarioService {
     tipo: "administrador",
     descripcion: "usuario tipo cliente. Tiene derecho a editar planes, usuarios y bloqueo de paginas. Tambien puede realizar las mismas acciones que el cliente"
 }
-];
-  constructor() { 
+  ];
+  
+  constructor(
+    private http:HttpClient
+  ) { 
     console.log("Servicio tipo usuario activo");
   }
 
+  SET_Headers(){
+    let userToken = JSON.parse(localStorage.getItem("session")).token;
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': userToken })
+    };
+  }
+
   getTiposUsuario(){
-    return this.tiposUsuario;
+    this.SET_Headers();
+    return this.http.get(`${this.URL_BACKEND}/tipoUsuario/`, this.httpOptions);
   }
 
   getTipoUsuario(id:number){

@@ -37,7 +37,7 @@ export class AuthService {
 
   getTipoUsuario(): string {
     let session = JSON.parse(localStorage.getItem('session'));
-    return session.TipoUsuario;
+    return session.tipoUsuario;
   }
 
   logout(){

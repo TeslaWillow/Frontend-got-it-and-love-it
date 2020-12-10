@@ -28,7 +28,8 @@ var planesSchema = new Schema({
     },
     fechaCreacion: {
         type: Date,
-        required: [true, "La fecha de creacion es requerida"]
+        required: [false, "La fecha de creacion es requerida"],
+        default: new Date()
     },
     restricciones: {
         limiteFilas: { type: Number, required: [true, "limiteFilas es requerida"] },
