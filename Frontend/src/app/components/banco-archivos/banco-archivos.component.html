@@ -23,7 +23,7 @@
                     <tbody>
                         <tr *ngFor="let archivo of archivos; let i = index;">
                             <th scope="row">{{i}}</th>
-                            <td><i [ngClass]="archivo.extencion | tipoArchivo"></i> {{archivo.extencion}} </td>
+                            <td><i [ngClass]="archivo.extencion"></i> {{archivo.extencion}} </td>
                             <td>{{archivo.nombre}}</td>
                             <td>{{archivo.descripcion}}</td>
                             <td>{{archivo.fechaDeSubida}}</td>

@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     },
     destination: (req, file, cb) => {
-        const _id = req.params.id;
+        const _id = req.usuario._id;
         const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
 
         mkdirp(dir, err => cb(err, dir));
@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 const guardarAvatar = multer({
     storage,
     dest: (req, file, cb) => {
-        const _id = req.params.id;
+        const _id = req.usuario._id;
         const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
 
         mkdirp(dir, err => cb(err, dir));

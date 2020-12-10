@@ -13,7 +13,9 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 export class GestionProductosComponent implements OnInit {
 
   public productos:Producto[];
+  public producto:Producto;
   public categorias:Categoria[];
+  public categoria:Categoria;
   public formProductos:FormGroup;
   public formCategorias:FormGroup;
   public imagen:string;
@@ -35,7 +37,7 @@ export class GestionProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productos = this.GET_Productos();
+    this.GET_Productos();
   }
   
   crearFormularios(){
@@ -102,7 +104,7 @@ export class GestionProductosComponent implements OnInit {
   }
 
   verCategorias(){
-    this.categorias = this.GET_Categorias();
+    this.GET_Categorias();
     this._NgModel.open(this.modalVerCategorias, {size: "lg"});
   }
 
@@ -122,51 +124,79 @@ export class GestionProductosComponent implements OnInit {
 
   crearProducto(){
     this.limpiarFormularioProductos();
-    this.categorias = this.GET_Categorias();
+    this.GET_Categorias();
     this._NgModel.open(this.modalCrearProducto, {size: "lg"});
   }
 
-  editarProducto(_id:number){
+  editarProducto(producto:Producto){
     this.limpiarFormularioProductos();
-    let producto:Producto = this.GET_Producto(_id);
-    this.categorias = this.GET_Categorias();
+    this.producto = producto;
+    this.GET_Categorias();
     this.formProductos.reset({
-      _id: _id,
-      nombre: producto.nombre,
-      descripcion: producto.descripcion,
-      precio: producto.precio,
-      categoria: producto.categoria,
-      foto: producto.foto
+      _id: this.producto._id,
+      nombre: this.producto.nombre,
+      descripcion: this.producto.descripcion,
+      precio: this.producto.precio,
+      categoria: this.producto.categoria,
+      foto: this.producto.foto
     });
     this._NgModel.open(this.modalEditarProducto, {size: "lg"});
   }
 
-  editarCategoria(_id:number){
+  editarCategoria(_id:string){
     this.limpiarFormularioCategorias();
-    let categoria:Categoria = this.GET_Categoria(_id);
+    this.GET_Categoria(_id);
     this.formCategorias.reset({
       _id: _id,
-      nombre: categoria.nombre,
-      descripcion: categoria.descripcion
+      nombre: this.categoria.nombre,
+      descripcion: this.categoria.descripcion
     });
     this._NgModel.open(this.modalEditCategoria, {size: "lg"});
   }
 
   // Metodos que solicitan informacion. (GET)
   GET_Productos(){
-    return this._ProductosService.getProductos();
+    this._ProductosService.GET_ProductosEmpresa().subscribe(
+      (res:any) => {
+        this.productos = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 
-  GET_Producto(_id:number){
-    return this._ProductosService.getProducto(_id);
+  GET_Producto(_id:string){
+    this._ProductosService.GET_Producto(_id).subscribe(
+      (res:any) => {
+        this.producto = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 
   GET_Categorias(){
-    return this._CategoriasService.getCategorias();
+    this._CategoriasService.GET_Categorias().subscribe(
+      (res:any) => {
+        this.categorias = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 
-  GET_Categoria(_id:number){
-    return this._CategoriasService.getCategoria(_id);
+  GET_Categoria(_idCategoria:string){
+    this._CategoriasService.GET_Categoria(_idCategoria).subscribe(
+      (res:any) => {
+        this.categoria = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
   // Metodos que se conectan a servicios para hacer el envio de la informacion y recibir respuestas de confirmación.
   POST_Producto(){

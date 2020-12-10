@@ -10,9 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { APP_ROUTING } from './app.routes';
 //Pipes
 import { ActivoPipe } from './pipes/activo.pipe';
-import { TipoArchivoPipe } from './pipes/tipo-archivo.pipe';
-import { TipoUsuarioPipe } from './pipes/tipo-usuario.pipe';
-import { CategoriaPipe } from './pipes/categoria.pipe';
+import { PesoArchivosPipe } from './pipes/peso-archivos.pipe';
 //Services
 import { ArchivosService } from './services/archivos.service';
 import { UsuariosService } from './services/usuarios.service';
@@ -48,7 +46,6 @@ import { GestionPlantillasComponent } from './components/gestion-plantillas/gest
 import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagenes.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
-import { PesoArchivosPipe } from './pipes/peso-archivos.pipe';
 
 
 
@@ -81,9 +78,6 @@ registerLocaleData(localeEs);
     GestionPlantillasComponent,
     BancoImagenesComponent,
     GestionProductosComponent,
-    TipoArchivoPipe,
-    TipoUsuarioPipe,
-    CategoriaPipe,
     NgDropFilesDirective,
     PesoArchivosPipe
   ],

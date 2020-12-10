@@ -1,5 +1,4 @@
 'use strict';
-
 const folderImages = 'uploads/imagenes/empresas/productos';
 const path = require("path");
 const multer = require("multer");
@@ -13,7 +12,7 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     },
     destination: (req, file, cb) => {
-        const _id = req.params.idEmpresa;
+        const _id = req.usuario.empresa;
         const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
 
         mkdirp(dir, err => cb(err, dir));
@@ -33,7 +32,7 @@ const storage = multer.diskStorage({
 const productoImagenMiddleware = multer({
     storage,
     dest: (req, file, cb) => {
-        const _id = req.params.idEmpresa;
+        const _id = req.usuario.empresa;
         const dir = path.join(__dirname, `../public/${folderImages}/${_id}`);
 
         mkdirp(dir, err => cb(err, dir));

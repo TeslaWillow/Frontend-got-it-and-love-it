@@ -32,8 +32,15 @@ export class CarritoComprasComponent implements OnInit {
     this.compras = JSON.parse(this.lStorage.getItem('carrito'));
   }
 
-  getProducto(id:number){
-    this.producto = this._ProductosService.getProducto(id);
+  getProducto(id:string){
+    this._ProductosService.GET_Producto(id).subscribe(
+      (res:any) => {
+        this.producto = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 
   actualizarCantidad(index:number){
@@ -48,8 +55,15 @@ export class CarritoComprasComponent implements OnInit {
     let total = 0;
     let carritoStorage = JSON.parse(this.lStorage.getItem('carrito'));
     carritoStorage.forEach(compra => {
-      let producto = this._ProductosService.getProducto(compra.Productoid);
-      total += producto.precio * compra.cantidad;
+      this._ProductosService.GET_Producto(compra.Productoid).subscribe(
+        (res:any) => {
+          this.producto = res.data;
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
+      total += this.producto.precio * compra.cantidad;
     });
     return total;
   }

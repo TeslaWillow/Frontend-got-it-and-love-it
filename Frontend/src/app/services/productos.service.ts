@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
+
+  private URL_BACKEND = 'http://localhost:8888';
+  private httpOptions;
 
   private productos:Producto[] = [{
     _id: 0,
@@ -87,30 +91,54 @@ export class ProductosService {
 }
 ];
 
-  constructor() { }
+  constructor(
+    private http:HttpClient
+  ) { }
 
-  getProductos(){
-    return this.productos;
+  SET_Headers(){
+    let userToken = JSON.parse(localStorage.getItem("session")).token;
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': userToken })
+    };
   }
 
-  getProducto(id:number){
-    let resultado;
-    this.productos.forEach(producto => {
-      if(producto._id === id)
-        resultado = producto;
-    });
-    return resultado;
+  GET_Productos(){
+    return this.http.get(`${this.URL_BACKEND}/productos/`);
+  }
+
+  GET_Producto(_idEmpresa:string){
+    return this.http.get(`${this.URL_BACKEND}/productos/${_idEmpresa}`);
+  }
+
+  GET_ProductosEmpresa(){
+    this.SET_Headers();
+    return this.http.get(`${this.URL_BACKEND}/productos/empresa`, this.httpOptions);
+  }
+
+  POST_Producto(nuevoProducto:JSON){
+    this.SET_Headers();
+    return this.http.post(`${this.URL_BACKEND}/productos/`, nuevoProducto, this.httpOptions);
+  }
+
+  PUT_Producto(_idProducto:string ,nuevoActualizado:JSON){
+    this.SET_Headers();
+    return this.http.put(`${this.URL_BACKEND}/productos/${_idProducto}`, nuevoActualizado, this.httpOptions);
+  }
+
+  DELETE_Producto(_idProducto:string){
+    this.SET_Headers();
+    return this.http.delete(`${this.URL_BACKEND}/productos/${_idProducto}`, this.httpOptions);
   }
 }
 
 
 export interface Producto {
-  _id: number,
-  nombre: string,
-  descripcion: string,
-  precio: number,
-  calificacion: number,
-  activo:boolean,
-  foto: string,
-  categoria: number
+  _id: any,
+  nombre: any,
+  descripcion: any,
+  precio: any,
+  calificacion: any,
+  activo:any,
+  foto: any,
+  categoria: any
 }

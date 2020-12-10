@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
         });
 });
 // obtener un producto
-router.get('/:id', (req, res) => {
+router.get('/producto/:id', (req, res) => {
     const _id = Mongoose.Types.ObjectId(req.params.id);
     Producto.aggregate([{ "$match": { _id: _id } },
             {
@@ -51,9 +51,38 @@ router.get('/:id', (req, res) => {
         });
 });
 
+// Obtener los productos de una empresa
+router.get('/empresa', verificaToken, (req, res) => {
+    Empresa.findById({ "_id": req.usuario.empresa }, (err, empresaDB) => {
+        if (err) { return res.status(500).json({ ok: false, mensaje: "hubo un problema en el servidor", err }); }
+        Producto.aggregate([{ "$match": { "_id": { "$in": empresaDB.productos } } },
+                {
+                    $lookup: {
+                        from: 'categorias',
+                        localField: 'categoria',
+                        foreignField: '_id',
+                        as: 'categoria'
+                    }
+                }
+            ],
+            (err, productosDB) => {
+                if (err)
+                    return res.status(500).json({ ok: false, mensaje: "ocurrio un error en el servidor", err });
+                if (!productosDB)
+                    return res.status(400).json({ ok: false, mensaje: "Esta empresa actualmente no tiene productos o no existen" })
+
+                res.status(200).json({
+                    ok: true,
+                    mensaje: "sus productos",
+                    data: productosDB
+                })
+            });
+    });
+});
+
 // crear un producto
-router.post('/:idEmpresa', verificaToken, productoImagenMiddleware, (req, res) => {
-    const _idEmpresa = req.params.idEmpresa;
+router.post('/', verificaToken, productoImagenMiddleware, (req, res) => {
+    const _idEmpresa = req.usuario.empresa;
     if (req.file && req.file.originalname != "") {
         const nombreArchivo = req.file.originalname;
         const rutaArchivo = `${URL}/${folderImages}/${_idEmpresa}/${nombreArchivo}`;
@@ -64,34 +93,21 @@ router.post('/:idEmpresa', verificaToken, productoImagenMiddleware, (req, res) =
     let productoDB = new Producto(body);
     productoDB.save((err, producto) => {
         if (err) {
-            return res.status(500).json({
-                ok: false,
-                err
-            });
+            return res.status(500).json({ ok: false, err });
         };
         if (!producto) {
-            return res.status(400).json({
-                ok: false,
-                err
-            });
+            return res.status(400).json({ ok: false, err });
         }
 
         Empresa.findById(_idEmpresa, (err, empresa) => {
-            if (err) {
-                res.status(500).json({
-                    ok: false,
-                    err
-                });
-            }
-            if (!empresa) {
-                return res.status(400).json({
-                    ok: false,
-                    err
-                });
-            }
+            if (err)
+                return res.status(500).json({ ok: false, err });
+            if (!empresa)
+                return res.status(400).json({ ok: false, err });
             empresa.productos.push(producto._id);
             empresa.save((err) => {
-                if (err) return res.status(500).json({ ok: false, err });
+                if (err)
+                    return res.status(500).json({ ok: false, err });
                 res.status(200).json({ ok: true, producto, empresa });
             });
         });
