@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Plan } from './planes.service';
 
 
 @Injectable({
@@ -80,6 +81,14 @@ export class UsuariosService {
   PUT_Usuario(_id:string, usuarioActualizado:JSON){
     this.SET_Headers();
     return this.http.put(`${this.URL_BACKEND}/usuarios/${_id}`, usuarioActualizado, this.httpOptions);
+  };
+
+  PUT_AscenderAEmpresa(plan:Plan){
+    const _idPlan = {
+      "plan": plan._id
+    }
+    this.SET_Headers();
+    return this.http.put(`${this.URL_BACKEND}/usuarios/cliente/empresa`, _idPlan, this.httpOptions);
   };
   //Cualquiera puede crear un usuario por eso no se verifica si es un usuario logeado o no
   POST_Usuario(nuevoUsuario:JSON){

@@ -101,7 +101,7 @@ router.post('/', (req, res) => {
             });
         });
 });
-
+//Actualiza un usuario
 router.put('/:id', verificaToken, guardarAvatar, (req, res) => {
     const _id = req.params.id;
     if (req.file && req.file.originalname != "") {
@@ -130,6 +130,22 @@ router.put('/:id', verificaToken, guardarAvatar, (req, res) => {
                 err: err
             });
         });
+});
+
+//Asciende de cliente a empresa a un usuario
+router.put('/cliente/empresa', verificaToken, (req, res) => {
+    const tipoEmpresa = Mongoose.Types.ObjectId("5fce59f5293da2340357c06f");
+    const plan = Mongoose.Types.ObjectId(req.body.plan);
+    const _idUsuario = req.usuario._id;
+    Usuario.findByIdAndUpdate(_idUsuario, { "tipoUsuario": tipoEmpresa, "plan": plan }, { new: true, runValidators: true, useFindAndModify: false }, (err, usuarioDB) => {
+        if (err) {
+            return res.status(500).json({ ok: false, mensaje: "ocurrio un problema en el servidor" });
+        }
+        if (!usuarioDB) {
+            return res.status(400).json({ ok: false, mensaje: "No pudimos encontrar tu usuario" });
+        }
+        res.status(200).json({ ok: true, mensaje: "Usuario ascendido correctamente", usuarioDB });
+    });
 });
 
 router.delete('/:id', verificaToken, (req, res) => {

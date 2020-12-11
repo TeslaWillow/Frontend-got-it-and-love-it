@@ -6,11 +6,16 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Banco de imagenes</h1>
             </div>
-            <button class="btn btn-lg naranja-outline px-5" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
-            <div class="row my-3">
-                <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let imagen of imagenes" (click)="detallesImagen(imagen._id);">
-                    <div class="card w-100 mb-3">
-                        <img class="img-fluid" [src]="imagen.imgUrl" [alt]="imagen.nombre">
+            <div class="alert alert-warning" role="alert" *ngIf="!hasEmpresa">
+                ¡Aún no tienes configurada tu empresa, ve a la pestaña de "pagina de la empresa" para configurarla!
+            </div>
+            <div *ngIf="hasEmpresa">
+                <button class="btn btn-lg naranja-outline px-5" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
+                <div class="row my-3">
+                    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let imagen of imagenes" (click)="detallesImagen(imagen._id);">
+                        <div class="card w-100 mb-3">
+                            <img class="img-fluid" [src]="imagen.imgUrl" [alt]="imagen.nombre">
+                        </div>
                     </div>
                 </div>
             </div>

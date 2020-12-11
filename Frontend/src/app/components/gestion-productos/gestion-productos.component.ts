@@ -3,7 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductosService, Producto } from '../../services/productos.service';
 import { Categoria, CategoriasService } from '../../services/categorias.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FileItem } from '../../Models/file-item';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { EmpresasService } from '../../services/empresas.service';
 
 @Component({
   selector: 'app-gestion-productos',
@@ -19,6 +21,7 @@ export class GestionProductosComponent implements OnInit {
   public formProductos:FormGroup;
   public formCategorias:FormGroup;
   public imagen:string;
+  public hasEmpresa:boolean = false;
   public verInactivos = true;
 
   @ViewChild('modalCrearCategoria') modalCrearCategoria;
@@ -31,6 +34,7 @@ export class GestionProductosComponent implements OnInit {
     private _NgModel:NgbModal,
     private _ProductosService:ProductosService,
     private _CategoriasService:CategoriasService,
+    private _EmpresasService:EmpresasService,
     private fb:FormBuilder
   ) { 
     this.crearFormularios();
@@ -38,8 +42,20 @@ export class GestionProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.GET_Productos();
+    this.verificarEmpresaUsuario();
   }
   
+  verificarEmpresaUsuario(){
+    this._EmpresasService.GET_EmpresaUsuario().subscribe(
+      (res:any) => {
+        this.hasEmpresa = res.ok;
+      },
+      (err:any) => {
+        this.hasEmpresa = err.ok;
+      }
+    );
+  }
+
   crearFormularios(){
     this.formProductos = this.fb.group({
       _id: [''],
@@ -205,7 +221,8 @@ export class GestionProductosComponent implements OnInit {
         control.markAsTouched();
       });
     }else{
-      console.log("Guardando producto", this.formProductos.value);
+      console.log(this.formProductos.value);
+      //this._ProductosService.POST_Producto(this.formProductos.value);
     }
   }
 

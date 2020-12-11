@@ -6,38 +6,43 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Banco de archivos</h1>
             </div>
-            <button class="btn btn-lg naranja-outline px-5" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
-            <div class="row mt-5">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Nombre Archivo</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Fecha de subida</th>
-                            <th scope="col">Peso Archivo</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let archivo of archivos; let i = index;">
-                            <th scope="row">{{i}}</th>
-                            <td><i [ngClass]="archivo.extencion"></i> {{archivo.extencion}} </td>
-                            <td>{{archivo.nombre}}</td>
-                            <td>{{archivo.descripcion}}</td>
-                            <td>{{archivo.fechaDeSubida}}</td>
-                            <td>{{archivo.peso}}</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn borderless px-4" (click)="verDetalles(archivo);"><i class="far fa-eye"></i></button>
-                                    <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
-                                    <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="alert alert-warning" role="alert" *ngIf="!hasEmpresa">
+                ¡Aún no tienes configurada tu empresa, ve a la pestaña de "pagina de la empresa" para configurarla!
+            </div>
+            <div *ngIf="hasEmpresa">
+                <button class="btn btn-lg naranja-outline px-5" (click)="subirArchivo();"><i class="fas fa-upload"></i> Subir archivo</button>
+                <div class="row mt-5">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Nombre Archivo</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Fecha de subida</th>
+                                <th scope="col">Peso Archivo</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let archivo of archivos; let i = index;">
+                                <th scope="row">{{i}}</th>
+                                <td><i [ngClass]="archivo.extencion"></i> {{archivo.extencion}} </td>
+                                <td>{{archivo.nombre}}</td>
+                                <td>{{archivo.descripcion}}</td>
+                                <td>{{archivo.fechaDeSubida}}</td>
+                                <td>{{archivo.peso}}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn borderless px-4" (click)="verDetalles(archivo);"><i class="far fa-eye"></i></button>
+                                        <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
+                                        <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>

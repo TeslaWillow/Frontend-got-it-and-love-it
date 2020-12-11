@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlanesService, Plan } from '../../services/planes.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UsuariosService } from '../../services/usuarios.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-planes',
@@ -13,12 +16,16 @@ export class PlanesComponent implements OnInit {
   public planes:Plan[];
   public plan:Plan;
   public formTarjetaPlan:FormGroup;
+  public hasEmpresa:Boolean;
 
   @ViewChild("modalPagarPlan") modalPagarPlan;
 
   constructor(
     private _PlanesService:PlanesService,
+    private _UsuariosService:UsuariosService,
     private _NgbModal:NgbModal,
+    private auth:AuthService,
+    private router:Router,
     private fb:FormBuilder
     ) { 
       this.crearFormulario();
@@ -27,8 +34,10 @@ export class PlanesComponent implements OnInit {
   ngOnInit(): void {
     this._PlanesService.GET_Planes().subscribe(
       (res:any) => {
-        console.log(res.data);
-        this.planes = res.data;
+        if(res.ok)
+          this.hasEmpresa = res.ok;
+        else 
+          this.hasEmpresa = false;
       },
       (err:any) => {
         console.log(err);
@@ -87,7 +96,6 @@ export class PlanesComponent implements OnInit {
     this._PlanesService.GET_Plan(_id).subscribe(
       (res:any) => {
         this.plan = res.data;
-        console.log(this.plan);
       },
       (err:any) => {
         console.log(err);
@@ -102,7 +110,18 @@ export class PlanesComponent implements OnInit {
         control.markAsTouched();
       });
     }else{
-      console.log("Plan pagado");
+      this._UsuariosService.PUT_AscenderAEmpresa(this.plan).subscribe(
+        (res:any) => {
+          if(res.ok){
+            this._NgbModal.dismissAll(this.modalPagarPlan);
+            this.auth.logout();
+            this.router.navigateByUrl('/inicio-sesion-usuario');
+          }
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
     }
   }
 }

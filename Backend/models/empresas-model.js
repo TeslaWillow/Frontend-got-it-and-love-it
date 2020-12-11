@@ -39,6 +39,12 @@ var empresaSchema = new Schema({
         ref: "producto",
         default: null
     }],
+    categorias: [{
+        type: Schema.ObjectId,
+        required: false,
+        ref: "categorias",
+        default: null
+    }],
     bancoArchivos: [{
         type: Schema.ObjectId,
         required: false,

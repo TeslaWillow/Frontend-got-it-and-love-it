@@ -52,16 +52,16 @@ var usuariosSchema = new Schema({
         required: false,
         default: "5fcd7a1d9dac060bc4e77e6e"
     },
-    compras: [{
-        type: Schema.ObjectId,
-        ref: "compras",
-        required: false
-    }],
     empresa: {
         type: Schema.ObjectId,
         ref: "empresas",
         required: false
-    }
+    },
+    compras: [{
+        type: Schema.ObjectId,
+        ref: "compras",
+        required: false
+    }]
 });
 
 usuariosSchema.methods.toJSON = function() {

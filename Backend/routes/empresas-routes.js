@@ -53,29 +53,32 @@ router.get('/:id', (req, res) => {
 });
 
 //Obtener la empresa del usuario
-router.get('/usuario', verificaToken, (req, res) => {
-    const id = req.usuario._id;
-    Empresa.findOne({ _id: id }).exec((err, data) => {
+router.get('/usuario/empresa', verificaToken, (req, res) => {
+    const id = req.usuario.empresa;
+    Empresa.findOne({ _id: id }).exec((err, empresaDB) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
+                mensaje: "Tuvimos un problema en los servidores",
                 err
             });
         };
-        if (!data) {
+        if (!empresaDB) {
             return res.status(400).json({
                 ok: false,
+                mensaje: "No tienes una empresa",
                 err
             });
         }
 
         res.status(200).json({
             ok: true,
-            data
+            mensaje: "Esta es tu empresa",
+            data: empresaDB
         });
     });
 });
-
+//Como lee el token hay que deslogearlo o pasarle un nuevo token
 router.post('/', verificaToken, (req, res) => {
     if (typeof req.usuario.empresa === "undefined") {
         const body = req.body;
@@ -100,12 +103,14 @@ router.post('/', verificaToken, (req, res) => {
                 if (err) {
                     res.status(500).json({
                         ok: false,
+                        mensaje: "ocurrio un problema en los servidores",
                         err
                     });
                 }
                 if (!usuarioDB) {
                     return res.status(400).json({
                         ok: false,
+                        mensaje: "No pudimos encontra ra tu usuario",
                         err
                     });
                 }

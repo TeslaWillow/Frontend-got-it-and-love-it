@@ -5,73 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EmpresasService {
-  
-  private empresas:Empresa[] = [{
-    "_id": 0,
-    "nombre": "NIQUENT",
-    "direccion": "Stoddard Place",
-    "foto": "assets/img/christelle-bourgeois-Aq7paIaerrY-unsplash.jpg",
-    "rubro": [
-        "dolore",
-        "excepteur",
-        "ipsum"
-    ],
-    "productos": [1, 5, 7],
-    "paginas": []
-},
-{
-    "_id": 1,
-    "nombre": "VERBUS",
-    "direccion": "Clarkson Avenue",
-    "foto": "assets/img/hannah-morgan-ycVFts5Ma4s-unsplash.jpg",
-    "rubro": [
-        "laboris",
-        "do",
-        "ullamco"
-    ],
-    "productos": [2, 4, 5],
-    "paginas": []
-},
-{
-    "_id": 2,
-    "nombre": "QNEKT",
-    "direccion": "Merit Court",
-    "foto": "assets/img/clark-street-mercantile-P3pI6xzovu0-unsplash.jpg",
-    "rubro": [
-        "mollit",
-        "nostrud",
-        "incididunt"
-    ],
-    "productos": [1, 2, 3],
-    "paginas": []
-},
-{
-    "_id": 3,
-    "nombre": "FROLIX",
-    "direccion": "Milford Street",
-    "foto": "assets/img/serge-kutuzov-HCBmCsaF0GY-unsplash.jpg",
-    "rubro": [
-        "ex",
-        "est",
-        "esse"
-    ],
-    "productos": [6, 7],
-    "paginas": []
-},
-{
-    "_id": 4,
-    "nombre": "ANDRYX",
-    "direccion": "Schermerhorn Street",
-    "foto": "assets/img/toa-heftiba-MmPH0quV3rU-unsplash.jpg",
-    "rubro": [
-        "sint",
-        "aliquip",
-        "minim"
-    ],
-    "productos": [3, 5, 6],
-    "paginas": []
-}
-];
   private URL_BACKEND = 'http://localhost:8888';
   private httpOptions;
   constructor(
@@ -93,8 +26,14 @@ export class EmpresasService {
     return this.http.get(`${this.URL_BACKEND}/empresas/${_idEmpresa}`);
   }
 
+  GET_EmpresaUsuario() {
+    this.SET_Headers();
+    return this.http.get(`${this.URL_BACKEND}/empresas/usuario/empresa` , this.httpOptions);
+  }
+
   POST_Empresa(nuevaEmpresa:JSON){
     this.SET_Headers();
+    console.log(nuevaEmpresa);
     return this.http.post(`${this.URL_BACKEND}/empresas/`, nuevaEmpresa, this.httpOptions);
   }
 
