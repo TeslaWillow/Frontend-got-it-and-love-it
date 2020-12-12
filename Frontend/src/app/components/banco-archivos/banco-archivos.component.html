@@ -27,15 +27,14 @@
                         <tbody>
                             <tr *ngFor="let archivo of todosLosArchivos; let i = index;">
                                 <th scope="row">{{i}}</th>
-                                <td><i [ngClass]="archivo.extencion"></i> {{archivo.extencion}} </td>
+                                <td class="text-break"><i [ngClass]="archivo.extencion | extension"></i> {{archivo.extencion}} </td>
                                 <td>{{archivo.nombreArchivo}}</td>
-                                <td>{{archivo.descripcion}}</td>
-                                <td>{{archivo.fechaDeSubida}}</td>
-                                <td>{{archivo.peso}}</td>
+                                <td class="text-break">{{archivo.descripcion}}</td>
+                                <td>{{archivo.fechaDeSubida | date:'mediumDate'}}</td>
+                                <td>{{archivo.peso | pesoArchivos}} MB</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn borderless px-4" (click)="verDetalles(archivo);"><i class="far fa-eye"></i></button>
-                                        <button type="button" class="btn naranja-outline borderless px-4"><i class="far fa-edit"></i></button>
                                         <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
                                     </div>
                                 </td>
@@ -51,16 +50,20 @@
 <!-- Modales -->
 <!-- Modal detalle archivos -->
 <ng-template #modalDetallesArchivo let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{archivoActual.nombreArchivo}}</h5>
+    <div class="modal-header" *ngIf="archivoActual">
+        <h5 class="modal-title text-break" id="exampleModalLabel">{{archivoActual.nombreArchivo}}</h5>
         <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="archivoActual">
         <div class="row">
             <div class="col-12">
-                <img class="img-fluid w-100" [src]="archivoActual.rutaArchivo" alt="">
+                <p class="text-break">ID: <span class="font-weight-bold">{{archivoActual._id}}</span></p>
+                <p class="text-break">Nombre del archivo: <span class="font-weight-bold">{{archivoActual.nombreArchivo}}</span></p>
+                <p>Extension: <span class="font-weight-bold">{{archivoActual.extencion}}</span></p>
+                <p>Fecha de subida: <span class="font-weight-bold">{{archivoActual.fechaDeSubida | date:'mediumDate'}}</span></p>
+                <p>Peso: <span class="font-weight-bold">{{archivoActual.peso | pesoArchivos}} MB</span></p>
             </div>
         </div>
     </div>
@@ -103,7 +106,7 @@
                         <th scope="row">{{ i }}</th>
                         <td>{{ archivoIndividual.nombreArchivo }}</td>
                         <td>Archivo</td>
-                        <td>{{archivoIndividual.archivo.size / 1024 / 1024 | number: '.2-2'}} MB</td>
+                        <td>{{archivoIndividual.archivo.size | pesoArchivos}} MB</td>
                         <td>
                             <div class="progress">
                                 <div class="progress-bar bg-info" role="progressbar" [ngStyle]="{'width': archivoIndividual.progressUpload + '%'}"></div>
@@ -117,7 +120,7 @@
                 ¡Primero debes subir una imagen!
             </div>
             <button type="button" class="btn rojo-outline mt-3 mr-3" (click)="archivos = []">Limpiar archivos</button>
-            <button type="button" class="btn naranja-outline mt-3">Subir</button>
+            <button type="button" class="btn naranja-outline mt-3" (click)="POST_Archivos()">Subir</button>
         </div>
     </div>
     <div class="modal-footer">

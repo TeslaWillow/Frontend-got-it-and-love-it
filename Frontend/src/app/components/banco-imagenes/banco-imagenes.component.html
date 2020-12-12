@@ -54,7 +54,7 @@
                         <th scope="row">{{ i }}</th>
                         <td>{{ archivo.nombreArchivo }}</td>
                         <td>Imagen</td>
-                        <td>{{archivo.archivo.size / 1024 / 1024 | number: '.2-2'}} MB</td>
+                        <td>{{archivo.archivo.size | pesoArchivos}} MB</td>
                         <td>
                             <div class="progress">
                                 <div class="progress-bar bg-info" role="progressbar" [ngStyle]="{'width': archivo.progressUpload + '%'}"></div>

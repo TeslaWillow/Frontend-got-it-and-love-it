@@ -47,6 +47,7 @@ import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagen
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 import { NgDropGenericfilesDirective } from './directives/ng-drop-genericfiles.directive';
+import { ExtensionPipe } from './pipes/extension.pipe';
 
 
 
@@ -81,7 +82,8 @@ registerLocaleData(localeEs);
     GestionProductosComponent,
     NgDropFilesDirective,
     PesoArchivosPipe,
-    NgDropGenericfilesDirective
+    NgDropGenericfilesDirective,
+    ExtensionPipe
   ],
   imports: [
     BrowserModule,

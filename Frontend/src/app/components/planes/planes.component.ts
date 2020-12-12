@@ -34,8 +34,10 @@ export class PlanesComponent implements OnInit {
   ngOnInit(): void {
     this._PlanesService.GET_Planes().subscribe(
       (res:any) => {
-        if(res.ok)
+        if(res.ok){
           this.hasEmpresa = res.ok;
+          this.planes = res.data;
+        }
         else 
           this.hasEmpresa = false;
       },

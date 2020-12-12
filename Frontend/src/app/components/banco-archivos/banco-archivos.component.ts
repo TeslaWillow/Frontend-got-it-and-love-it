@@ -29,6 +29,7 @@ export class BancoArchivosComponent implements OnInit {
 
   ngOnInit(): void {
     this.verificarEmpresaUsuario();
+    this.GET_Archivos();
   }
 
   verificarEmpresaUsuario(){
@@ -43,7 +44,7 @@ export class BancoArchivosComponent implements OnInit {
   }
 
   verDetalles(archivo:Archivo){
-
+    this.GET_Archivo(archivo._id);
     this.modalService.open(this.modalDetallesArchivo, {size: 'md'});
   }
 
@@ -51,11 +52,37 @@ export class BancoArchivosComponent implements OnInit {
     this.modalService.open(this.modalSubirArchivo, {size: 'lg'});
   }
 
+  GET_Archivo(_idArchivo:string){
+    this._archivosService.GET_Archivo(_idArchivo).subscribe(
+      (res:any) => {
+        this.archivoActual = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
+  }
+
   GET_Archivos(){
-    this._archivosService.GET_Archivos();
+    this._archivosService.GET_ArchivosEmpresa().subscribe(
+      (res:any) => {
+        this.todosLosArchivos = res.data;
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 
   POST_Archivos(){
-    this._archivosService;
+    this._archivosService.POST_Archivos(this.archivos).subscribe(
+      (res:any) => {
+        this.GET_Archivos();
+        this.archivos = [];
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
   }
 }
