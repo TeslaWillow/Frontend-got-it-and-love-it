@@ -3,7 +3,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductosService, Producto } from '../../services/productos.service';
 import { Categoria, CategoriasService } from '../../services/categorias.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FileItem } from '../../Models/file-item';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { EmpresasService } from '../../services/empresas.service';
 
@@ -153,21 +152,15 @@ export class GestionProductosComponent implements OnInit {
       nombre: this.producto.nombre,
       descripcion: this.producto.descripcion,
       precio: this.producto.precio,
-      categoria: this.producto.categoria,
+      categoria: this.producto.categoria[0]._id,
       foto: this.producto.foto
     });
     this._NgModel.open(this.modalEditarProducto, {size: "lg"});
   }
 
-  editarCategoria(_id:string){
+  editarCategoria(_idCategoria:string){
     this.limpiarFormularioCategorias();
-    this.GET_Categoria(_id);
-    this.formCategorias.reset({
-      _id: _id,
-      nombre: this.categoria.nombre,
-      descripcion: this.categoria.descripcion
-    });
-    this._NgModel.open(this.modalEditCategoria, {size: "lg"});
+    this.GET_Categoria(_idCategoria);
   }
 
   // Metodos que solicitan informacion. (GET)
@@ -194,7 +187,7 @@ export class GestionProductosComponent implements OnInit {
   }
 
   GET_Categorias(){
-    this._CategoriasService.GET_Categorias().subscribe(
+    this._CategoriasService.GET_CategoriasEmpresa().subscribe(
       (res:any) => {
         this.categorias = res.data;
       },
@@ -208,6 +201,12 @@ export class GestionProductosComponent implements OnInit {
     this._CategoriasService.GET_Categoria(_idCategoria).subscribe(
       (res:any) => {
         this.categoria = res.data;
+        this.formCategorias.reset({
+          _id: this.categoria._id,
+          nombre: this.categoria.nombre,
+          descripcion: this.categoria.descripcion
+        });
+        this._NgModel.open(this.modalEditCategoria, {size: "lg"});
       },
       (err:any) => {
         console.log(err);
@@ -221,8 +220,17 @@ export class GestionProductosComponent implements OnInit {
         control.markAsTouched();
       });
     }else{
-      console.log(this.formProductos.value);
-      //this._ProductosService.POST_Producto(this.formProductos.value);
+      this._ProductosService.POST_Producto(this.formProductos.value).subscribe(
+        (res:any) => {
+          if(res.ok){
+            this.GET_Productos();
+            this._NgModel.dismissAll();
+          }
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
     }
   }
 
@@ -232,7 +240,15 @@ export class GestionProductosComponent implements OnInit {
         control.markAsTouched();
       });
     }else{
-      console.log("Categoria guardada:", this.formCategorias.value);
+      this._CategoriasService.POST_Categoria(this.formCategorias.value).subscribe(
+        (res:any) => {
+          this._NgModel.dismissAll();
+          console.log(res);
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
     }
   }
   
@@ -242,7 +258,16 @@ export class GestionProductosComponent implements OnInit {
         control.markAsTouched();
       });
     }else{
-      console.log("Producto Actualizado", this.formProductos.value);
+      this._ProductosService.PUT_Producto(this.producto._id ,this.formProductos.value).subscribe(
+        (res:any) => {
+          this.GET_Productos();
+          this._NgModel.dismissAll();
+          console.log(res);
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
     }
   }
 
@@ -252,7 +277,37 @@ export class GestionProductosComponent implements OnInit {
         control.markAsTouched();
       });
     }else{
-      console.log("Categoria Actualizada", this.formCategorias.value);
+      this._CategoriasService.PUT_Categoria(this.categoria._id, this.formCategorias.value).subscribe(
+        (res:any) => {
+          this.GET_Categorias();
+          this._NgModel.dismissAll();
+          console.log(res);
+        },
+        (err:any) => {
+          console.log(err);
+        }
+      );
     }
+  }
+
+  DELETE_Categoria(_idCategoria:string){
+    this._CategoriasService.DELETE_Categoria(_idCategoria).subscribe(
+      (res:any) => {
+        console.log(res);
+        this.GET_Categorias();
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
+  }
+
+  DELETE_Producto(_idProducto:string){
+    this._ProductosService.DELETE_Producto(_idProducto).subscribe(
+      (res:any) => {
+        this.GET_Productos();
+      },
+      (err:any) => {}
+    );
   }
 }

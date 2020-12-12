@@ -113,9 +113,9 @@ router.post('/', verificaToken, productoImagenMiddleware, (req, res) => {
         });
     });
 });
-// actualizar un producto
-router.put('/:idEmpresa/:idProducto', verificaToken, productoImagenMiddleware, (req, res) => {
-    const _idEmpresa = req.params.idEmpresa;
+// actualizar un producto de la empresa
+router.put('/:idProducto', verificaToken, productoImagenMiddleware, (req, res) => {
+    const _idEmpresa = req.usuario.empresa;
     const _idProducto = req.params.idProducto;
     if (req.file && req.file.originalname != "") {
         const nombreArchivo = req.file.originalname;

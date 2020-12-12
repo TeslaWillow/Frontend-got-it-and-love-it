@@ -46,7 +46,7 @@
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <!-- <button type="button" class="btn borderless px-4"><i class="far fa-eye"></i></button> -->
                                             <button type="button" class="btn naranja-outline borderless px-4" (click)="editarProducto(producto);"><i class="far fa-edit"></i></button>
-                                            <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
+                                            <button type="button" class="btn rojo-outline borderless px-4" (click)="DELETE_Producto(producto._id);"><i class="fas fa-times"></i></button>
                                         </div>
                                     </td>
                                 </ng-container>
@@ -107,7 +107,7 @@
                 <label for="selectCategoria">Categoria</label>
                 <select class="form-control" name="selectCategoria" id="selectCategoria" formControlName="categoria" [class.is-invalid]="isValid(formProductos, 'categoria')">
                     <option value="" selected disabled>--Escoja una categoria--</option>
-                    <option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.nombre}}</option>
+                    <option *ngFor="let categoria of categorias" [ngValue]="categoria._id">{{categoria.nombre}}</option>
                 </select>
                 <small class="text-danger" *ngIf="isValid(formProductos, 'categoria')">Categoria requerrida</small>
             </div>
@@ -219,7 +219,7 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn naranja-outline borderless px-4" (click)="editarCategoria(categoria._id);"><i class="far fa-edit"></i></button>
-                            <button type="button" class="btn rojo-outline borderless px-4"><i class="fas fa-times"></i></button>
+                            <button type="button" class="btn rojo-outline borderless px-4" (click)="DELETE_Categoria(categoria._id);"><i class="fas fa-times"></i></button>
                         </div>
                     </td>
                 </tr>

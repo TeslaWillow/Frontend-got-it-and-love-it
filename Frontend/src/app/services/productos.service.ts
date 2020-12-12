@@ -34,19 +34,33 @@ export class ProductosService {
   }
 
   POST_Producto(nuevoProducto:any){
-    this.SET_Headers();
+    let userToken = JSON.parse(localStorage.getItem("session")).token;
+    this.httpOptions = {
+      headers: new HttpHeaders({ "Accept": "application/json", 'token': userToken })
+    };
     let formData = new FormData();
     formData.append("archivo", nuevoProducto.foto);
     formData.append("nombre", nuevoProducto.nombre);
     formData.append("descripcion", nuevoProducto.descripcion);
     formData.append("precio", nuevoProducto.precio);
     formData.append("categoria", nuevoProducto.categoria);
-    return this.http.post(`${this.URL_BACKEND}/productos/`, nuevoProducto, this.httpOptions);
+    return this.http.post(`${this.URL_BACKEND}/productos/`, formData, this.httpOptions);
   }
 
-  PUT_Producto(_idProducto:string ,nuevoActualizado:JSON){
-    this.SET_Headers();
-    return this.http.put(`${this.URL_BACKEND}/productos/${_idProducto}`, nuevoActualizado, this.httpOptions);
+  PUT_Producto(_idProducto:string ,nuevoActualizado:any){
+    let userToken = JSON.parse(localStorage.getItem("session")).token;
+    this.httpOptions = {
+      headers: new HttpHeaders({ "Accept": "application/json", 'token': userToken })
+    };
+
+    let formData = new FormData();
+    formData.append("archivo", nuevoActualizado.foto);
+    formData.append("nombre", nuevoActualizado.nombre);
+    formData.append("descripcion", nuevoActualizado.descripcion);
+    formData.append("precio", nuevoActualizado.precio);
+    formData.append("categoria", nuevoActualizado.categoria);
+
+    return this.http.put(`${this.URL_BACKEND}/productos/${_idProducto}`, formData, this.httpOptions);
   }
 
   DELETE_Producto(_idProducto:string){
