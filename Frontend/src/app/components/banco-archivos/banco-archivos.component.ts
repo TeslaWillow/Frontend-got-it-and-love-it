@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ArchivosService, Archivo } from '../../services/archivos.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FileItem } from '../../Models/file-item';
 import { EmpresasService } from '../../services/empresas.service';
 
 @Component({
@@ -10,16 +11,12 @@ import { EmpresasService } from '../../services/empresas.service';
 })
 export class BancoArchivosComponent implements OnInit {
 
-  archivos:Archivo[];
   public hasEmpresa:boolean = false;
-  archivoModal:Archivo = {
-    nombre: "",
-    descripcion: "",
-    extencion: "",
-    imgUrl: "",
-    fechaDeSubida: "",
-    peso: ""
-  };
+  public dejandoCaerImgs = false;  //Controlador de eventos
+  public isEmpty = false;  //Controla si el usuario quiere enviar imagenes sin haber subido nada
+  public archivos:FileItem[] = [];  //Archivos a subir
+  public todosLosArchivos:Archivo[];
+  public archivoActual:Archivo;
 
   @ViewChild ('modalDetallesArchivo') modalDetallesArchivo;
   @ViewChild ('modalSubirArchivo') modalSubirArchivo;
@@ -32,8 +29,6 @@ export class BancoArchivosComponent implements OnInit {
 
   ngOnInit(): void {
     this.verificarEmpresaUsuario();
-    if(this.hasEmpresa)
-      this.archivos = this._archivosService.getArchivos();
   }
 
   verificarEmpresaUsuario(){
@@ -48,11 +43,19 @@ export class BancoArchivosComponent implements OnInit {
   }
 
   verDetalles(archivo:Archivo){
-    this.archivoModal = archivo;
+
     this.modalService.open(this.modalDetallesArchivo, {size: 'md'});
   }
 
   subirArchivo(){
     this.modalService.open(this.modalSubirArchivo, {size: 'lg'});
+  }
+
+  GET_Archivos(){
+    this._archivosService.GET_Archivos();
+  }
+
+  POST_Archivos(){
+    this._archivosService;
   }
 }

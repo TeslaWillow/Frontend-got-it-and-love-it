@@ -54,7 +54,7 @@ export class NgDropGenericfilesDirective {
   }
   //Validaciones
   private  _fileCanBeUploaded( archivo:File ):boolean {
-    if(!this._archivoIsAlreadyDrop(archivo.name))
+    if(!this._archivoIsAlreadyDrop(archivo.name) && this._esArchivo(archivo.type))
       return true;
     else
       return false;
@@ -73,5 +73,9 @@ export class NgDropGenericfilesDirective {
       }
     }
     return false;
+  }
+
+  private _esArchivo( tipoArchivo: string):boolean {
+    return (tipoArchivo === '' || tipoArchivo === undefined) ? false : true;
   }
 }

@@ -25,10 +25,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let archivo of archivos; let i = index;">
+                            <tr *ngFor="let archivo of todosLosArchivos; let i = index;">
                                 <th scope="row">{{i}}</th>
                                 <td><i [ngClass]="archivo.extencion"></i> {{archivo.extencion}} </td>
-                                <td>{{archivo.nombre}}</td>
+                                <td>{{archivo.nombreArchivo}}</td>
                                 <td>{{archivo.descripcion}}</td>
                                 <td>{{archivo.fechaDeSubida}}</td>
                                 <td>{{archivo.peso}}</td>
@@ -52,7 +52,7 @@
 <!-- Modal detalle archivos -->
 <ng-template #modalDetallesArchivo let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{archivoModal.nombre}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{archivoActual.nombreArchivo}}</h5>
         <button type="button" class="close" style="outline: none;" (click)="modal.close()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -60,7 +60,7 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-12">
-                <img class="img-fluid w-100" [src]="archivoModal.imgUrl" alt="">
+                <img class="img-fluid w-100" [src]="archivoActual.rutaArchivo" alt="">
             </div>
         </div>
     </div>
@@ -79,13 +79,46 @@
         </button>
     </div>
     <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="formFile">Subir un Archivo</label>
-                <input type="file" class="form-control-file" id="formFile">
-                <button type="submit" class="btn naranja-outline mt-3">Subir</button>
+        <div class="form-group">
+            <label for="formFile">Subir un Archivo</label>
+            <!-- Drag-n-drop -->
+            <p class="font-weight-bold">Deje caer tus archivos aquí: </p>
+            <div appNgDropGenericfiles [archivos]="archivos" (mouseSobre)="dejandoCaerImgs = $event" [ngClass]="{'file-over': dejandoCaerImgs}" class="altura-standar w-100 text-center justify-content-center d-flex align-items-center borde-drag-drop">
+                <i class="fas fa-archive fa-5x animate__animated animate__bounce"></i>
             </div>
-        </form>
+            <!-- ./Drag-n-drop -->
+            <!-- Tabla de resumen de archivos -->
+            <table class="table table-hover my-3  animate__animated animate__fadeIn" *ngIf="archivos.length > 0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Tamaño</th>
+                        <th scope="col">Subida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let archivoIndividual of archivos; let i = index">
+                        <th scope="row">{{ i }}</th>
+                        <td>{{ archivoIndividual.nombreArchivo }}</td>
+                        <td>Archivo</td>
+                        <td>{{archivoIndividual.archivo.size / 1024 / 1024 | number: '.2-2'}} MB</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" [ngStyle]="{'width': archivoIndividual.progressUpload + '%'}"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- ./Tabla de resumen de archivos -->
+            <div class="alert alert-warning animate__animated animate__fadeIn mt-3" role="alert" *ngIf="isEmpty">
+                ¡Primero debes subir una imagen!
+            </div>
+            <button type="button" class="btn rojo-outline mt-3 mr-3" (click)="archivos = []">Limpiar archivos</button>
+            <button type="button" class="btn naranja-outline mt-3">Subir</button>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
