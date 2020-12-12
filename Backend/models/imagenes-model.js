@@ -19,6 +19,11 @@ var imagenesSchema = new Schema({
         required: false,
         dafault: ""
     },
+    fechaDeSubida: {
+        type: Date,
+        required: false,
+        default: new Date()
+    },
     extencion: {
         type: String,
         required: [true, "La extension es obligatoria"]

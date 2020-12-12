@@ -14,7 +14,7 @@
                 <div class="row my-3">
                     <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let imagen of imagenes" (click)="detallesImagen(imagen._id);">
                         <div class="card w-100 mb-3">
-                            <img class="img-fluid" [src]="imagen.imgUrl" [alt]="imagen.nombre">
+                            <img class="img-fluid" [src]="imagen.rutaArchivo" [alt]="imagen.nombreArchivo">
                         </div>
                     </div>
                 </div>
@@ -86,22 +86,24 @@
     <div class="modal-body">
         <div class="row" *ngIf="imagenModal">
             <div class="col-8">
-                <img class="img-fluid" [src]="imagenModal.imgUrl" [alt]="imagenModal.nombre">
+                <img class="img-fluid" [src]="imagenModal.rutaArchivo" [alt]="imagenModal.nombreArchivo">
             </div>
             <div class="col-4">
+                <p class="font-weight-bold">ID:</p>
+                <p class="text-break">{{imagenModal._id}}</p>
                 <p class="font-weight-bold">Nombre:</p>
-                <p>{{imagenModal.nombre}}</p>
+                <p class="text-break">{{imagenModal.nombreArchivo}}</p>
                 <p class="font-weight-bold">Tipo:</p>
                 <p>{{imagenModal.extencion}}</p>
                 <p class="font-weight-bold">Subido en:</p>
                 <p>{{imagenModal.fechaDeSubida | date:'mediumDate'}}</p>
                 <p class="font-weight-bold">Peso:</p>
-                <p>{{imagenModal.peso}}</p>
+                <p>{{imagenModal.peso | pesoArchivos}} MB</p>
             </div>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
-        <button type="button" class="btn btn-outline-danger">Borrar</button>
+        <button type="button" class="btn btn-outline-danger" (click)="DELETE_Imagen(imagenModal._id)">Borrar</button>
     </div>
 </ng-template>

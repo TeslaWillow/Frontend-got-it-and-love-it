@@ -71,7 +71,7 @@ export class GestionPlantillasComponent implements OnInit, AfterViewInit {
   }
   
   POST_Plantilla(){
-    this._ImagenesService.postImagenes(this.archivos);
+    //this._ImagenesService.postImagenes(this.archivos);
     console.log("CSS:" + this.EditorCSS.getValue());
   }
 

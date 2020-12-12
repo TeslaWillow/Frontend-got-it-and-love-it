@@ -4,9 +4,9 @@ import {  Directive, EventEmitter,
           Input, Output } from '@angular/core';
 
 @Directive({
-  selector: '[appNgDropFiles]'
+  selector: '[appNgDropGenericfiles]'
 })
-export class NgDropFilesDirective {
+export class NgDropGenericfilesDirective {
   @Input() archivos:FileItem[] = [];
   @Output() mouseSobre:EventEmitter<boolean> = new EventEmitter();
 
@@ -54,7 +54,7 @@ export class NgDropFilesDirective {
   }
   //Validaciones
   private  _fileCanBeUploaded( archivo:File ):boolean {
-    if(!this._archivoIsAlreadyDrop(archivo.name) && this._esImagen(archivo.type))
+    if(!this._archivoIsAlreadyDrop(archivo.name))
       return true;
     else
       return false;
@@ -73,9 +73,5 @@ export class NgDropFilesDirective {
       }
     }
     return false;
-  }
-  //Retorna 1 si encuentra una imagen, falso si no es de tipo imagen.
-  private _esImagen( tipoArchivo: string):boolean {
-    return (tipoArchivo === '' || tipoArchivo === undefined) ? false : tipoArchivo.startsWith('image');
   }
 }
