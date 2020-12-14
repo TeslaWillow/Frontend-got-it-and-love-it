@@ -12,7 +12,8 @@ var comprasSchema = new Schema({
     },
     fechaCompra: {
         type: Date,
-        required: [true, "La fecha de compra es requerida"]
+        required: false,
+        default: new Date()
     },
     cantidad: {
         type: Number,

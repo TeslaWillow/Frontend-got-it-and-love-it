@@ -18,17 +18,16 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let compra of compras; let i = index">
-                        <span>{{getProducto(compra.Productoid)}}</span>
                         <tr *ngIf="compra" class="border-bottom">
                             <td class="font-weight-bold" scope="row">{{i}}</td>
                             <td class="d-flex">
                                 <div class="preview d-xs-none d-md-none d-lg-block">
-                                    <img [src]="producto.foto" class="img-miniatura" alt="">
+                                    <img [src]="compra.foto" class="img-miniatura" alt="">
                                 </div>
                                 <div class="datos-producto ml-3 w-75">
-                                    <span class="font-weight-bold">{{producto.nombre}}</span>
+                                    <span class="font-weight-bold">{{compra.nombreProducto}}</span>
                                     <p class="descripcion-producto d-xs-none d-md-none d-lg-block">
-                                        {{producto.descripcion}}
+                                        {{compra.descripcion}}
                                     </p>
                                 </div>
                             </td>
@@ -36,7 +35,7 @@
                                 <input type="number" class="form-group w-25 text-center" name="cantidad" id="cantidad" [value]="compra.cantidad">
                             </td>
                             <td>
-                                <strong>{{producto.precio}} $</strong>
+                                <strong>{{compra.precioUnitario}} $</strong>
                             </td>
                             <td>
                                 <button class="btn btn-outline-danger"><i class="fas fa-times"></i></button>
@@ -47,7 +46,7 @@
                         <th scope="row"></th>
                         <td>Total</td>
                         <td></td>
-                        <td><strong>{{sumarTotal()}} $</strong></td>
+                        <td><strong>{{total}} $</strong></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -107,7 +106,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                <p class="text-right font-weight-bold">Total a pagar: <span>20 $</span></p>
+                <p class="text-right font-weight-bold">Total a pagar: <span>{{total}} $</span></p>
             </div>
             <div class="d-flex justify-content-end">
                 <button class="btn naranja-outline" type="submit">Comprar</button>

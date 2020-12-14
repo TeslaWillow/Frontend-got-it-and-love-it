@@ -20,12 +20,18 @@ export class ComprasService {
 }
 
 export interface Compra {
-  _id:number
-  Productoid:number
+  _id?:any
   producto:any,
-  fotoProducto:string,
-  fechaCompra:Date
-  precioUnitario:number,
-  cantidad:number
-  total:number
+  nombreProducto:any,
+  descripcion:any,
+  foto:any,
+  fechaCompra?:any,
+  cantidad:any,
+  precioUnitario:any,
+  total?:any 
+}
+
+export interface Carrito {
+  producto:any
+  cantidad:any
 }

@@ -25,7 +25,7 @@ export class ProductosService {
   }
 
   GET_Producto(_idEmpresa:string){
-    return this.http.get(`${this.URL_BACKEND}/productos/${_idEmpresa}`);
+    return this.http.get(`${this.URL_BACKEND}/productos/producto/${_idEmpresa}`);
   }
 
   GET_ProductosEmpresa(){

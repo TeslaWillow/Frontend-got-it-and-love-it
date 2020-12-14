@@ -15,6 +15,7 @@ var productosRoutes = require('./routes/productos-routes');
 var comprasRoutes = require('./routes/compras-routes');
 var bancoArchivosRoutes = require('./routes/bancoarchivos-routes');
 var loginRoutes = require('./routes/login-routes');
+var paginasRoutes = require('./routes/paginas-routes');
 //Middleware
 var app = express();
 app.use(cors());
@@ -32,8 +33,9 @@ app.use('/productos', productosRoutes);
 app.use('/compras', comprasRoutes);
 app.use('/bancoarchivos', bancoArchivosRoutes);
 app.use('/login', loginRoutes);
+app.use('/paginas', paginasRoutes);
 // Static files
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(puerto, () => {
     console.log(`Servidor del backend levantado en ${puerto}`);

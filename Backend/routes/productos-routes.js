@@ -34,21 +34,19 @@ router.get('/', (req, res) => {
 router.get('/producto/:id', (req, res) => {
     const _id = Mongoose.Types.ObjectId(req.params.id);
     Producto.aggregate([{ "$match": { _id: _id } },
-            {
-                $lookup: {
-                    from: 'categorias',
-                    localField: 'categoria',
-                    foreignField: '_id',
-                    as: 'categoria'
-                }
+        {
+            $lookup: {
+                from: 'categorias',
+                localField: 'categoria',
+                foreignField: '_id',
+                as: 'categoria'
             }
-        ])
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.send(err);
-        });
+        }
+    ], (err, ProductoDB) => {
+        if (err) { return res.status(500).json({ ok: false, mensaje: "Ocurrio un error en el servidor", err }); }
+        if (!ProductoDB) { return res.status(400).json({ ok: false, mensaje: "No pudimos encontrar el producto que buscas", err }); }
+        res.status(200).json({ ok: true, mensaje: "Aquí esta tu producto", data: ProductoDB });
+    });
 });
 
 // Obtener los productos de una empresa

@@ -33,32 +33,21 @@
     right: 0;
 }
 
-.rojo-outline {
-    color: #D62828;
-    border-color: #D62828;
+.app-ace-editor {
+    border: 2px solid #f8f9fa;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.naranja-outline {
-    color: #F77F00;
-    border-color: #F77F00;
+.altura-standar {
+    height: 200px;
+    max-height: 200px;
+    overflow: hidden;
 }
 
-.amarillo-outline {
-    color: #FCBF49;
-    border-color: #FCBF49;
+.visible {
+    display: block;
 }
 
-.rojo-outline:hover {
-    color: #FFF;
-    background-color: #D62828;
-}
-
-.naranja-outline:hover {
-    color: #FFF;
-    background-color: #F77F00;
-}
-
-.amarillo-outline:hover {
-    color: #FFF;
-    background-color: #FCBF49;
+.invisible {
+    display: none;
 }

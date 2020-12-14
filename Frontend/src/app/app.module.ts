@@ -5,12 +5,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { registerLocaleData } from '@angular/common'; //para que las fechas salgan en español
 import  localeEs  from '@angular/common/locales/es'; //para que las fechas salgan en español
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; //Validaciones para los inputs de tipo file
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'; // Cliente para peticiones HTTP
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular'; // WYSIWYG
 //Routes
 import { APP_ROUTING } from './app.routes';
 //Pipes
 import { ActivoPipe } from './pipes/activo.pipe';
 import { PesoArchivosPipe } from './pipes/peso-archivos.pipe';
+import { ExtensionPipe } from './pipes/extension.pipe';
 //Services
 import { ArchivosService } from './services/archivos.service';
 import { UsuariosService } from './services/usuarios.service';
@@ -45,9 +47,9 @@ import { ListaPaginasEmpresaComponent } from './components/lista-paginas-empresa
 import { GestionPlantillasComponent } from './components/gestion-plantillas/gestion-plantillas.component';
 import { BancoImagenesComponent } from './components/banco-imagenes/banco-imagenes.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
+//Directivas
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 import { NgDropGenericfilesDirective } from './directives/ng-drop-genericfiles.directive';
-import { ExtensionPipe } from './pipes/extension.pipe';
 
 
 
@@ -92,7 +94,8 @@ registerLocaleData(localeEs);
     HttpClientModule, 
     FormsModule, 
     ReactiveFormsModule,
-    RxReactiveFormsModule
+    RxReactiveFormsModule,
+    CKEditorModule
   ],
   providers: [
     ArchivosService,

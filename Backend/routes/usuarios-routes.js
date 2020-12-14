@@ -14,32 +14,24 @@ const { guardarAvatar } = require('../middleware/avatar-middleware');
 //obtener usuarios
 router.get('/', verificaToken, (req, res) => {
     Usuario.aggregate([{
-            $lookup: {
-                from: 'tipousuarios',
-                localField: 'tipoUsuario',
-                foreignField: '_id',
-                as: 'tipoUsuario'
-            }
-        }, {
-            $lookup: {
-                from: 'planes',
-                localField: 'plan',
-                foreignField: '_id',
-                as: 'plan'
-            }
-        }])
-        .then(data => {
-            res.status(200).json({
-                ok: true,
-                data
-            });
-        })
-        .catch(err => {
-            res.status(400).json({
-                ok: false,
-                err
-            });
-        });
+        $lookup: {
+            from: 'tipousuarios',
+            localField: 'tipoUsuario',
+            foreignField: '_id',
+            as: 'tipoUsuario'
+        }
+    }, {
+        $lookup: {
+            from: 'planes',
+            localField: 'plan',
+            foreignField: '_id',
+            as: 'plan'
+        }
+    }], (err, usuarioDB) => {
+        if (err) { return res.status(500).json({ ok: false, mensaje: "ocurrio un error en el servidor", err }); }
+        if (!usuarioDB) { return res.status(400).json({ ok: false, mensaje: "No pudimos encontrar ningun usuario", err }); }
+        res.status(200).json({ ok: true, mensaje: "Aquí estan los usuarios", data: usuarioDB });
+    });
 });
 
 //obtener usuario

@@ -14,25 +14,17 @@ let { verificaToken } = require('../middleware/auth-middleware');
 // Obtener todos los archivos
 router.get('/', verificaToken, (req, res) => {
     Archivo.find().exec((err, data) => {
-        if (err) {
-            res.status(500).json({ ok: false, err });
-        }
-        if (!data) {
-            res.status(400).json({ ok: false, err });
-        }
+        if (err) { return res.status(500).json({ ok: false, err }); }
+        if (!data) { return res.status(400).json({ ok: false, err }); }
         res.status(200).json({ ok: true, data });
     });
 });
 //Obtener una empresa en concreto
-router.get('archivo/:id', verificaToken, (req, res) => {
+router.get('/archivo/:id', verificaToken, (req, res) => {
     const _idArchivo = req.params.id;
     Archivo.findById(_idArchivo).exec((err, data) => {
-        if (err) {
-            res.status(500).json({ ok: false, err });
-        }
-        if (!data) {
-            res.status(400).json({ ok: false, err });
-        }
+        if (err) { return res.status(500).json({ ok: false, err }); }
+        if (!data) { return res.status(400).json({ ok: false, err }); }
         res.status(200).json({ ok: true, data });
     });
 });

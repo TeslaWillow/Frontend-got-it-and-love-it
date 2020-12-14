@@ -66,7 +66,6 @@ export class GestionPlantillasComponent implements OnInit, AfterViewInit {
   }
 
   crearPlantilla(){
-    this.ngAfterViewInit();
     this._NgbModal.open(this.modalCrearPlantilla, {size:"lg"});
   }
   

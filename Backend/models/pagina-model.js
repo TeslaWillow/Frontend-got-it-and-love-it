@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+const puerto = process.env.PORT || 8888;
+const URL = `http://localhost:${puerto}`;
 var Schema = mongoose.Schema;
 
 /*
@@ -7,11 +9,12 @@ var Schema = mongoose.Schema;
 var paginaSchema = new Schema({
     tituloGeneral: {
         type: String,
-        required: [true, 'El tipo es necesario']
+        required: [true, 'El titulo es necesario']
     },
     favicon: {
         type: String,
-        required: false
+        required: false,
+        default: `${URL}/assets/enterprise/favicon.png`
     },
     palabrasClave: [{
         type: String,
@@ -27,15 +30,7 @@ var paginaSchema = new Schema({
         required: false,
         default: false
     },
-    HTML: {
-        type: String,
-        required: true
-    },
-    CSSExtra: {
-        type: String,
-        required: true
-    },
-    JSExtra: {
+    URLPagina: {
         type: String,
         required: true
     },

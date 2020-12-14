@@ -12,6 +12,11 @@ var bancoArchivosSchema = new Schema({
         type: String,
         required: [true, "La ruta es obligatoria"]
     },
+    fechaDeSubida: {
+        type: Date,
+        required: false,
+        default: new Date()
+    },
     descripcion: {
         type: String,
         required: false,
