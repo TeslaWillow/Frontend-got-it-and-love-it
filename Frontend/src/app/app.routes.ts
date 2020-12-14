@@ -24,7 +24,10 @@ import { GestionPlanesComponent } from './components/gestion-planes/gestion-plan
 import { GestionEmpresasComponent } from './components/gestion-empresas/gestion-empresas.component';
 import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
 import { GestionPlantillasComponent } from './components/gestion-plantillas/gestion-plantillas.component';
+// Guards
 import { AuthGuard } from './guards/auth.guard';
+import { IsEmpresaGuard } from './guards/is-empresa.guard';
+import { IsAdminGuard } from './guards/is-admin.guard';
 
 const APP_ROUTES: Routes = [
     {path: 'landing-page', component : LandingPageComponent},
@@ -34,24 +37,24 @@ const APP_ROUTES: Routes = [
     {path: 'empresas', component : EmpresasComponent},
     {path: 'admin', component : AdminComponent},
     {path: '404', component : NotFoundComponent},
-    //Rutas que requieren autenticacion
+    //--------------- Rutas que requieren autenticacion ------------------------------
     {path: 'dashboard', component : DashboardComponent, canActivate: [ AuthGuard ]},
     {path: 'editar-perfil', component : EditarPerfilComponent, canActivate: [ AuthGuard ]},
     //Cliente
     {path: 'carrito', component : CarritoComprasComponent, canActivate: [ AuthGuard ]},
     {path: 'historial-compras', component : HistorialComprasComponent, canActivate: [ AuthGuard ]},
     //Empresa
-    {path: 'banco-archivos', component : BancoArchivosComponent, canActivate: [ AuthGuard ]},
-    {path: 'pagina-empresa', component : PaginaEmpresaComponent, canActivate: [ AuthGuard ]},
-    {path: 'plan-actual', component : PlanActualComponent, canActivate: [ AuthGuard ]},
-    {path: 'lista-paginas', component : ListaPaginasEmpresaComponent, canActivate: [ AuthGuard ]},
-    {path: 'gestion-productos', component : GestionProductosComponent, canActivate: [ AuthGuard ]},
-    {path: 'banco-imagenes', component : BancoImagenesComponent, canActivate: [ AuthGuard ]},
+    {path: 'admin-companies/banco-archivos', component : BancoArchivosComponent, canActivate: [ AuthGuard, IsEmpresaGuard ]},
+    {path: 'admin-companies/pagina-empresa', component : PaginaEmpresaComponent, canActivate: [ AuthGuard, IsEmpresaGuard ]},
+    {path: 'admin-companies/plan-actual', component : PlanActualComponent, canActivate: [ AuthGuard, IsEmpresaGuard ]},
+    {path: 'admin-companies/lista-paginas', component : ListaPaginasEmpresaComponent, canActivate: [ AuthGuard, IsEmpresaGuard ]},
+    {path: 'admin-companies/gestion-productos', component : GestionProductosComponent, canActivate: [ AuthGuard, IsEmpresaGuard ]},
+    {path: 'admin-companies/banco-imagenes', component : BancoImagenesComponent, canActivate: [ AuthGuard, IsEmpresaGuard ]},
     //Admin
-    {path: 'gestion-planes', component : GestionPlanesComponent, canActivate: [ AuthGuard ]},
-    {path: 'gestion-empresas', component : GestionEmpresasComponent, canActivate: [ AuthGuard ]},
-    {path: 'gestion-usuarios', component : GestionUsuariosComponent, canActivate: [ AuthGuard ]},
-    {path: 'gestion-plantillas', component : GestionPlantillasComponent, canActivate: [ AuthGuard ]},
+    {path: 'gestion-planes', component : GestionPlanesComponent, canActivate: [ AuthGuard, IsAdminGuard ]},
+    {path: 'gestion-empresas', component : GestionEmpresasComponent, canActivate: [ AuthGuard, IsAdminGuard ]},
+    {path: 'gestion-usuarios', component : GestionUsuariosComponent, canActivate: [ AuthGuard, IsAdminGuard ]},
+    {path: 'gestion-plantillas', component : GestionPlantillasComponent, canActivate: [ AuthGuard, IsAdminGuard ]},
     //Ruta por default
     {path: '**', pathMatch: 'full', redirectTo: 'landing-page'}
 ];
