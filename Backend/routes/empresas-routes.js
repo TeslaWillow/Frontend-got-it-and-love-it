@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 //Obtener una empresa en concreto
 router.get('/:id', (req, res) => {
     const id = req.params.id;
-    Empresa.findOne({ _id: id }).exec((err, data) => {
+    Empresa.findById(id).exec((err, data) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -56,26 +56,14 @@ router.get('/:id', (req, res) => {
 router.get('/usuario/empresa', verificaToken, (req, res) => {
     const id = req.usuario.empresa;
     Empresa.findOne({ _id: id }).exec((err, empresaDB) => {
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                mensaje: "Tuvimos un problema en los servidores",
-                err
-            });
-        };
-        if (!empresaDB) {
-            return res.status(400).json({
-                ok: false,
-                mensaje: "No tienes una empresa",
-                err
-            });
-        }
+        if (err) { return res.status(500).json({ ok: false, mensaje: "Tuvimos un problema en los servidores", err }); };
+        if (!empresaDB) { return res.status(400).json({ ok: false, mensaje: "No tienes una empresa", err }); }
 
-        res.status(200).json({
-            ok: true,
-            mensaje: "Esta es tu empresa",
-            data: empresaDB
-        });
+        if (empresaDB.activo === true) {
+            res.status(200).json({ ok: true, mensaje: "Esta es tu empresa", data: empresaDB });
+        } else {
+            res.status(200).json({ ok: true, eliminada: true, mensaje: "Tu empresa esta actualmente eliminada" });
+        }
     });
 });
 //Como lee el token hay que deslogearlo o pasarle un nuevo token
@@ -129,6 +117,34 @@ router.post('/', verificaToken, (req, res) => {
             tip: "Intenta modificar tu empresa"
         });
     }
+});
+
+
+//desbloquear
+router.put('/desbloquear/:id', verificaToken, (req, res) => {
+    const _idEmpresa = req.params.id;
+    Empresa.findByIdAndUpdate(_idEmpresa, { bloqueda: false }).exec((err, empresaDB) => {
+        if (err) return res.status(500).json({ ok: false, err });
+        res.status(200).json({ ok: true, mensaje: "Empresa desbloqueada exitosamente", empresaDB });
+    });
+});
+
+//Bloquear una empresa
+router.delete('/bloquear/:id', verificaToken, (req, res) => {
+    const _idEmpresa = req.params.id;
+    Empresa.findByIdAndUpdate(_idEmpresa, { bloqueda: true }).exec((err, empresaDB) => {
+        if (err) return res.status(500).json({ ok: false, err });
+        res.status(200).json({ ok: true, mensaje: "Empresa bloqueada exitosamente", empresaDB });
+    });
+});
+
+//Borrar una empresa
+router.delete('/:id', verificaToken, (req, res) => {
+    const _idEmpresa = req.params.id;
+    Empresa.findByIdAndUpdate(_idEmpresa, { activo: false }).exec((err, empresaDB) => {
+        if (err) return res.status(500).json({ ok: false, err });
+        res.status(200).json({ ok: true, mensaje: "Empresa borrada exitosamente", empresaDB });
+    });
 });
 
 module.exports = router;

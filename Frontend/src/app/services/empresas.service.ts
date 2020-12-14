@@ -42,11 +42,26 @@ export class EmpresasService {
     return this.http.put(`${this.URL_BACKEND}/empresas/${_idEmpresa}`, empresaActualizada, this.httpOptions);
   }
 
-  DELETE_Empresa(){}
+  PUT_EmpresaDesbloquear(_idEmpresa:string){
+    this.SET_Headers();
+    return this.http.put(`${this.URL_BACKEND}/empresas/desbloquear/${_idEmpresa}`, null,  this.httpOptions);
+  }
+
+  DELETE_Empresa(_idEmpresa:string){
+    this.SET_Headers();
+    return this.http.delete(`${this.URL_BACKEND}/empresas/${_idEmpresa}`, this.httpOptions);
+  }
+
+  DELETE_EmpresaBloquear(_idEmpresa:string){
+    this.SET_Headers();
+    return this.http.delete(`${this.URL_BACKEND}/empresas/bloquear/${_idEmpresa}`, this.httpOptions);
+  }
 }
 export interface Empresa{
   _id: number,
   nombre: string,
+  activo:boolean,
+  bloqueda:boolean,
   direccion: string,
   foto: string,
   rubro: string[],
