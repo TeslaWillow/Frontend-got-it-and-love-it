@@ -20,6 +20,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Imagen</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Nombre Producto</th>
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Categoría</th>
@@ -36,6 +37,7 @@
                                     <td>
                                         <img class="img-fluid w-100" style="max-width: 65px; max-height: 65px; overflow: hidden;" [src]="producto.foto" alt="">
                                     </td>
+                                    <td>{{producto._id}}</td>
                                     <td>{{producto.nombre}}</td>
                                     <td>{{producto.descripcion}}</td>
                                     <td>{{producto.categoria[0].nombre | titlecase}}</td>

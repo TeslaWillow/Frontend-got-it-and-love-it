@@ -58,7 +58,7 @@ export class CarritoComprasComponent implements OnInit {
     }
     else{
       let test:Carrito[] = [{
-        producto: '5fd30307cd5e33161cd26526',
+        producto: '5fd7fc6f574ab318e0f22388',
         cantidad: 3
       }];
       this.lStorage.setItem('carrito', JSON.stringify(test));
