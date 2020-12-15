@@ -26,10 +26,10 @@ router.get('/', verificaToken, (req, res) => {
 });
 
 //Crear una compra
-router.post('/:idUsuario', verificaToken, (req, res) => {
-    const _idUsuario = req.params.idUsuario;
-    req.body.producto = Mongoose.Types.ObjectId(req.body.producto);
-    Producto.findById(req.body.producto, (err, producto) => {
+router.post('/', verificaToken, (req, res) => {
+    const _idUsuario = req.usuario._id;
+    const _idProducto = Mongoose.Types.ObjectId(req.body.producto);
+    Producto.findById(_idProducto, (err, productoDB) => {
         if (err) {
             res.status(500).json({
                 ok: false,
@@ -37,7 +37,7 @@ router.post('/:idUsuario', verificaToken, (req, res) => {
                 err
             });
         }
-        if (!producto) {
+        if (!productoDB) {
             res.status(400).json({
                 ok: false,
                 mensaje: "No existe el producto solicitado",
@@ -45,8 +45,8 @@ router.post('/:idUsuario', verificaToken, (req, res) => {
             });
         }
         //Si existe el producto entonces guardarlo y extraer la informacion necesaria de el
-        req.body.precioUnitario = producto.precio;
-        req.body.total = producto.precio * req.body.cantidad;
+        req.body.precioUnitario = productoDB.precio;
+        req.body.total = productoDB.precio * req.body.cantidad;
         const body = _.pick(req.body, ["producto", "fechaCompra", "cantidad", "precioUnitario", "total"]);
         let combraDB = new Compra(body);
         combraDB.save((err, compra) => {
@@ -86,7 +86,7 @@ router.post('/:idUsuario', verificaToken, (req, res) => {
                         combraDB.deleteOne();
                         return res.status(500).json({ ok: false, mensaje: "Error a nivel de usuario", err });
                     }
-                    res.status(200).json({ ok: true, compra, producto });
+                    res.status(200).json({ ok: true, compra, productoDB });
                 });
             });
         });

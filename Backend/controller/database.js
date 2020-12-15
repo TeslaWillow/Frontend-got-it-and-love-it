@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 
-var servidor = 'localhost:27017';
+var servidor = process.env.MONGO_URI || 'localhost:27017';
 var db = 'got-it-and-love-it';
 
 class Database {
